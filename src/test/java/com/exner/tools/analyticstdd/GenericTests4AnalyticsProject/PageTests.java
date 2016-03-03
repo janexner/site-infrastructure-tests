@@ -6,17 +6,19 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
+import junit.extensions.TestSetup;
+import junit.framework.Test;
 import junit.framework.TestSuite;
 
 public class PageTests extends TestSuite {
+	private static WebDriver webDriver = null;
 
-	public static TestSuite suite(PageTestDefinition pageTestDefinition) {
+	public static Test suite(PageTestDefinition pageTestDefinition) {
 		TestSuite suite = new TestSuite("PageTests " + pageTestDefinition.getPageURL());
 		// setup
-		WebDriver webDriver = new PhantomJSDriver();
+		webDriver = new PhantomJSDriver();
 		webDriver.get(pageTestDefinition.getPageURL());
 
-		// $JUnit-BEGIN$
 		suite.addTest(new DTMLoadedTestCase(webDriver));
 		suite.addTest(new DTMIsInDebugModeTestCase(webDriver));
 		for (Iterator<String> iterator = pageTestDefinition.getDataElementsThatMustExist().iterator(); iterator
@@ -39,8 +41,16 @@ public class PageTests extends TestSuite {
 			String rule = (String) iterator.next();
 			suite.addTest(new RuleHasRunTestCase(webDriver, rule));
 		}
-		// $JUnit-END$
-		return suite;
+
+		TestSetup ts = new TestSetup(suite) {
+			protected void tearDown() throws Exception {
+				System.out.println("Page tearDown ");
+				webDriver.quit();
+			}
+
+		};
+
+		return ts;
 	}
 
 }
