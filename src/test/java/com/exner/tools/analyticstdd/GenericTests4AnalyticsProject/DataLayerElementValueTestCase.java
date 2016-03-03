@@ -22,6 +22,7 @@ public class DataLayerElementValueTestCase extends TestCase {
 
 	@Override
 	protected void runTest() throws Throwable {
+		//TODO - maybe test for undefined first!
 		// get the value of the dl element from the page
 		Object response = _jsExecutor.executeScript("return " + _elementName);
 
