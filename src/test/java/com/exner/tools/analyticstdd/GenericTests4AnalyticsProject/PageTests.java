@@ -3,49 +3,43 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 public class PageTests extends TestSuite {
-	private static WebDriver webDriver = null;
 
 	public static Test suite(PageTestDefinition pageTestDefinition) {
 		TestSuite suite = new TestSuite("PageTests " + pageTestDefinition.getPageURL());
-		// setup
-		webDriver = new PhantomJSDriver();
-		webDriver.get(pageTestDefinition.getPageURL());
 
-		suite.addTest(new DTMLoadedTestCase(webDriver));
-		suite.addTest(new DTMIsInDebugModeTestCase(webDriver));
-		for (Iterator<String> iterator = pageTestDefinition.getDataElementsThatMustExist().iterator(); iterator
+		String pageURL = pageTestDefinition.getPageURL();
+
+		suite.addTest(new DTMLoadedTestCase(pageURL));
+		suite.addTest(new DTMIsInDebugModeTestCase(pageURL));
+		for (Iterator<String> iterator = pageTestDefinition.getDataLayerElementsThatMustExist().iterator(); iterator
 				.hasNext();) {
 			String dataLayerElementName = (String) iterator.next();
-			suite.addTest(new DataLayerElementExistenceTestCase(webDriver, dataLayerElementName));
+			suite.addTest(new DataLayerElementExistenceTestCase(pageURL, dataLayerElementName));
 		}
-		for (Iterator<Map<String, String>> iterator = pageTestDefinition.getDataElementsThatMustHaveSpecificValue()
+		for (Iterator<Map<String, String>> iterator = pageTestDefinition.getDataLayerElementsThatMustHaveSpecificValue()
 				.iterator(); iterator.hasNext();) {
 			Map<String, String> element = (Map<String, String>) iterator.next();
-			suite.addTest(new DataLayerElementValueTestCase(webDriver, element.get("name"), element.get("value")));
+			suite.addTest(new DataLayerElementValueTestCase(pageURL, element.get("name"), element.get("value")));
 		}
 		for (Iterator<String> iterator = pageTestDefinition.getPageLoadRulesThatMustExist().iterator(); iterator
 				.hasNext();) {
 			String plr = (String) iterator.next();
-			suite.addTest(new PageLoadRuleExistenceTestCase(webDriver, plr));
+			suite.addTest(new PageLoadRuleExistenceTestCase(pageURL, plr));
 		}
 		for (Iterator<String> iterator = pageTestDefinition.getPageLoadRulesThatMustHaveRun().iterator(); iterator
 				.hasNext();) {
 			String rule = (String) iterator.next();
-			suite.addTest(new RuleHasRunTestCase(webDriver, rule));
+			suite.addTest(new RuleHasRunTestCase(pageURL, rule));
 		}
 
 		TestSetup ts = new TestSetup(suite) {
 			protected void tearDown() throws Exception {
 				System.out.println("Page tearDown ");
-				webDriver.quit();
 			}
 
 		};

@@ -4,22 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
+	private final String _ruleName;
 
-import junit.framework.TestCase;
-
-public class DirectCallRuleExistenceTestCase extends TestCase {
-	private String _ruleName;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
-
-	public DirectCallRuleExistenceTestCase(WebDriver webDriver, String directCallRuleName) {
-		super();
-		_webDriver = webDriver;
+	public DirectCallRuleExistenceTestCase(String pageURL, String directCallRuleName) {
+		super(pageURL);
 		_ruleName = directCallRuleName;
 		setName("DCR " + directCallRuleName + " existence");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,5 +33,4 @@ public class DirectCallRuleExistenceTestCase extends TestCase {
 		// didn't find the rule? Well...
 		fail("Unable to find Direct-call Rule " + _ruleName);
 	}
-
 }

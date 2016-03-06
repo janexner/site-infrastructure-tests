@@ -19,13 +19,13 @@ public class CreateTestDescriptionJSONFile {
 		ptd.setPageURL("http://www.jan-exner.de/");
 		List<String> dataLayerElements2Test4Existence = new ArrayList<String>();
 		dataLayerElements2Test4Existence.add("dataLayer.page.pageInfo.language");
-		ptd.setDataElementsThatMustExist(dataLayerElements2Test4Existence);
+		ptd.setDataLayerElementsThatMustExist(dataLayerElements2Test4Existence);
 		List<Map<String, String>> dataLayerElements2Test4Value = new ArrayList<Map<String, String>>();
 		Map<String, String> dataLayerElement2Test = new HashMap<String, String>();
 		dataLayerElement2Test.put("name", "dataLayer.page.pageInfo.pageName");
 		dataLayerElement2Test.put("value", "Home");
 		dataLayerElements2Test4Value.add(dataLayerElement2Test);
-		ptd.setDataElementsThatMustHaveSpecificValue(dataLayerElements2Test4Value);
+		ptd.setDataLayerElementsThatMustHaveSpecificValue(dataLayerElements2Test4Value);
 		List<String> plrs2Test4Existence = new ArrayList<String>();
 		plrs2Test4Existence.add("Normal Page Load");
 		ptd.setPageLoadRulesThatMustExist(plrs2Test4Existence);
@@ -37,13 +37,13 @@ public class CreateTestDescriptionJSONFile {
 		JSONObject jsonPageLevel = new JSONObject();
 		jsonPageLevel.put("pageURL", ptd.getPageURL());
 		JSONArray dlemx = new JSONArray();
-		for (Iterator<String> iterator = ptd.getDataElementsThatMustExist().iterator(); iterator.hasNext();) {
+		for (Iterator<String> iterator = ptd.getDataLayerElementsThatMustExist().iterator(); iterator.hasNext();) {
 			String dle = (String) iterator.next();
 			dlemx.add(dle);
 		}
 		jsonPageLevel.put("dataLayerElementsThatMustExist", dlemx);
 		JSONArray dlemv = new JSONArray();
-		for (Iterator<Map<String, String>> iterator = ptd.getDataElementsThatMustHaveSpecificValue()
+		for (Iterator<Map<String, String>> iterator = ptd.getDataLayerElementsThatMustHaveSpecificValue()
 				.iterator(); iterator.hasNext();) {
 			Map<String, String> dlemap = iterator.next();
 			JSONObject obj = new JSONObject();

@@ -4,22 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-
-import junit.framework.TestCase;
-
-public class EventBasedRuleExistenceTestCase extends TestCase {
+public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
 
-	public EventBasedRuleExistenceTestCase(WebDriver webDriver, String eventBasedRuleName) {
-		super();
-		_webDriver = webDriver;
+	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
+		super(pageURL);
 		_ruleName = eventBasedRuleName;
 		setName("EBR " + eventBasedRuleName + " existence");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@SuppressWarnings("unchecked")

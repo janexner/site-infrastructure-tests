@@ -1,23 +1,14 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+public class DataElementValueTestCase extends WebDriverBasedTestCase {
+	private final String _elementName;
+	private final String _elementExpectedValue;
 
-import junit.framework.TestCase;
-
-public class DataElementValueTestCase extends TestCase {
-	private String _elementName;
-	private String _elementExpectedValue;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
-
-	public DataElementValueTestCase(WebDriver webDriver, String elementName, String elementExpectedValue) {
-		super();
-		_webDriver = webDriver;
+	public DataElementValueTestCase(String pageURL, String elementName, String elementExpectedValue) {
+		super(pageURL);
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
 		setName(elementName + " value");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@Override
@@ -34,5 +25,4 @@ public class DataElementValueTestCase extends TestCase {
 		}
 
 	}
-
 }

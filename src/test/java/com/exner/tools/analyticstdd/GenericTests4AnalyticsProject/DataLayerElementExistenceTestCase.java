@@ -2,20 +2,17 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import junit.framework.TestCase;
 
-public class DataLayerElementExistenceTestCase extends TestCase {
+public class DataLayerElementExistenceTestCase extends WebDriverBasedTestCase {
 	private String _elementName;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
 
-	public DataLayerElementExistenceTestCase(WebDriver webDriver, String elementName) {
-		super();
-		_webDriver = webDriver;
+	public DataLayerElementExistenceTestCase(String pageURL, String elementName) {
+		super(pageURL);
 		_elementName = elementName;
 		setName(elementName + " existence");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@Override

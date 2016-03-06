@@ -4,22 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-
-import junit.framework.TestCase;
-
-public class PageLoadRuleExistenceTestCase extends TestCase {
+public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
 
-	public PageLoadRuleExistenceTestCase(WebDriver webDriver, String pageLoadRuleName) {
-		super();
-		_webDriver = webDriver;
+	public PageLoadRuleExistenceTestCase(String pageURL, String pageLoadRuleName) {
+		super(pageURL);
 		_ruleName = pageLoadRuleName;
 		setName("PLR " + pageLoadRuleName + " existence");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,5 +33,4 @@ public class PageLoadRuleExistenceTestCase extends TestCase {
 		// didn't find the rule? Well...
 		fail("Unable to find Page Load Rule " + _ruleName);
 	}
-
 }

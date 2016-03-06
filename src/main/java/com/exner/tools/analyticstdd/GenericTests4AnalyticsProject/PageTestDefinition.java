@@ -1,8 +1,5 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,8 +8,6 @@ import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class PageTestDefinition implements Serializable {
 
@@ -23,6 +18,8 @@ public class PageTestDefinition implements Serializable {
 	private List<Map<String, String>> _dataLayerElementsThatMustHaveSpecificValue;
 	private List<String> _pageLoadRulesThatMustExist;
 	private List<String> _pageLoadRulesThatMustHaveRun;
+	private List<String> _directCallRulesThatMustExist;
+	private List<String> _eventBasedRulesThatMustExist;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -32,19 +29,19 @@ public class PageTestDefinition implements Serializable {
 		_pageURL = pageURL;
 	}
 
-	public List<String> getDataElementsThatMustExist() {
+	public List<String> getDataLayerElementsThatMustExist() {
 		return _dataLayerElementsThatMustExist;
 	}
 
-	public void setDataElementsThatMustExist(List<String> dataElementsThatMustExist) {
+	public void setDataLayerElementsThatMustExist(List<String> dataElementsThatMustExist) {
 		_dataLayerElementsThatMustExist = dataElementsThatMustExist;
 	}
 
-	public List<Map<String, String>> getDataElementsThatMustHaveSpecificValue() {
+	public List<Map<String, String>> getDataLayerElementsThatMustHaveSpecificValue() {
 		return _dataLayerElementsThatMustHaveSpecificValue;
 	}
 
-	public void setDataElementsThatMustHaveSpecificValue(
+	public void setDataLayerElementsThatMustHaveSpecificValue(
 			List<Map<String, String>> dataElementsThatMustHaveSpecificValue) {
 		_dataLayerElementsThatMustHaveSpecificValue = dataElementsThatMustHaveSpecificValue;
 	}
@@ -65,7 +62,20 @@ public class PageTestDefinition implements Serializable {
 		_pageLoadRulesThatMustHaveRun = pageLoadRulesThatMustHaveRun;
 	}
 
-	public void loadFromJSONFile(String testdescriptionfilename) {
+	public List<String> getDirectCallRulesThatMustExist() {
+		return _directCallRulesThatMustExist;
+	}
+
+	public void setDirectCallRulesThatMustExist(List<String> directCallRulesThatMustExist) {
+		_directCallRulesThatMustExist = directCallRulesThatMustExist;
+	}
+
+	public List<String> getEventBasedRulesThatMustExist() {
+		return _eventBasedRulesThatMustExist;
+	}
+
+	public void setEventBasedRulesThatMustExist(List<String> eventBasedRulesThatMustExist) {
+		_eventBasedRulesThatMustExist = eventBasedRulesThatMustExist;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -74,37 +84,65 @@ public class PageTestDefinition implements Serializable {
 		setPageURL(pageURL);
 
 		// get the list of data layer elements that must exist
-		JSONArray dlemxlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustExist");
 		List<String> dlemx = new ArrayList<String>();
-		for (Iterator<String> iterator = dlemxlist.iterator(); iterator.hasNext();) {
-			dlemx.add(iterator.next());
+		JSONArray dlemxlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustExist");
+		if (null != dlemxlist) {
+			for (Iterator<String> iterator = dlemxlist.iterator(); iterator.hasNext();) {
+				dlemx.add(iterator.next());
+			}
 		}
-		setDataElementsThatMustExist(dlemx);
+		setDataLayerElementsThatMustExist(dlemx);
 
 		// get the list of data layer elements that must have a specific value
-		JSONArray dlemvlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustHaveASpecificValue");
 		List<Map<String, String>> dlemv = new ArrayList<Map<String, String>>();
-		for (Iterator<Map<String, String>> iterator = dlemvlist.iterator(); iterator.hasNext();) {
-			Map<String, String> el = iterator.next();
-			dlemv.add(el);
+		JSONArray dlemvlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustHaveASpecificValue");
+		if (null != dlemvlist) {
+			for (Iterator<Map<String, String>> iterator = dlemvlist.iterator(); iterator.hasNext();) {
+				Map<String, String> el = iterator.next();
+				dlemv.add(el);
+			}
 		}
-		setDataElementsThatMustHaveSpecificValue(dlemv);
-		
+		setDataLayerElementsThatMustHaveSpecificValue(dlemv);
+
 		// get the list of PLRs that must exist
-		JSONArray plrmxlist = (JSONArray) jsonObject.get("pageLoadRulesThatMustExist");
 		List<String> plrmx = new ArrayList<String>();
-		for (Iterator<String> iterator = plrmxlist.iterator(); iterator.hasNext();) {
-			plrmx.add(iterator.next());
+		JSONArray plrmxlist = (JSONArray) jsonObject.get("pageLoadRulesThatMustExist");
+		if (null != plrmxlist) {
+			for (Iterator<String> iterator = plrmxlist.iterator(); iterator.hasNext();) {
+				plrmx.add(iterator.next());
+			}
 		}
 		setPageLoadRulesThatMustExist(plrmx);
-		
+
 		// get the list of PLRs that must fire
-		JSONArray plrmrlist = (JSONArray) jsonObject.get("pageLoadRulesThatMustHaveRun");
 		List<String> plrmr = new ArrayList<String>();
-		for (Iterator<String> iterator = plrmrlist.iterator(); iterator.hasNext();) {
-			plrmr.add(iterator.next());
+		JSONArray plrmrlist = (JSONArray) jsonObject.get("pageLoadRulesThatMustHaveRun");
+		if (null != plrmrlist) {
+			for (Iterator<String> iterator = plrmrlist.iterator(); iterator.hasNext();) {
+				plrmr.add(iterator.next());
+			}
 		}
 		setPageLoadRulesThatMustHaveRun(plrmr);
+
+		// get the list of EBRs that must exist
+		List<String> ebrmx = new ArrayList<String>();
+		JSONArray ebrmxlist = (JSONArray) jsonObject.get("eventBasedRulesThatMustExist");
+		if (null != ebrmxlist) {
+			for (Iterator<String> iterator = ebrmxlist.iterator(); iterator.hasNext();) {
+				ebrmx.add(iterator.next());
+			}
+		}
+		setEventBasedRulesThatMustExist(ebrmx);
+
+		// get the list of DCRs that must exist
+		List<String> dcrmx = new ArrayList<String>();
+		JSONArray dcrmxlist = (JSONArray) jsonObject.get("directCallRulesThatMustExist");
+		if (null != dcrmxlist) {
+			for (Iterator<String> iterator = dcrmxlist.iterator(); iterator.hasNext();) {
+				dcrmx.add(iterator.next());
+			}
+		}
+		setDirectCallRulesThatMustExist(dcrmx);
 	}
 
 }

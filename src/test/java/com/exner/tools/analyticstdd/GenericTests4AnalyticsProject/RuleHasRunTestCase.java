@@ -3,22 +3,13 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-
-import junit.framework.TestCase;
-
-public class RuleHasRunTestCase extends TestCase {
+public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
-	private WebDriver _webDriver;
-	private JavascriptExecutor _jsExecutor;
 
-	public RuleHasRunTestCase(WebDriver webDriver, String pageLoadRuleName) {
-		super();
-		_webDriver = webDriver;
+	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
+		super(pageURL);
 		_ruleName = pageLoadRuleName;
 		setName("Rule " + pageLoadRuleName + " execution");
-		_jsExecutor = (JavascriptExecutor) _webDriver;
 	}
 
 	@SuppressWarnings("unchecked")
