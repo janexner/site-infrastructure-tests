@@ -10,13 +10,13 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
 		super(pageURL);
 		_ruleName = eventBasedRuleName;
-		setName("EBR " + eventBasedRuleName + " existence");
+		setName("EBR '" + eventBasedRuleName + "' existence");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void runTest() throws Throwable {
-		// get the list of DCRs from the page
+		// get the list of EBRs from the page
 		List<Object> response = (List<Object>) _jsExecutor.executeScript("return _satellite.rules");
 
 		// loop through the list until we find the rule we're looking for
@@ -24,14 +24,14 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 			Object ebr = iterator.next();
 			Map<String, Object> map = (Map<String, Object>) ebr;
 			String ruleName = (String) map.get("name");
-			if (ruleName == _ruleName) {
+			if (ruleName.equals(_ruleName)) {
 				// good, we found the rule! It's a pass!
 				return;
 			}
 		}
 
 		// didn't find the rule? Well...
-		fail("Unable to find Event-based Rule " + _ruleName);
+		fail("Unable to find Event-based Rule: " + _ruleName);
 	}
 
 }

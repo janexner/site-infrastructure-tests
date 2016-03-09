@@ -3,18 +3,35 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class RuleHasRunTestCase extends WebDriverBasedTestCase {
-	private String _ruleName;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
+public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
+	private String _ruleName;
+	private String _triggerType;
+	private String _triggerElement;
+
+	protected EventBasedRuleHasRunTestCase(String pageURL, String ruleName, String triggerType, String triggerElement) {
 		super(pageURL);
-		_ruleName = pageLoadRuleName;
-		setName("Rule '" + pageLoadRuleName + "' execution");
+		_ruleName = ruleName;
+		_triggerType = triggerType;
+		_triggerElement = triggerElement;
+		setName("Event-based Rule '" + _ruleName + "' execution");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void runTest() throws Throwable {
+		// trigger the rule
+		if ("click".equals(_triggerType)) {
+			WebElement el = _webDriver.findElement(By.cssSelector(_triggerElement));
+			if (null != el)
+				el.click();
+		}
+
+		// wait a sec
+		Thread.sleep(1000l);
+
 		// get the list of Rules which fired on the page
 		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _jsExecutor
 				.executeScript("return _satellite.Logger.getHistory()");

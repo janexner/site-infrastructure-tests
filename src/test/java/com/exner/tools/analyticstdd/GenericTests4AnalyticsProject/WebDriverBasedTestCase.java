@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 public abstract class WebDriverBasedTestCase extends TestCase {
 
 	protected final String _pageURL;
-	private WebDriver _webDriver;
+	protected WebDriver _webDriver;
 	protected JavascriptExecutor _jsExecutor;
 
 	protected WebDriverBasedTestCase(String pageURL) {

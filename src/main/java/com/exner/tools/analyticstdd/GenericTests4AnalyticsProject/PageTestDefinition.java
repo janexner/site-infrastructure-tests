@@ -20,6 +20,7 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _pageLoadRulesThatMustHaveRun;
 	private List<String> _directCallRulesThatMustExist;
 	private List<String> _eventBasedRulesThatMustExist;
+	private List<Map<String, String>> _eventBasedRulesThatMustFire;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -76,6 +77,14 @@ public class PageTestDefinition implements Serializable {
 
 	public void setEventBasedRulesThatMustExist(List<String> eventBasedRulesThatMustExist) {
 		_eventBasedRulesThatMustExist = eventBasedRulesThatMustExist;
+	}
+
+	public List<Map<String, String>> getEventBasedRulesThatMustFire() {
+		return _eventBasedRulesThatMustFire;
+	}
+
+	public void setEventBasedRulesThatMustFire(List<Map<String, String>> eventBasedRulesThatMustFire) {
+		_eventBasedRulesThatMustFire = eventBasedRulesThatMustFire;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -143,6 +152,17 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setDirectCallRulesThatMustExist(dcrmx);
+
+		// get list of EBRs that must fire
+		List<Map<String, String>> ebrmf = new ArrayList<Map<String, String>>();
+		JSONArray ebrmflist = (JSONArray) jsonObject.get("eventBasedRulesThatMustFire");
+		if (null != ebrmflist) {
+			for (Iterator<Map<String, String>> iterator = ebrmflist.iterator(); iterator.hasNext();) {
+				Map<String, String> el = iterator.next();
+				ebrmf.add(el);
+			}
+		}
+		setEventBasedRulesThatMustFire(ebrmf);
 	}
 
 }

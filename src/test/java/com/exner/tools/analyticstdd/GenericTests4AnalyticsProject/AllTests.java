@@ -47,7 +47,8 @@ public class AllTests extends TestSuite {
 				System.out.println("Global setUp");
 				GenericObjectPoolConfig _webDriverPoolConfig = new GenericObjectPoolConfig();
 				_webDriverPoolConfig.setBlockWhenExhausted(true);
-				_webDriverPoolConfig.setMaxTotal(10);
+				_webDriverPoolConfig.setMinIdle(5);
+				_webDriverPoolConfig.setMaxTotal(15);
 				BasePooledWebDriverFactory factory = new BasePooledWebDriverFactory();
 				_webDriverPool = new GenericObjectPool<WebDriver>(PoolUtils.synchronizedPooledFactory(factory),
 						_webDriverPoolConfig);

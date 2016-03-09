@@ -36,6 +36,17 @@ public class PageTests extends TestSuite {
 			String rule = (String) iterator.next();
 			suite.addTest(new RuleHasRunTestCase(pageURL, rule));
 		}
+		for (Iterator<String> iterator = pageTestDefinition.getEventBasedRulesThatMustExist().iterator(); iterator
+				.hasNext();) {
+			String rule = iterator.next();
+			suite.addTest(new EventBasedRuleExistenceTestCase(pageURL, rule));
+		}
+		for (Iterator<Map<String, String>> iterator = pageTestDefinition.getEventBasedRulesThatMustFire()
+				.iterator(); iterator.hasNext();) {
+			Map<String, String> test = iterator.next();
+			suite.addTest(new EventBasedRuleHasRunTestCase(pageURL, test.get("name"), test.get("triggerType"),
+					test.get("triggerElement")));
+		}
 
 		TestSetup ts = new TestSetup(suite) {
 			protected void tearDown() throws Exception {
