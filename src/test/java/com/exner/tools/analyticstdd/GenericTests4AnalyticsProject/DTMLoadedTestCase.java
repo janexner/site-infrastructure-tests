@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 public class DTMLoadedTestCase extends WebDriverBasedTestCase {
+	
 	public DTMLoadedTestCase(String pageURL) {
 		super(pageURL);
 		setName("DTM loaded");
