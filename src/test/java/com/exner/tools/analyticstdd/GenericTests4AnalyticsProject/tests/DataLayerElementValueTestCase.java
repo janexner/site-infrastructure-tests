@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 public class DataLayerElementValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;

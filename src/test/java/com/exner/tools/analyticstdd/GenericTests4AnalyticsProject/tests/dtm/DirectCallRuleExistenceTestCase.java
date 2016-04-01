@@ -1,8 +1,10 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 	private final String _ruleName;

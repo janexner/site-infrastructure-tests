@@ -1,4 +1,6 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
+
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DataElementValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;

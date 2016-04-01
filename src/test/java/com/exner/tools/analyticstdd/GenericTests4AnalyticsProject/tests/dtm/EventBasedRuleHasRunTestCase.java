@@ -1,10 +1,12 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;

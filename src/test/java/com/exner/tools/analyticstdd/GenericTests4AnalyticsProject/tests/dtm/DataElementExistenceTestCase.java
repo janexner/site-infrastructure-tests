@@ -1,4 +1,6 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
+
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -6,7 +8,7 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	public DataElementExistenceTestCase(String pageURL, String elementName) {
 		super(pageURL);
 		_elementName = elementName;
-		setName(elementName + " existence");
+		setName("DE " + elementName + " existence");
 	}
 
 	@Override

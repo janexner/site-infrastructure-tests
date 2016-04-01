@@ -1,9 +1,10 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.AllTests;
 import com.google.common.base.Predicate;
 
 import junit.framework.TestCase;
@@ -17,6 +18,11 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 	protected WebDriverBasedTestCase(String pageURL) {
 		super();
 		_pageURL = pageURL;
+	}
+	
+	@Override
+	public void setName(String name) {
+		setName(name + " - " + _pageURL);
 	}
 
 	@Override

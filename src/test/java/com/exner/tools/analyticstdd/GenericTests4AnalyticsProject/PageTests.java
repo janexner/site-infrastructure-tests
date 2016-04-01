@@ -3,6 +3,15 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMIsInDebugModeTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleHasRunTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.PageLoadRuleExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.RuleHasRunTestCase;
+
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;

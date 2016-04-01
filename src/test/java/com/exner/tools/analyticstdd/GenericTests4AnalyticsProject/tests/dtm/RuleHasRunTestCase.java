@@ -1,7 +1,9 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
