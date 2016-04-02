@@ -3,6 +3,7 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMIsInDebugModeTestCase;
@@ -34,6 +35,11 @@ public class PageTests extends TestSuite {
 				.iterator(); iterator.hasNext();) {
 			Map<String, String> element = (Map<String, String>) iterator.next();
 			suite.addTest(new DataLayerElementValueTestCase(pageURL, element.get("name"), element.get("value")));
+		}
+		for (Iterator<StringLongTuple> iterator = pageTestDefinition.getDataLayerElementsThatMustExistAfterDelay()
+				.iterator(); iterator.hasNext();) {
+			StringLongTuple element = (StringLongTuple) iterator.next();
+			suite.addTest(new DataLayerElementDelayedExistenceTestCase(pageURL, element.getName(), element.getDelay()));
 		}
 		for (Iterator<String> iterator = pageTestDefinition.getPageLoadRulesThatMustExist().iterator(); iterator
 				.hasNext();) {

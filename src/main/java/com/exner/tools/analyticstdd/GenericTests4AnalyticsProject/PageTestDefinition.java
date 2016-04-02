@@ -16,6 +16,7 @@ public class PageTestDefinition implements Serializable {
 	private String _pageURL;
 	private List<String> _dataLayerElementsThatMustExist;
 	private List<Map<String, String>> _dataLayerElementsThatMustHaveSpecificValue;
+	private List<StringLongTuple> _dataLayerElementsThatMustExistAfterDelay;
 	private List<String> _pageLoadRulesThatMustExist;
 	private List<String> _pageLoadRulesThatMustHaveRun;
 	private List<String> _directCallRulesThatMustExist;
@@ -45,6 +46,15 @@ public class PageTestDefinition implements Serializable {
 	public void setDataLayerElementsThatMustHaveSpecificValue(
 			List<Map<String, String>> dataElementsThatMustHaveSpecificValue) {
 		_dataLayerElementsThatMustHaveSpecificValue = dataElementsThatMustHaveSpecificValue;
+	}
+
+	public List<StringLongTuple> getDataLayerElementsThatMustExistAfterDelay() {
+		return _dataLayerElementsThatMustExistAfterDelay;
+	}
+
+	public void setDataLayerElementsThatMustExistAfterDelay(
+			List<StringLongTuple> dataLayerElementsThatMustExistAfterDelay) {
+		_dataLayerElementsThatMustExistAfterDelay = dataLayerElementsThatMustExistAfterDelay;
 	}
 
 	public List<String> getPageLoadRulesThatMustExist() {
@@ -112,6 +122,20 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setDataLayerElementsThatMustHaveSpecificValue(dlemv);
+
+		// get the list of data layer elements that must exist after a delay
+		List<StringLongTuple> dlemvd = new ArrayList<StringLongTuple>();
+		JSONArray dlemvdlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustExistAfterDelay");
+		if (null != dlemvdlist) {
+			for (Iterator<JSONObject> iterator = dlemvdlist.iterator(); iterator.hasNext();) {
+				JSONObject el = iterator.next();
+				StringLongTuple el2 = new StringLongTuple();
+				el2.setName((String) el.get("name"));
+				el2.setDelay((Long) el.get("delay"));
+				dlemvd.add(el2);
+			}
+		}
+		setDataLayerElementsThatMustExistAfterDelay(dlemvd);
 
 		// get the list of PLRs that must exist
 		List<String> plrmx = new ArrayList<String>();

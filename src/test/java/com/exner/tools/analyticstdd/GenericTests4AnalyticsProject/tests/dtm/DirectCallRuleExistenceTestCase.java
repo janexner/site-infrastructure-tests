@@ -12,7 +12,7 @@ public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public DirectCallRuleExistenceTestCase(String pageURL, String directCallRuleName) {
 		super(pageURL);
 		_ruleName = directCallRuleName;
-		setName("DCR '" + directCallRuleName + "' existence");
+		setName("DCR '" + directCallRuleName + "' existence - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

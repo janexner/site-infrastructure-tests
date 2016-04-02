@@ -5,7 +5,7 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 	public DTMIsInDebugModeTestCase(String pageURL) {
 		super(pageURL);
-		setName("DTM in debug mode");
+		setName("DTM in debug mode - " + pageURL);
 	}
 
 	@Override

@@ -13,12 +13,12 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _triggerType;
 	private String _triggerElement;
 
-	protected EventBasedRuleHasRunTestCase(String pageURL, String ruleName, String triggerType, String triggerElement) {
+	public EventBasedRuleHasRunTestCase(String pageURL, String ruleName, String triggerType, String triggerElement) {
 		super(pageURL);
 		_ruleName = ruleName;
 		_triggerType = triggerType;
 		_triggerElement = triggerElement;
-		setName("Event-based Rule '" + _ruleName + "' execution");
+		setName("Event-based Rule '" + _ruleName + "' execution - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

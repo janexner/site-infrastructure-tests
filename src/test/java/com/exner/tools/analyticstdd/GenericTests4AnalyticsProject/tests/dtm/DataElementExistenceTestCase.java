@@ -8,7 +8,7 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	public DataElementExistenceTestCase(String pageURL, String elementName) {
 		super(pageURL);
 		_elementName = elementName;
-		setName("DE " + elementName + " existence");
+		setName("DE " + elementName + " existence - " + pageURL);
 	}
 
 	@Override

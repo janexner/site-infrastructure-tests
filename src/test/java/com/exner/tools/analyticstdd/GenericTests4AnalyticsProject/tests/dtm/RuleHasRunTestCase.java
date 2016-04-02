@@ -11,7 +11,7 @@ public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
 		super(pageURL);
 		_ruleName = pageLoadRuleName;
-		setName("Rule '" + pageLoadRuleName + "' execution");
+		setName("Rule '" + pageLoadRuleName + "' execution - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

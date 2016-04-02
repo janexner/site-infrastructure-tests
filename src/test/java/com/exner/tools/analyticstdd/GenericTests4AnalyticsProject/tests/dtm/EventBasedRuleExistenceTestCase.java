@@ -12,7 +12,7 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
 		super(pageURL);
 		_ruleName = eventBasedRuleName;
-		setName("EBR '" + eventBasedRuleName + "' existence");
+		setName("EBR '" + eventBasedRuleName + "' existence - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

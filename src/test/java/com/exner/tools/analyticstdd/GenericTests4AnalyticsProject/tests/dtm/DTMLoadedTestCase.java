@@ -6,7 +6,7 @@ public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 	
 	public DTMLoadedTestCase(String pageURL) {
 		super(pageURL);
-		setName("DTM loaded");
+		setName("DTM loaded - " + pageURL);
 	}
 
 	@Override

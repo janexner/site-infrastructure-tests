@@ -21,11 +21,6 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 	}
 	
 	@Override
-	public void setName(String name) {
-		setName(name + " - " + _pageURL);
-	}
-
-	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		_webDriver = AllTests.getWebDriverPool().borrowObject();

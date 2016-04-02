@@ -5,7 +5,7 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 public class PageLoadedOKTestCase extends WebDriverBasedTestCase {
 
 	protected PageLoadedOKTestCase(String pageURL) {
-		super("Page load successful");
+		super("Page load successful - " + pageURL);
 	}
 
 	@Override

@@ -6,17 +6,22 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import junit.framework.TestCase;
 
-public class DataLayerElementExistenceTestCase extends WebDriverBasedTestCase {
+public class DataLayerElementDelayedExistenceTestCase extends WebDriverBasedTestCase {
 	private String _elementName;
+	private long _milliseconds;
 
-	public DataLayerElementExistenceTestCase(String pageURL, String elementName) {
+	public DataLayerElementDelayedExistenceTestCase(String pageURL, String elementName, long delay) {
 		super(pageURL);
 		_elementName = elementName;
-		setName(elementName + " existence - " + pageURL);
+		_milliseconds = delay;
+		setName(elementName + " delayed existence " + delay + "ms - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
+		// wait
+		Thread.sleep(_milliseconds);
+		
 		// get the value of the dl element from the page
 		Object response = _jsExecutor.executeScript(
 				"if (typeof " + _elementName + " !== 'undefined') { return true } else { return false }");
