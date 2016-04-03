@@ -1,11 +1,5 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
-import junit.framework.TestCase;
-
 public class DataLayerElementDelayedExistenceTestCase extends WebDriverBasedTestCase {
 	private String _elementName;
 	private long _milliseconds;

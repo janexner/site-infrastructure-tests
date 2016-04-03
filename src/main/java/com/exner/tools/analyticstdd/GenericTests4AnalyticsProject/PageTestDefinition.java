@@ -11,11 +11,12 @@ import org.json.simple.JSONObject;
 
 public class PageTestDefinition implements Serializable {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 4L;
 
 	private String _pageURL;
 	private List<String> _dataLayerElementsThatMustExist;
 	private List<Map<String, String>> _dataLayerElementsThatMustHaveSpecificValue;
+	private List<StringStringLongTuple> _dataLayerElementsThatMustHaveSpecificValueAfterDelay;
 	private List<StringLongTuple> _dataLayerElementsThatMustExistAfterDelay;
 	private List<String> _pageLoadRulesThatMustExist;
 	private List<String> _pageLoadRulesThatMustHaveRun;
@@ -46,6 +47,15 @@ public class PageTestDefinition implements Serializable {
 	public void setDataLayerElementsThatMustHaveSpecificValue(
 			List<Map<String, String>> dataElementsThatMustHaveSpecificValue) {
 		_dataLayerElementsThatMustHaveSpecificValue = dataElementsThatMustHaveSpecificValue;
+	}
+
+	public List<StringStringLongTuple> getDataLayerElementsThatMustHaveSpecificValueAfterDelay() {
+		return _dataLayerElementsThatMustHaveSpecificValueAfterDelay;
+	}
+
+	public void setDataLayerElementsThatMustHaveSpecificValueAfterDelay(
+			List<StringStringLongTuple> dataLayerElementsThatMustHaveSpecificValueAfterDelay) {
+		_dataLayerElementsThatMustHaveSpecificValueAfterDelay = dataLayerElementsThatMustHaveSpecificValueAfterDelay;
 	}
 
 	public List<StringLongTuple> getDataLayerElementsThatMustExistAfterDelay() {
@@ -122,6 +132,21 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setDataLayerElementsThatMustHaveSpecificValue(dlemv);
+		
+		// get the list of data layer elements that must have a specific value after delay
+		List<StringStringLongTuple> dlemvdd = new ArrayList<StringStringLongTuple>();
+		JSONArray dlemvddlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustHaveASpecificValueAfterDelay");
+		if (null != dlemvddlist) {
+			for (Iterator<JSONObject> iterator = dlemvddlist.iterator(); iterator.hasNext();) {
+				JSONObject el = iterator.next();
+				StringStringLongTuple el2 = new StringStringLongTuple();
+				el2.setName((String) el.get("name"));
+				el2.setValue((String) el.get("value"));
+				el2.setDelay((Long) el.get("delay"));
+				dlemvdd.add(el2);
+			}
+		}
+		setDataLayerElementsThatMustHaveSpecificValueAfterDelay(dlemvdd);
 
 		// get the list of data layer elements that must exist after a delay
 		List<StringLongTuple> dlemvd = new ArrayList<StringLongTuple>();
