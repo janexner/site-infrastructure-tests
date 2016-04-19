@@ -13,6 +13,9 @@ public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 		Object response = _jsExecutor.executeScript("return localStorage.getItem('sdsat_debug');");
 
 		// make sure the element exists
+		if (null == response) {
+			fail("DTM is not in debug mode");
+		}
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
 			assertTrue("DTM in debug mode ", (Boolean) response);
 		} else if (String.class.isAssignableFrom(response.getClass())) {

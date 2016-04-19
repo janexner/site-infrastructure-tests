@@ -25,9 +25,10 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 		super.setUp();
 		_webDriver = AllTests.getWebDriverPool().borrowObject();
 		try {
-			_webDriver.get("http://www.google.com/");
+			_webDriver.get(_pageURL);
 			_jsExecutor = (JavascriptExecutor) _webDriver;
 			_jsExecutor.executeScript("localStorage.setItem('sdsat_debug', true);");
+			_jsExecutor.executeScript("if (typeof _satellite !== 'undefined') { _satellite.setDebug(true); }");
 			_webDriver.get(_pageURL);
 
 			// Wait up to 10 seconds for jQuery to load
