@@ -1,13 +1,14 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.AnalyticsCodeLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.AnalyticsTagForReportSuiteFiredTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMIsInDebugModeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleExistenceTestCase;
@@ -28,7 +29,11 @@ public class PageTests extends TestSuite {
 
 		suite.addTest(new DTMLoadedTestCase(pageURL));
 		suite.addTest(new DTMIsInDebugModeTestCase(pageURL));
-		suite.addTest(new AnalyticsCodeLoadedTestCase(pageURL));
+		List<String> rsids = pageTestDefinition.getReportSuiteIDsThatMustReceiveTags();
+		for (Iterator<String> iterator = rsids.iterator(); iterator.hasNext();) {
+			String rsid = iterator.next();
+			suite.addTest(new AnalyticsTagForReportSuiteFiredTestCase(pageURL, rsid));
+		}
 		for (Iterator<String> iterator = pageTestDefinition.getDataLayerElementsThatMustExist().iterator(); iterator
 				.hasNext();) {
 			String dataLayerElementName = (String) iterator.next();

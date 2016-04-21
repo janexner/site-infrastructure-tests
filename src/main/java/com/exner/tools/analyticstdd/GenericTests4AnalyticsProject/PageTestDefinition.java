@@ -23,6 +23,7 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _directCallRulesThatMustExist;
 	private List<String> _eventBasedRulesThatMustExist;
 	private List<Map<String, String>> _eventBasedRulesThatMustFire;
+	private List<String> _reportSuiteIDsThatMustReceiveTags;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -105,6 +106,14 @@ public class PageTestDefinition implements Serializable {
 
 	public void setEventBasedRulesThatMustFire(List<Map<String, String>> eventBasedRulesThatMustFire) {
 		_eventBasedRulesThatMustFire = eventBasedRulesThatMustFire;
+	}
+
+	public List<String> getReportSuiteIDsThatMustReceiveTags() {
+		return _reportSuiteIDsThatMustReceiveTags;
+	}
+	
+	public void setReportSuiteIDsThatMustReceiveTags(List<String> reportSuiteIDsThatMustReceiveTags) {
+		_reportSuiteIDsThatMustReceiveTags = reportSuiteIDsThatMustReceiveTags;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -212,6 +221,17 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setEventBasedRulesThatMustFire(ebrmf);
+		
+		// get the list of rsids that must receive a tag
+		List<String> rsidstmrt = new ArrayList<String>();
+		JSONArray rsidstmrtlist = (JSONArray) jsonObject.get("analyticsTagForReportSuiteFired");
+		if (null != rsidstmrtlist) {
+			for (Iterator<String> iterator = rsidstmrtlist.iterator(); iterator.hasNext();) {
+				String el = iterator.next();
+				rsidstmrt.add(el);
+			}
+		}
+		setReportSuiteIDsThatMustReceiveTags(rsidstmrt);
 	}
 
 }
