@@ -8,15 +8,17 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLaye
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.AnalyticsTagForReportSuiteFiredTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMIsInDebugModeTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMLoadedTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DataElementDelayedValueTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DataElementValueTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleExistenceTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleHasRunTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.PageLoadRuleExistenceTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.RuleHasRunTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsTagForReportSuiteFiredTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMIsInDebugModeTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DataElementDelayedValueTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DataElementValueTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.EventBasedRuleExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.EventBasedRuleHasRunTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.PageLoadRuleExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.RuleHasRunTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target.GlobalMboxExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target.MBoxJSLoadedTestCase;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -92,6 +94,13 @@ public class PageTests extends TestSuite {
 			StringStringLongTuple element = (StringStringLongTuple) iterator.next();
 			suite.addTest(new DataElementDelayedValueTestCase(pageURL, element.getName(), element.getValue(),
 					element.getDelay()));
+		}
+		if (pageTestDefinition.isTargetJSLoaded()) {
+			suite.addTest(new MBoxJSLoadedTestCase(pageURL));
+		}
+		String globalMboxName = pageTestDefinition.getGlobalMboxName();
+		if (null != globalMboxName && !globalMboxName.isEmpty()) {
+			suite.addTest(new GlobalMboxExistenceTestCase(pageURL, globalMboxName));
 		}
 
 		TestSetup ts = new TestSetup(suite) {

@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 

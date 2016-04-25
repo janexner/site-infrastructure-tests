@@ -28,6 +28,8 @@ public class PageTestDefinition implements Serializable {
 	private boolean _dtmInDebugMode;
 	private List<Map<String, String>> _dataElementsThatMustHaveASpecificValue;
 	private List<StringStringLongTuple> _dataElementsThatMustHaveSpecificValueAfterDelay;
+	private boolean _targetJSLoaded;
+	private String _globalMboxName;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -152,6 +154,22 @@ public class PageTestDefinition implements Serializable {
 
 	public void setDtmInDebugMode(boolean dtmInDebugMode) {
 		this._dtmInDebugMode = dtmInDebugMode;
+	}
+
+	public boolean isTargetJSLoaded() {
+		return _targetJSLoaded;
+	}
+
+	public void setTargetJSLoaded(boolean targetJSLoaded) {
+		_targetJSLoaded = targetJSLoaded;
+	}
+
+	public String getGlobalMboxName() {
+		return _globalMboxName;
+	}
+
+	public void setGlobalMboxName(String globalMboxName) {
+		_globalMboxName = globalMboxName;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -311,6 +329,21 @@ public class PageTestDefinition implements Serializable {
 		}
 		setDataElementsThatMustHaveSpecificValueAfterDelay(demvdd);
 
-}
+		// get flag for testing mbox.js load
+		Object temp = jsonObject.get("targetJSLoaded");
+		if (null != temp) {
+			boolean mboxLoadedTest = (Boolean) jsonObject.get("targetJSLoaded");
+			setTargetJSLoaded(mboxLoadedTest);
+		}
+
+		// get name of global mbox for testing whether it is there
+		JSONObject globalMboxTestParams = (JSONObject) jsonObject.get("targetGlobalMboxLoaded");
+		if (null != globalMboxTestParams) {
+			String globalMboxName = (String) globalMboxTestParams.get("name");
+			if (null != globalMboxName) {
+				setGlobalMboxName(globalMboxName);
+			}
+		}
+	}
 
 }
