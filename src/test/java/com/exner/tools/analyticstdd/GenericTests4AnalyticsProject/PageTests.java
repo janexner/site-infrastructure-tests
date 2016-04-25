@@ -11,6 +11,8 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLaye
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.AnalyticsTagForReportSuiteFiredTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMIsInDebugModeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DTMLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DataElementDelayedValueTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.DataElementValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.EventBasedRuleHasRunTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm.PageLoadRuleExistenceTestCase;
@@ -79,6 +81,17 @@ public class PageTests extends TestSuite {
 			Map<String, String> test = iterator.next();
 			suite.addTest(new EventBasedRuleHasRunTestCase(pageURL, test.get("name"), test.get("triggerType"),
 					test.get("triggerElement")));
+		}
+		for (Iterator<Map<String, String>> iterator = pageTestDefinition.getDataElementsThatMustHaveASpecificValue()
+				.iterator(); iterator.hasNext();) {
+			Map<String, String> element = (Map<String, String>) iterator.next();
+			suite.addTest(new DataElementValueTestCase(pageURL, element.get("name"), element.get("value")));
+		}
+		for (Iterator<StringStringLongTuple> iterator = pageTestDefinition
+				.getDataElementsThatMustHaveSpecificValueAfterDelay().iterator(); iterator.hasNext();) {
+			StringStringLongTuple element = (StringStringLongTuple) iterator.next();
+			suite.addTest(new DataElementDelayedValueTestCase(pageURL, element.getName(), element.getValue(),
+					element.getDelay()));
 		}
 
 		TestSetup ts = new TestSetup(suite) {

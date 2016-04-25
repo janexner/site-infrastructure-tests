@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 
 public class PageTestDefinition implements Serializable {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 6L;
 
 	private String _pageURL;
 	private List<String> _dataLayerElementsThatMustExist;
@@ -26,6 +26,8 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _reportSuiteIDsThatMustReceiveTags;
 	private boolean _dtmLoaded;
 	private boolean _dtmInDebugMode;
+	private List<Map<String, String>> _dataElementsThatMustHaveASpecificValue;
+	private List<StringStringLongTuple> _dataElementsThatMustHaveSpecificValueAfterDelay;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -128,6 +130,24 @@ public class PageTestDefinition implements Serializable {
 
 	public boolean isDtmInDebugMode() {
 		return _dtmInDebugMode;
+	}
+
+	public List<Map<String, String>> getDataElementsThatMustHaveASpecificValue() {
+		return _dataElementsThatMustHaveASpecificValue;
+	}
+
+	public void setDataElementsThatMustHaveASpecificValue(
+			List<Map<String, String>> dataElementsThatMustHaveASpecificValue) {
+		this._dataElementsThatMustHaveASpecificValue = dataElementsThatMustHaveASpecificValue;
+	}
+
+	public List<StringStringLongTuple> getDataElementsThatMustHaveSpecificValueAfterDelay() {
+		return _dataElementsThatMustHaveSpecificValueAfterDelay;
+	}
+
+	public void setDataElementsThatMustHaveSpecificValueAfterDelay(
+			List<StringStringLongTuple> dataElementsThatMustHaveSpecificValueAfterDelay) {
+		this._dataElementsThatMustHaveSpecificValueAfterDelay = dataElementsThatMustHaveSpecificValueAfterDelay;
 	}
 
 	public void setDtmInDebugMode(boolean dtmInDebugMode) {
@@ -263,6 +283,34 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setReportSuiteIDsThatMustReceiveTags(rsidstmrt);
-	}
+
+		// get the list of dtm data elements that must have a specific value
+		List<Map<String, String>> demv = new ArrayList<Map<String, String>>();
+		JSONArray demvlist = (JSONArray) jsonObject.get("dataElementsThatMustHaveASpecificValue");
+		if (null != demvlist) {
+			for (Iterator<Map<String, String>> iterator = demvlist.iterator(); iterator.hasNext();) {
+				Map<String, String> el = iterator.next();
+				demv.add(el);
+			}
+		}
+		setDataElementsThatMustHaveASpecificValue(demv);
+
+		// get the list of dtm data elements that must have a specific value
+		// after delay
+		List<StringStringLongTuple> demvdd = new ArrayList<StringStringLongTuple>();
+		JSONArray demvddlist = (JSONArray) jsonObject.get("dataElementsThatMustHaveASpecificValueAfterDelay");
+		if (null != demvddlist) {
+			for (Iterator<JSONObject> iterator = demvddlist.iterator(); iterator.hasNext();) {
+				JSONObject el = iterator.next();
+				StringStringLongTuple el2 = new StringStringLongTuple();
+				el2.setName((String) el.get("name"));
+				el2.setValue((String) el.get("value"));
+				el2.setDelay((Long) el.get("delay"));
+				demvdd.add(el2);
+			}
+		}
+		setDataElementsThatMustHaveSpecificValueAfterDelay(demvdd);
+
+}
 
 }

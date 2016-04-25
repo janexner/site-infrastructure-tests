@@ -2,19 +2,25 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.dtm;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class DataElementValueTestCase extends WebDriverBasedTestCase {
+public class DataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
 	private final String _elementExpectedValue;
+	private final long _delay;
 
-	public DataElementValueTestCase(String pageURL, String elementName, String elementExpectedValue) {
+	public DataElementDelayedValueTestCase(String pageURL, String elementName, String elementExpectedValue,
+			long delay) {
 		super(pageURL);
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
-		setName("Data Element " + elementName + " value - " + pageURL);
+		_delay = delay;
+		setName("Date Element " + elementName + " delayed value - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
+		// wait
+		Thread.sleep(_delay);
+
 		// get the value of the dl element from the page
 		Object response = _jsExecutor.executeScript("return _satellite.getVar('" + _elementName + "');");
 
