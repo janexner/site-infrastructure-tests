@@ -51,7 +51,7 @@ Specify `true` or `false` to enable or disable testing for whether DTM is in deb
 
 The `dataLayerElementsThatMustExist` element allows you to specify a list of Javascript variables that will be checked for existence.
 
-This works very well with a [CEDDL-compatible data layer][ceddl]!
+This works very well with a [CEDDL-compatible data layer](https://www.w3.org/community/custexpdata/)
 
 Example: "dataLayerElementsThatMustExist": ["digitalData.page.pageInfo.pageName", "digitalData.page.pageInfo.language"]
 
@@ -185,9 +185,6 @@ The `delay` element lets you specify a time in milliseconds. The test for the va
 
 ### 2.14 `analyticsTagForReportSuiteFired` element
 
-The 
+The `analyticsTagForReportSuiteFired` element can be used to test whether a tracking call to a specific report suite ID has actually been made.
 
-Example: "analyticsTagForReportSuiteFired": [ "jexnertest" ]
-
-
-[ceddl]https://www.w3.org/community/custexpdata/
+Example: "analyticsTagForReportSuiteFired": [ "yourrsid" ]
