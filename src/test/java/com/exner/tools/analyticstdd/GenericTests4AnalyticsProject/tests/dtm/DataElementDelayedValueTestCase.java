@@ -13,7 +13,7 @@ public class DataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
 		_delay = delay;
-		setName("Date Element " + elementName + " delayed value - " + pageURL);
+		setName("DE " + elementName + " delayed value - " + pageURL);
 	}
 
 	@Override

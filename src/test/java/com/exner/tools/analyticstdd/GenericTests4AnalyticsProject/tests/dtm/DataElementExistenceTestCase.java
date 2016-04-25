@@ -14,8 +14,8 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript("if (typeof _satellite.getVar('" + _elementName
-				+ "') !== 'undefined') { return true } else { return false }");
+		Object response = _jsExecutor.executeScript("for(var de in _satellite.dataElements) { if (de == '"
+				+ _elementName + "') { return true; }} return false;");
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

@@ -18,7 +18,7 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		_ruleName = ruleName;
 		_triggerType = triggerType;
 		_triggerElement = triggerElement;
-		setName("Event-based Rule '" + _ruleName + "' execution - " + pageURL);
+		setName("EBR '" + _ruleName + "' execution - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
