@@ -24,6 +24,8 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _eventBasedRulesThatMustExist;
 	private List<Map<String, String>> _eventBasedRulesThatMustFire;
 	private List<String> _reportSuiteIDsThatMustReceiveTags;
+	private boolean _dtmLoaded;
+	private boolean _dtmInDebugMode;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -111,15 +113,43 @@ public class PageTestDefinition implements Serializable {
 	public List<String> getReportSuiteIDsThatMustReceiveTags() {
 		return _reportSuiteIDsThatMustReceiveTags;
 	}
-	
+
 	public void setReportSuiteIDsThatMustReceiveTags(List<String> reportSuiteIDsThatMustReceiveTags) {
 		_reportSuiteIDsThatMustReceiveTags = reportSuiteIDsThatMustReceiveTags;
+	}
+
+	public boolean isDtmLoaded() {
+		return _dtmLoaded;
+	}
+
+	public void setDtmLoaded(boolean dtmLoaded) {
+		this._dtmLoaded = dtmLoaded;
+	}
+
+	public boolean isDtmInDebugMode() {
+		return _dtmInDebugMode;
+	}
+
+	public void setDtmInDebugMode(boolean dtmInDebugMode) {
+		this._dtmInDebugMode = dtmInDebugMode;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
 		// get the pageURL
 		String pageURL = (String) jsonObject.get("pageURL");
 		setPageURL(pageURL);
+
+		// check whether DTM should be tests
+		JSONObject dtmStuff = (JSONObject) jsonObject.get("tagManagementDTMActive");
+		if (null != dtmStuff) {
+			boolean testDTMLoaded = (Boolean) dtmStuff.get("testLoaded");
+			setDtmLoaded(testDTMLoaded);
+			boolean testDTMInDebugMode = (Boolean) dtmStuff.get("testDebugMode");
+			setDtmInDebugMode(testDTMInDebugMode);
+		} else {
+			setDtmLoaded(false);
+			setDtmInDebugMode(false);
+		}
 
 		// get the list of data layer elements that must exist
 		List<String> dlemx = new ArrayList<String>();
@@ -141,8 +171,9 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setDataLayerElementsThatMustHaveSpecificValue(dlemv);
-		
-		// get the list of data layer elements that must have a specific value after delay
+
+		// get the list of data layer elements that must have a specific value
+		// after delay
 		List<StringStringLongTuple> dlemvdd = new ArrayList<StringStringLongTuple>();
 		JSONArray dlemvddlist = (JSONArray) jsonObject.get("dataLayerElementsThatMustHaveASpecificValueAfterDelay");
 		if (null != dlemvddlist) {
@@ -221,7 +252,7 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setEventBasedRulesThatMustFire(ebrmf);
-		
+
 		// get the list of rsids that must receive a tag
 		List<String> rsidstmrt = new ArrayList<String>();
 		JSONArray rsidstmrtlist = (JSONArray) jsonObject.get("analyticsTagForReportSuiteFired");

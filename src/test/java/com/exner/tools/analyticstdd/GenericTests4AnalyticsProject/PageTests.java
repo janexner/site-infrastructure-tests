@@ -27,8 +27,12 @@ public class PageTests extends TestSuite {
 
 		String pageURL = pageTestDefinition.getPageURL();
 
-		suite.addTest(new DTMLoadedTestCase(pageURL));
-		suite.addTest(new DTMIsInDebugModeTestCase(pageURL));
+		if (pageTestDefinition.isDtmLoaded()) {
+			suite.addTest(new DTMLoadedTestCase(pageURL));
+		}
+		if (pageTestDefinition.isDtmInDebugMode()) {
+			suite.addTest(new DTMIsInDebugModeTestCase(pageURL));
+		}
 		List<String> rsids = pageTestDefinition.getReportSuiteIDsThatMustReceiveTags();
 		for (Iterator<String> iterator = rsids.iterator(); iterator.hasNext();) {
 			String rsid = iterator.next();
