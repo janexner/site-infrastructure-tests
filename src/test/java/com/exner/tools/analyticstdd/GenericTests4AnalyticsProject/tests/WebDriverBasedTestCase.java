@@ -1,5 +1,8 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,6 +13,7 @@ import com.google.common.base.Predicate;
 import junit.framework.TestCase;
 
 public abstract class WebDriverBasedTestCase extends TestCase {
+	private final static Logger LOGGER = Logger.getLogger(WebDriverBasedTestCase.class.getName());
 
 	protected final String _pageURL;
 	protected WebDriver _webDriver;
@@ -19,10 +23,11 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 		super();
 		_pageURL = pageURL;
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		LOGGER.log(Level.FINE, "Setting up test for " + _pageURL);
 		_webDriver = AllTests.getWebDriverPool().borrowObject();
 		try {
 			_webDriver.get(_pageURL);
@@ -36,12 +41,12 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 			waiting.until(new Predicate<WebDriver>() {
 				public boolean apply(WebDriver driver) {
 					String testresult = (String) ((JavascriptExecutor) driver).executeScript("return typeof jQuery");
-					System.out.println("Page " + _pageURL + " - jQuery status: " + testresult);
+					LOGGER.log(Level.FINE, "Page " + _pageURL + " - jQuery status: " + testresult);
 					return testresult.equals("function");
 				}
 			});
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			LOGGER.log(Level.SEVERE, e.getMessage());
 			AllTests.getWebDriverPool().returnObject(_webDriver);
 			_webDriver = null;
 		}
@@ -50,6 +55,7 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
+		LOGGER.log(Level.FINE, "Tearing down test for " + _pageURL);
 		if (null != _webDriver) {
 			AllTests.getWebDriverPool().returnObject(_webDriver);
 		}

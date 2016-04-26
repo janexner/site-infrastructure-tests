@@ -3,6 +3,8 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedValueTestCase;
@@ -25,11 +27,12 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 public class PageTests extends TestSuite {
+	private final static Logger LOGGER = Logger.getLogger(PageTests.class.getName());
 
 	public static Test suite(PageTestDefinition pageTestDefinition) {
 		TestSuite suite = new TestSuite("PageTests " + pageTestDefinition.getPageURL());
 
-		String pageURL = pageTestDefinition.getPageURL();
+		final String pageURL = pageTestDefinition.getPageURL();
 
 		if (pageTestDefinition.isDtmLoaded()) {
 			suite.addTest(new DTMLoadedTestCase(pageURL));
@@ -105,9 +108,8 @@ public class PageTests extends TestSuite {
 
 		TestSetup ts = new TestSetup(suite) {
 			protected void tearDown() throws Exception {
-				System.out.println("Page tearDown ");
+				LOGGER.log(Level.CONFIG, "Tearing down test for " + pageURL);
 			}
-
 		};
 
 		return ts;

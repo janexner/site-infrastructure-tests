@@ -1,9 +1,12 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.pool2.PoolUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -20,13 +23,24 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
+	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	private static GenericObjectPool<WebDriver> _webDriverPool;
 
 	public static Test suite() throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		// try loading JSON from the file
 		JSONParser parser = new JSONParser();
-		Object stuff = parser.parse(new FileReader(TESTDESCRIPTIONFILENAME));
+		String filename = TESTDESCRIPTIONFILENAME;
+		String fnProperty = System.getProperty("test.description.file");
+		if (null != fnProperty && fnProperty.length() > 0) {
+			filename = fnProperty;
+		}
+		File tempFile = new File(fnProperty);
+		if (!tempFile.exists() || !tempFile.canRead()) {
+			throw new FileNotFoundException("Could not find test description file " + filename);
+		}
+		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
+		Object stuff = parser.parse(new FileReader(filename));
 		JSONObject jsonObject = (JSONObject) stuff;
 
 		// use the JSON for test setup
@@ -44,7 +58,7 @@ public class AllTests extends TestSuite {
 		TestSetup ts = new TestSetup(suite) {
 
 			protected void setUp() throws Exception {
-				System.out.println("Global setUp");
+				LOGGER.log(Level.INFO, "Setting up web driver pool");
 				GenericObjectPoolConfig _webDriverPoolConfig = new GenericObjectPoolConfig();
 				_webDriverPoolConfig.setBlockWhenExhausted(true);
 				_webDriverPoolConfig.setMinIdle(5);
@@ -55,7 +69,7 @@ public class AllTests extends TestSuite {
 			}
 
 			protected void tearDown() throws Exception {
-				System.out.println("Global tearDown");
+				LOGGER.log(Level.CONFIG, "Closing web driver pool");
 				_webDriverPool.close();
 			}
 
