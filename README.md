@@ -6,6 +6,8 @@ This project contains code that you can use to build your own test suite.
 
 A JSON file (testdescription.json) contains all pages to be tested along with their tests. If you run the test, the AllTests test suite reads that file, then generates a dynamic test suite for each page. All of those will then run.
 
+You can specify which testdescription the test suite will read by specifying the `test.description.file` property when you run the test.
+
 ## Format of testdescription.json file
 
 The `testdescription.json` file has two top level elements:
