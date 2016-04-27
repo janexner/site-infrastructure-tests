@@ -44,6 +44,11 @@
       		"value": "Home",
       		"delay": 1500
       	}
+      ],
+      "elementsSelectedByCSSSelectorThatMustExistInDOM": [
+      	"body",
+      	"h1",
+      	"div#author"
       ]
     },
     {

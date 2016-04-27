@@ -1,11 +1,5 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
-import junit.framework.TestCase;
-
 public class DataLayerElementExistenceTestCase extends WebDriverBasedTestCase {
 	private String _elementName;
 
@@ -27,7 +21,6 @@ public class DataLayerElementExistenceTestCase extends WebDriverBasedTestCase {
 		} else {
 			fail("Data Layer element " + _elementName + " does not exist");
 		}
-
 	}
 
 }

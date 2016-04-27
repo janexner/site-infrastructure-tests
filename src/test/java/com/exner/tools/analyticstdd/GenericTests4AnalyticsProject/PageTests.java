@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DOMElementForSelectorExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
@@ -104,6 +105,10 @@ public class PageTests extends TestSuite {
 		String globalMboxName = pageTestDefinition.getGlobalMboxName();
 		if (null != globalMboxName && !globalMboxName.isEmpty()) {
 			suite.addTest(new GlobalMboxExistenceTestCase(pageURL, globalMboxName));
+		}
+		for (Iterator<String> iterator = pageTestDefinition.getElementsByDOMSelectorThatMustExist().iterator(); iterator
+				.hasNext();) {
+			suite.addTest(new DOMElementForSelectorExistenceTestCase(pageURL, iterator.next()));
 		}
 
 		TestSetup ts = new TestSetup(suite) {

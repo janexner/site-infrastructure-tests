@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 
 public class PageTestDefinition implements Serializable {
 
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 
 	private String _pageURL;
 	private List<String> _dataLayerElementsThatMustExist;
@@ -30,6 +30,7 @@ public class PageTestDefinition implements Serializable {
 	private List<StringStringLongTuple> _dataElementsThatMustHaveSpecificValueAfterDelay;
 	private boolean _targetJSLoaded;
 	private String _globalMboxName;
+	private List<String> _elementsByDOMSelectorThatMustExist;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -170,6 +171,14 @@ public class PageTestDefinition implements Serializable {
 
 	public void setGlobalMboxName(String globalMboxName) {
 		_globalMboxName = globalMboxName;
+	}
+
+	public List<String> getElementsByDOMSelectorThatMustExist() {
+		return _elementsByDOMSelectorThatMustExist;
+	}
+
+	public void setElementsByDOMSelectorThatMustExist(List<String> elementsByDOMSelectorThatMustExist) {
+		_elementsByDOMSelectorThatMustExist = elementsByDOMSelectorThatMustExist;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -344,6 +353,16 @@ public class PageTestDefinition implements Serializable {
 				setGlobalMboxName(globalMboxName);
 			}
 		}
+
+		// get list of DOM selectors for tests
+		List<String> ebds = new ArrayList<String>();
+		JSONArray ebdslist = (JSONArray) jsonObject.get("elementsSelectedByCSSSelectorThatMustExistInDOM");
+		if (null != ebdslist) {
+			for (Iterator<String> iterator = ebdslist.iterator(); iterator.hasNext();) {
+				ebds.add(iterator.next());
+			}
+		}
+		setElementsByDOMSelectorThatMustExist(ebds);
 	}
 
 }
