@@ -13,7 +13,8 @@ public class DataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
 		_delay = delay;
-		setName("DE " + elementName + " delayed value - " + pageURL);
+		setName("DTM DE " + elementName + " value is " + _elementExpectedValue + " after " + _delay + "ms - "
+				+ pageURL);
 	}
 
 	@Override
@@ -26,8 +27,8 @@ public class DataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (null != response && String.class.isAssignableFrom(response.getClass())) {
-			assertEquals("Data Element " + _elementName + " value should be " + _elementExpectedValue,
-					_elementExpectedValue, (String) response);
+			assertEquals("Data Element " + _elementName + " value should be " + _elementExpectedValue + " after "
+					+ _delay + "ms", _elementExpectedValue, (String) response);
 		} else {
 			fail("Data Element " + _elementName + " does not exist");
 		}

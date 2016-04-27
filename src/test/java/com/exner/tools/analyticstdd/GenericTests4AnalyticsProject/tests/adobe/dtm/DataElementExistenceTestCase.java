@@ -8,7 +8,7 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	public DataElementExistenceTestCase(String pageURL, String elementName) {
 		super(pageURL);
 		_elementName = elementName;
-		setName("DE " + elementName + " existence - " + pageURL);
+		setName("DTM DE " + elementName + " exists - " + pageURL);
 	}
 
 	@Override
@@ -19,9 +19,9 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Data Element " + _elementName + " must exist", (Boolean) response);
+			assertTrue("DTM DE " + _elementName + " must exist", (Boolean) response);
 		} else {
-			fail("Data Element " + _elementName + " does not exist");
+			fail("DTM DE " + _elementName + " does not exist");
 		}
 
 	}

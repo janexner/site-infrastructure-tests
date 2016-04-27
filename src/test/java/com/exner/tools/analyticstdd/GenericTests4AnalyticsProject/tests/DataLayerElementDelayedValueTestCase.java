@@ -11,7 +11,8 @@ public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
 		_delay = delay;
-		setName(elementName + " delayed value - " + pageURL);
+		setName("Data Layer element " + elementName + " value is " + _elementExpectedValue + " after " + _delay
+				+ "ms - " + pageURL);
 	}
 
 	@Override
@@ -25,8 +26,8 @@ public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
-			assertEquals("Data Layer element " + _elementName + " value should be " + _elementExpectedValue,
-					_elementExpectedValue, (String) response);
+			assertEquals("Data Layer element " + _elementName + " value should be " + _elementExpectedValue + "after "
+					+ _delay + "ms", _elementExpectedValue, (String) response);
 		} else {
 			fail("Data Layer element " + _elementName + " does not exist");
 		}

@@ -12,7 +12,7 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
 		super(pageURL);
 		_ruleName = eventBasedRuleName;
-		setName("EBR '" + eventBasedRuleName + "' existence - " + pageURL);
+		setName("DTM EBR " + eventBasedRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +33,7 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("Unable to find Event-based Rule: " + _ruleName);
+		fail("DTM EBR " + _ruleName + " doesn't exist");
 	}
 
 }

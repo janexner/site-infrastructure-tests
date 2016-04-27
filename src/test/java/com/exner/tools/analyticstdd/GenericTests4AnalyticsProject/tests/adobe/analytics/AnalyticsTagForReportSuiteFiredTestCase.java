@@ -21,7 +21,7 @@ public class AnalyticsTagForReportSuiteFiredTestCase extends WebDriverBasedTestC
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
 			assertTrue("Adobe Analytics tag to " + _rsid + " must fire", (Boolean) response);
 		} else {
-			fail("Adobe Analytics tag to " + _rsid + " has fired");
+			fail("Adobe Analytics tag to " + _rsid + " has not fired");
 		}
 
 	}

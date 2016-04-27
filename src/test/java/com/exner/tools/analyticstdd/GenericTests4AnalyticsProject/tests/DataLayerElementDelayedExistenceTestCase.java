@@ -8,21 +8,22 @@ public class DataLayerElementDelayedExistenceTestCase extends WebDriverBasedTest
 		super(pageURL);
 		_elementName = elementName;
 		_milliseconds = delay;
-		setName(elementName + " delayed existence " + delay + "ms - " + pageURL);
+		setName("Data Layer element" + elementName + " exists after " + delay + "ms - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
 		// wait
 		Thread.sleep(_milliseconds);
-		
+
 		// get the value of the dl element from the page
 		Object response = _jsExecutor.executeScript(
 				"if (typeof " + _elementName + " !== 'undefined') { return true } else { return false }");
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Data Layer element " + _elementName + " must exist", (Boolean) response);
+			assertTrue("Data Layer element " + _elementName + " must exist after " + _milliseconds + "ms",
+					(Boolean) response);
 		} else {
 			fail("Data Layer element " + _elementName + " does not exist");
 		}

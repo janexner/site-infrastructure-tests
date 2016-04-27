@@ -12,7 +12,7 @@ public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public DirectCallRuleExistenceTestCase(String pageURL, String directCallRuleName) {
 		super(pageURL);
 		_ruleName = directCallRuleName;
-		setName("DCR '" + directCallRuleName + "' existence - " + pageURL);
+		setName("DTM DCR " + directCallRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,6 +33,6 @@ public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("Unable to find Direct-call Rule: " + _ruleName);
+		fail("DTM DCR " + _ruleName + "doesn't exist");
 	}
 }

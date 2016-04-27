@@ -18,7 +18,7 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		_ruleName = ruleName;
 		_triggerType = triggerType;
 		_triggerElement = triggerElement;
-		setName("EBR '" + _ruleName + "' execution - " + pageURL);
+		setName("DTM EBR " + _ruleName + " fires - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -50,7 +50,7 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("Rule '" + _ruleName + "' didn't fire here");
+		fail("DTM EBR " + _ruleName + "doesn't fire");
 	}
 
 }

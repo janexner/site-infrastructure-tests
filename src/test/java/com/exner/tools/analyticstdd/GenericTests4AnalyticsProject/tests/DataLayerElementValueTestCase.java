@@ -8,7 +8,7 @@ public class DataLayerElementValueTestCase extends WebDriverBasedTestCase {
 		super(pageURL);
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
-		setName(elementName + " value - " + pageURL);
+		setName("Data Layer element " + elementName + " value is " + _elementExpectedValue + " - " + pageURL);
 	}
 
 	@Override

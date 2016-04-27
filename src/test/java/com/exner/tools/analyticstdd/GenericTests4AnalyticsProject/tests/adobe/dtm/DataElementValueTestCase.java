@@ -10,7 +10,7 @@ public class DataElementValueTestCase extends WebDriverBasedTestCase {
 		super(pageURL);
 		_elementName = elementName;
 		_elementExpectedValue = elementExpectedValue;
-		setName("DE " + elementName + " value - " + pageURL);
+		setName("DTM DE " + elementName + " value is " + _elementExpectedValue + " - " + pageURL);
 	}
 
 	@Override

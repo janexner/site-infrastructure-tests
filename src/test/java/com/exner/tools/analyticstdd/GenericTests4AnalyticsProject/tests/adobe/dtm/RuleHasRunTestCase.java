@@ -11,7 +11,7 @@ public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
 		super(pageURL);
 		_ruleName = pageLoadRuleName;
-		setName("Rule '" + pageLoadRuleName + "' execution - " + pageURL);
+		setName("DTM Rule " + pageLoadRuleName + " fires - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +33,7 @@ public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("Rule '" + _ruleName + "' didn't fire here");
+		fail("DTM Rule " + _ruleName + " doesn't fire");
 	}
 
 }

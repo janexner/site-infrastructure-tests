@@ -9,7 +9,7 @@ public class DOMElementForSelectorExistenceTestCase extends WebDriverBasedTestCa
 	public DOMElementForSelectorExistenceTestCase(String pageURL, String elementSelector) {
 		super(pageURL);
 		_elementSelector = elementSelector;
-		setName("DOM element " + _elementSelector + " existence - " + _pageURL);
+		setName("DOM element " + _elementSelector + " exists - " + _pageURL);
 	}
 
 	@Override

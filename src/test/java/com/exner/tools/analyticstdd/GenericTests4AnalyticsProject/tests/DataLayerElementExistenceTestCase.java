@@ -6,7 +6,7 @@ public class DataLayerElementExistenceTestCase extends WebDriverBasedTestCase {
 	public DataLayerElementExistenceTestCase(String pageURL, String elementName) {
 		super(pageURL);
 		_elementName = elementName;
-		setName(elementName + " existence - " + pageURL);
+		setName("Data Layer element " + elementName + " exists - " + pageURL);
 	}
 
 	@Override

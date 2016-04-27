@@ -17,7 +17,7 @@ public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("DTM must exist", (Boolean) response);
+			assertTrue("DTM must load", (Boolean) response);
 		} else {
 			fail("DTM not loaded");
 		}

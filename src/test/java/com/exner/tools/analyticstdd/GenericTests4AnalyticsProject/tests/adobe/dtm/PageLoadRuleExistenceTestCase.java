@@ -12,7 +12,7 @@ public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public PageLoadRuleExistenceTestCase(String pageURL, String pageLoadRuleName) {
 		super(pageURL);
 		_ruleName = pageLoadRuleName;
-		setName("PLR '" + pageLoadRuleName + "' existence - " + pageURL);
+		setName("DTM PLR " + pageLoadRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,6 +33,6 @@ public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("Unable to find Page Load Rule: " + _ruleName);
+		fail("DTM PLR " + _ruleName + " doesn't exist");
 	}
 }
