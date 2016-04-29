@@ -1,0 +1,37 @@
+{
+  "name": "conrad.de",
+  "pagesToTest": [
+    {
+      "pageURL": "http://www.conrad.de/",
+      "tagManagementDTMActive": {
+      	"testLoaded": true,
+      	"testDebugMode": true
+      },
+      "dataLayerElementsThatMustExist": [ "digitalData.page.pageInfo.pageName" ],
+      "dataLayerElementsThatMustHaveASpecificValue": [
+        {
+          "name": "digitalData.page.pageInfo.pageName",
+          "value": "Homepage"
+        }
+      ],
+      "pageLoadRulesThatMustExist": [ "Analytics General Tracking" ],
+      "pageLoadRulesThatMustHaveRun": [ "Analytics General Tracking" ],
+      "dataElementsThatMustHaveASpecificValue": [
+      	{
+      		"name": "Pagename (eVar 1)",
+      		"value": "Homepage"
+      	}
+      ],
+    },
+    {
+    	"pageURL": "https://www.conrad.de/de/monitoring-product-777000-latest-step-update-2015-01-07-135414-777000.html",
+    	"dataLayerElementsThatMustHaveASpecificValueAfterDelay": [
+    		{
+    			"name": "digitalData.product[0].productInfo.productIDShort",
+    			"value": "777000",
+    			"delay": 200
+    		}
+    	]
+    }
+	]
+}

@@ -12,8 +12,6 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLaye
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsTagForReportSuiteFiredTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.at.GlobalMboxExistenceTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.at.MBoxJSLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMIsInDebugModeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DataElementDelayedValueTestCase;
@@ -22,6 +20,8 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dt
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.EventBasedRuleHasRunTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.PageLoadRuleExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.RuleHasRunTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target.GlobalMboxExistenceTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target.MBoxJSLoadedTestCase;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
