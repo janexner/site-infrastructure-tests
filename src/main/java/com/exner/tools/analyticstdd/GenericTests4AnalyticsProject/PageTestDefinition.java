@@ -31,6 +31,7 @@ public class PageTestDefinition implements Serializable {
 	private boolean _targetJSLoaded;
 	private String _globalMboxName;
 	private List<String> _elementsByDOMSelectorThatMustExist;
+	private boolean _analyticsJSLoaded;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -179,6 +180,14 @@ public class PageTestDefinition implements Serializable {
 
 	public void setElementsByDOMSelectorThatMustExist(List<String> elementsByDOMSelectorThatMustExist) {
 		_elementsByDOMSelectorThatMustExist = elementsByDOMSelectorThatMustExist;
+	}
+
+	public void setAnalyticsJSLoaded(boolean analyticsJSLoaded) {
+		_analyticsJSLoaded = analyticsJSLoaded;
+	}
+
+	public boolean isAnalyticsJSLoaded() {
+		return _analyticsJSLoaded;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -363,6 +372,13 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setElementsByDOMSelectorThatMustExist(ebds);
+		
+		// get flag for testing s_code.js load
+		temp = jsonObject.get("analyticsJSLoaded");
+		if (null != temp) {
+			boolean analyticsLoadedTest = (Boolean) jsonObject.get("analyticsJSLoaded");
+			setAnalyticsJSLoaded(analyticsLoadedTest);
+		}
 	}
 
 }
