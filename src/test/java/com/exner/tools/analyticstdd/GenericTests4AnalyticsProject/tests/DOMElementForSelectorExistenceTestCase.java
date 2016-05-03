@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class DOMElementForSelectorExistenceTestCase extends WebDriverBasedTestCase {
@@ -15,7 +16,13 @@ public class DOMElementForSelectorExistenceTestCase extends WebDriverBasedTestCa
 	@Override
 	protected void runTest() throws Throwable {
 		// try finding the element in the page
-		WebElement element = _webDriver.findElement(By.cssSelector(_elementSelector));
+		WebElement element = null;
+		try {
+			element = _webDriver.findElement(By.cssSelector(_elementSelector));
+		} catch (NoSuchElementException e) {
+			// it ain't there
+			fail("DOM element " + _elementSelector + " must exist");
+		}
 
 		// make sure the element exists
 		assertNotNull("DOM element " + _elementSelector + " must exist", element);
