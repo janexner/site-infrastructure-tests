@@ -7,6 +7,7 @@
       	"testLoaded": true,
       	"testDebugMode": true
       },
+      "jQueryActive": true,
       "analyticsJSLoaded": true,
       "analyticsTagForReportSuiteFired": [ "jexnertest" ],
       "dataLayerElementsThatMustHaveASpecificValue": [

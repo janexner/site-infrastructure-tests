@@ -11,6 +11,7 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLaye
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementDelayedValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeHasLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsTagForReportSuiteFiredTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMIsInDebugModeTestCase;
@@ -64,6 +65,9 @@ public class PageTests extends TestSuite {
 		}
 		
 		// test page infrastructure (DTM, Analytics, Target, ... setup)
+		if (pageTestDefinition.isjQueryLoaded()) {
+			suite.addTest(new JQueryLoadedTestCase(pageURL));
+		}
 		if (pageTestDefinition.isDtmLoaded()) {
 			suite.addTest(new DTMLoadedTestCase(pageURL));
 		}

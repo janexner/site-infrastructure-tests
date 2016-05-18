@@ -32,6 +32,7 @@ public class PageTestDefinition implements Serializable {
 	private String _globalMboxName;
 	private List<String> _elementsByDOMSelectorThatMustExist;
 	private boolean _analyticsJSLoaded;
+	private boolean _jQueryLoaded;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -188,6 +189,14 @@ public class PageTestDefinition implements Serializable {
 
 	public boolean isAnalyticsJSLoaded() {
 		return _analyticsJSLoaded;
+	}
+
+	public boolean isjQueryLoaded() {
+		return _jQueryLoaded;
+	}
+
+	public void setjQueryLoaded(boolean jQueryLoaded) {
+		_jQueryLoaded = jQueryLoaded;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -372,13 +381,21 @@ public class PageTestDefinition implements Serializable {
 			}
 		}
 		setElementsByDOMSelectorThatMustExist(ebds);
-		
+
 		// get flag for testing s_code.js load
 		temp = jsonObject.get("analyticsJSLoaded");
 		if (null != temp) {
 			boolean analyticsLoadedTest = (Boolean) jsonObject.get("analyticsJSLoaded");
 			setAnalyticsJSLoaded(analyticsLoadedTest);
 		}
+
+		// check whether jQuery should be tested
+		temp = jsonObject.get("jQueryActive");
+		if (null != temp) {
+			boolean testJQueryLoaded = (Boolean) jsonObject.get("jQueryActive");
+			setjQueryLoaded(testJQueryLoaded);
+		}
+
 	}
 
 }
