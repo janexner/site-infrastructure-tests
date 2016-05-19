@@ -33,6 +33,8 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _elementsByDOMSelectorThatMustExist;
 	private boolean _analyticsJSLoaded;
 	private boolean _jQueryLoaded;
+	private String _jQueryMinVersion;
+	private String _jQueryMaxVersion;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -199,6 +201,22 @@ public class PageTestDefinition implements Serializable {
 		_jQueryLoaded = jQueryLoaded;
 	}
 
+	public String getjQueryMinVersion() {
+		return _jQueryMinVersion;
+	}
+
+	public void setjQueryMinVersion(String jQueryMinVersion) {
+		_jQueryMinVersion = jQueryMinVersion;
+	}
+
+	public String getjQueryMaxVersion() {
+		return _jQueryMaxVersion;
+	}
+
+	public void setjQueryMaxVersion(String jQueryMaxVersion) {
+		_jQueryMaxVersion = jQueryMaxVersion;
+	}
+
 	public void createFromJSON(JSONObject jsonObject) {
 		// get the pageURL
 		String pageURL = (String) jsonObject.get("pageURL");
@@ -214,6 +232,17 @@ public class PageTestDefinition implements Serializable {
 		} else {
 			setDtmLoaded(false);
 			setDtmInDebugMode(false);
+		}
+
+		// check whether jQuery should be tested
+		JSONObject jQueryStuff = (JSONObject) jsonObject.get("jQuery");
+		if (null != jQueryStuff) {
+			boolean testJQueryLoaded = (Boolean) jQueryStuff.get("testLoaded");
+			setjQueryLoaded(testJQueryLoaded);
+			String minVersion = (String) jQueryStuff.get("testMinVersion");
+			setjQueryMinVersion(minVersion);
+			String maxVersion = (String) jQueryStuff.get("testMaxVersion");
+			setjQueryMaxVersion(maxVersion);
 		}
 
 		// get the list of data layer elements that must exist
@@ -387,13 +416,6 @@ public class PageTestDefinition implements Serializable {
 		if (null != temp) {
 			boolean analyticsLoadedTest = (Boolean) jsonObject.get("analyticsJSLoaded");
 			setAnalyticsJSLoaded(analyticsLoadedTest);
-		}
-
-		// check whether jQuery should be tested
-		temp = jsonObject.get("jQueryActive");
-		if (null != temp) {
-			boolean testJQueryLoaded = (Boolean) jsonObject.get("jQueryActive");
-			setjQueryLoaded(testJQueryLoaded);
 		}
 
 	}
