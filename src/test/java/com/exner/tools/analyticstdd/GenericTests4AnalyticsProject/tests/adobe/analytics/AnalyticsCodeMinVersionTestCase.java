@@ -8,7 +8,7 @@ public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 
 	public AnalyticsCodeMinVersionTestCase(String pageURL, String minVersion) {
 		super(pageURL);
-		setName("Analytics code min version " + minVersion + " - " + pageURL);
+		setName(Tools.AA + " code min version " + minVersion + " - " + pageURL);
 		_minVersion = minVersion;
 	}
 
@@ -16,14 +16,14 @@ public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
 		Object response = _jsExecutor.executeScript(
-				"if (typeof Visitor !== 'undefined') { return Visitor.version } else { return 'unavailable' }");
+				"if (typeof AppMeasurement !== 'undefined') { return (new AppMeasurement()).version } else if (typeof s_gi !== 'undefined') { return s.version } else { return 'unavailable' }");
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-			assertTrue("Analytics code min version should be " + _minVersion, result);
+			assertTrue(Tools.AA + " code min version should be " + _minVersion, result);
 		} else {
-			fail("Analytics code version not available");
+			fail(Tools.AA + " code version not available");
 		}
 
 	}

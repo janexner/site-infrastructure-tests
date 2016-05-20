@@ -8,7 +8,7 @@ public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 
 	public VisitorIDServiceMinVersionTestCase(String pageURL, String minVersion) {
 		super(pageURL);
-		setName("Visitor ID Service min version " + minVersion + " - " + pageURL);
+		setName(Tools.MCVID + " min version " + minVersion + " - " + pageURL);
 		_minVersion = minVersion;
 	}
 
@@ -21,9 +21,9 @@ public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-			assertTrue("Visitor ID Service min version should be " + _minVersion, result);
+			assertTrue(Tools.MCVID + " min version should be " + _minVersion, result);
 		} else {
-			fail("Visitor ID Service version not available");
+			fail(Tools.MCVID + " version not available");
 		}
 
 	}

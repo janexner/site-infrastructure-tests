@@ -1,12 +1,13 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class AnalyticsCodeHasLoadedTestCase extends WebDriverBasedTestCase {
 
 	public AnalyticsCodeHasLoadedTestCase(String pageURL) {
 		super(pageURL);
-		setName("Adobe Analytics JS code loaded on page - " + pageURL);
+		setName(Tools.AA + " JS code loaded on page - " + pageURL);
 	}
 
 	@Override
@@ -17,9 +18,9 @@ public class AnalyticsCodeHasLoadedTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Adobe Analytics JS code must be loaded", (Boolean) response);
+			assertTrue(Tools.AA + " JS code must be loaded", (Boolean) response);
 		} else {
-			fail("Adobe Analytics JS code has not been loaded");
+			fail(Tools.AA + " JS code has not been loaded");
 		}
 	}
 

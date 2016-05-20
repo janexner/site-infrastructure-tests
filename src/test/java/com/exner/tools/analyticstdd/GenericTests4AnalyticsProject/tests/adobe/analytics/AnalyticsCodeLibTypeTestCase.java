@@ -1,5 +1,6 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class AnalyticsCodeLibTypeTestCase extends WebDriverBasedTestCase {
@@ -7,7 +8,7 @@ public class AnalyticsCodeLibTypeTestCase extends WebDriverBasedTestCase {
 
 	public AnalyticsCodeLibTypeTestCase(String pageURL, String libType) {
 		super(pageURL);
-		setName("Adobe Analytics code type " + libType + " - " + pageURL);
+		setName(Tools.AA + " code type " + libType + " - " + pageURL);
 		_libType = libType;
 	}
 
@@ -19,9 +20,9 @@ public class AnalyticsCodeLibTypeTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
-			assertEquals("Adobe Analytics code type must be " + _libType, (String) response, _libType);
+			assertEquals(Tools.AA + " code type must be " + _libType, (String) response, _libType);
 		} else {
-			fail("Adobe Analytics code has not found");
+			fail(Tools.AA + " code has not found");
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class GlobalMboxExistenceTestCase extends WebDriverBasedTestCase {
@@ -8,7 +9,7 @@ public class GlobalMboxExistenceTestCase extends WebDriverBasedTestCase {
 	public GlobalMboxExistenceTestCase(String pageURL, String mboxName) {
 		super(pageURL);
 		_mboxName = mboxName;
-		setName("Adobe Target global mbox " + mboxName + " exists - " + pageURL);
+		setName(Tools.AT + " global mbox " + mboxName + " exists - " + pageURL);
 	}
 
 	@Override
@@ -19,9 +20,9 @@ public class GlobalMboxExistenceTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Adobe Target global mbox " + _mboxName + " must exist", (Boolean) response);
+			assertTrue(Tools.AT + " global mbox " + _mboxName + " must exist", (Boolean) response);
 		} else {
-			fail("Adobe Target global mbox " + _mboxName + " does not exist");
+			fail(Tools.AT + " global mbox " + _mboxName + " does not exist");
 		}
 	}
 

@@ -1,12 +1,13 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
 	
 	public VisitorIDServiceLoadedTestCase(String pageURL) {
 		super(pageURL);
-		setName("Visitor ID Service loaded - " + pageURL);
+		setName(Tools.MCVID + " loaded - " + pageURL);
 	}
 
 	@Override
@@ -17,9 +18,9 @@ public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Visitor ID Service must load", (Boolean) response);
+			assertTrue(Tools.MCVID + " must load", (Boolean) response);
 		} else {
-			fail("Visitor ID Service not loaded");
+			fail(Tools.MCVID + " not loaded");
 		}
 
 	}

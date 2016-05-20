@@ -8,7 +8,7 @@ public class VisitorIDServiceMaxVersionTestCase extends WebDriverBasedTestCase {
 
 	public VisitorIDServiceMaxVersionTestCase(String pageURL, String maxVersion) {
 		super(pageURL);
-		setName("Visitor ID Service max version " + maxVersion + " - " + pageURL);
+		setName(Tools.MCVID + " max version " + maxVersion + " - " + pageURL);
 		_maxVersion = maxVersion;
 	}
 
@@ -21,9 +21,9 @@ public class VisitorIDServiceMaxVersionTestCase extends WebDriverBasedTestCase {
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionNotNewerThanBaseVersion((String) response, _maxVersion);
-			assertTrue("Visitor ID Service max version should be " + _maxVersion, result);
+			assertTrue(Tools.MCVID + " max version should be " + _maxVersion, result);
 		} else {
-			fail("Visitor ID Service version not available");
+			fail(Tools.MCVID + " version not available");
 		}
 
 	}

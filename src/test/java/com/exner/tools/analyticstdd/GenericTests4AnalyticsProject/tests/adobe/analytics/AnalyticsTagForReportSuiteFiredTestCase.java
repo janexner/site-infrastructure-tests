@@ -1,5 +1,6 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class AnalyticsTagForReportSuiteFiredTestCase extends WebDriverBasedTestCase {
@@ -7,7 +8,7 @@ public class AnalyticsTagForReportSuiteFiredTestCase extends WebDriverBasedTestC
 
 	public AnalyticsTagForReportSuiteFiredTestCase(String pageURL, String rsid) {
 		super(pageURL);
-		setName("Adobe Analytics tag sent to " + rsid + " - " + pageURL);
+		setName(Tools.AA + " tag sent to " + rsid + " - " + pageURL);
 		_rsid = rsid;
 	}
 
@@ -19,9 +20,9 @@ public class AnalyticsTagForReportSuiteFiredTestCase extends WebDriverBasedTestC
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Adobe Analytics tag to " + _rsid + " must fire", (Boolean) response);
+			assertTrue(Tools.AA + " tag to " + _rsid + " must fire", (Boolean) response);
 		} else {
-			fail("Adobe Analytics tag to " + _rsid + " has not fired");
+			fail(Tools.AA + " tag to " + _rsid + " has not fired");
 		}
 
 	}

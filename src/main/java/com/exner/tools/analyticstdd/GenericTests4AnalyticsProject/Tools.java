@@ -1,6 +1,12 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 public class Tools {
+	
+	public static final String DTM = "DTM";
+	public static final String AA = "Adobe Analytics";
+	public static final String AT = "Adobe Target";
+	public static final String AAM = "Adobe Audience Manager";
+	public static final String MCVID = "Marketing Cloud Visitor ID Service";
 
 	public static boolean testVersionNotOlderThanBaseVersion(String version, String versionBase) {
 		String[] testVersionElements = version.split("\\.");
