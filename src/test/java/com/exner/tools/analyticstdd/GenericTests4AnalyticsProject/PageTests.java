@@ -15,7 +15,12 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryLo
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryMaxVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeHasLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeLibTypeTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsTagForReportSuiteFiredTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceLoadedTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceMaxVersionTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMIsInDebugModeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DataElementDelayedValueTestCase;
@@ -65,7 +70,7 @@ public class PageTests extends TestSuite {
 				.hasNext();) {
 			suite.addTest(new DOMElementForSelectorExistenceTestCase(pageURL, iterator.next()));
 		}
-		
+
 		// test page infrastructure (DTM, Analytics, Target, ... setup)
 		if (pageTestDefinition.isjQueryLoaded()) {
 			suite.addTest(new JQueryLoadedTestCase(pageURL));
@@ -77,6 +82,17 @@ public class PageTests extends TestSuite {
 		String jQueryMaxVersion = pageTestDefinition.getjQueryMaxVersion();
 		if (null != jQueryMaxVersion && !jQueryMaxVersion.isEmpty()) {
 			suite.addTest(new JQueryMaxVersionTestCase(pageURL, jQueryMaxVersion));
+		}
+		if (pageTestDefinition.isVisitorIDServiceLoaded()) {
+			suite.addTest(new VisitorIDServiceLoadedTestCase(pageURL));
+		}
+		String visitorIDServiceMinVersion = pageTestDefinition.getVisitorIDServiceMinVersion();
+		if (null != visitorIDServiceMinVersion && !visitorIDServiceMinVersion.isEmpty()) {
+			suite.addTest(new VisitorIDServiceMinVersionTestCase(pageURL, visitorIDServiceMinVersion));
+		}
+		String visitorIDServiceMaxVersion = pageTestDefinition.getVisitorIDServiceMaxVersion();
+		if (null != visitorIDServiceMaxVersion && !visitorIDServiceMaxVersion.isEmpty()) {
+			suite.addTest(new VisitorIDServiceMaxVersionTestCase(pageURL, visitorIDServiceMaxVersion));
 		}
 		if (pageTestDefinition.isDtmLoaded()) {
 			suite.addTest(new DTMLoadedTestCase(pageURL));
@@ -93,6 +109,14 @@ public class PageTests extends TestSuite {
 		}
 		if (pageTestDefinition.isAnalyticsJSLoaded()) {
 			suite.addTest(new AnalyticsCodeHasLoadedTestCase(pageURL));
+		}
+		String libType = pageTestDefinition.getAnalyticsJSLibType();
+		if (null != libType && !libType.isEmpty()) {
+			suite.addTest(new AnalyticsCodeLibTypeTestCase(pageURL, libType));
+		}
+		String analyticsJSMinVersion = pageTestDefinition.getAnalyticsJSMinVersion();
+		if (null != analyticsJSMinVersion && !analyticsJSMinVersion.isEmpty()) {
+			suite.addTest(new AnalyticsCodeMinVersionTestCase(pageURL, analyticsJSMinVersion));
 		}
 
 		// test DTM-specific page basics
@@ -122,7 +146,7 @@ public class PageTests extends TestSuite {
 			String rule = (String) iterator.next();
 			suite.addTest(new RuleHasRunTestCase(pageURL, rule));
 		}
-		
+
 		// test page interactions
 		for (Iterator<Map<String, String>> iterator = pageTestDefinition.getEventBasedRulesThatMustFire()
 				.iterator(); iterator.hasNext();) {
@@ -130,14 +154,14 @@ public class PageTests extends TestSuite {
 			suite.addTest(new EventBasedRuleHasRunTestCase(pageURL, test.get("name"), test.get("triggerType"),
 					test.get("triggerElement")));
 		}
-		
+
 		// test stuff for Analyst/Marketer
 		List<String> rsids = pageTestDefinition.getReportSuiteIDsThatMustReceiveTags();
 		for (Iterator<String> iterator = rsids.iterator(); iterator.hasNext();) {
 			String rsid = iterator.next();
 			suite.addTest(new AnalyticsTagForReportSuiteFiredTestCase(pageURL, rsid));
 		}
-		
+
 		TestSetup ts = new TestSetup(suite) {
 			protected void tearDown() throws Exception {
 				LOGGER.log(Level.CONFIG, "Tearing down test for " + pageURL);

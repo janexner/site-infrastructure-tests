@@ -31,10 +31,15 @@ public class PageTestDefinition implements Serializable {
 	private boolean _targetJSLoaded;
 	private String _globalMboxName;
 	private List<String> _elementsByDOMSelectorThatMustExist;
-	private boolean _analyticsJSLoaded;
 	private boolean _jQueryLoaded;
 	private String _jQueryMinVersion;
 	private String _jQueryMaxVersion;
+	private boolean _visitorIDServiceLoaded;
+	private String _visitorIDServiceMinVersion;
+	private String _visitorIDServiceMaxVersion;
+	private boolean _analyticsJSLoaded;
+	private String _analyticsJSMinVersion;
+	private String _analyticsJSLibType;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -193,6 +198,22 @@ public class PageTestDefinition implements Serializable {
 		return _analyticsJSLoaded;
 	}
 
+	public String getAnalyticsJSMinVersion() {
+		return _analyticsJSMinVersion;
+	}
+
+	public void setAnalyticsJSMinVersion(String analyticsJSMinVersion) {
+		_analyticsJSMinVersion = analyticsJSMinVersion;
+	}
+
+	public String getAnalyticsJSLibType() {
+		return _analyticsJSLibType;
+	}
+
+	public void setAnalyticsJSLibType(String analyticsJSLibType) {
+		_analyticsJSLibType = analyticsJSLibType;
+	}
+
 	public boolean isjQueryLoaded() {
 		return _jQueryLoaded;
 	}
@@ -215,6 +236,30 @@ public class PageTestDefinition implements Serializable {
 
 	public void setjQueryMaxVersion(String jQueryMaxVersion) {
 		_jQueryMaxVersion = jQueryMaxVersion;
+	}
+
+	public boolean isVisitorIDServiceLoaded() {
+		return _visitorIDServiceLoaded;
+	}
+
+	public void setVisitorIDServiceLoaded(boolean visitorIDServiceLoaded) {
+		_visitorIDServiceLoaded = visitorIDServiceLoaded;
+	}
+
+	public String getVisitorIDServiceMinVersion() {
+		return _visitorIDServiceMinVersion;
+	}
+
+	public void setVisitorIDServiceMinVersion(String visitorIDServiceMinVersion) {
+		_visitorIDServiceMinVersion = visitorIDServiceMinVersion;
+	}
+
+	public String getVisitorIDServiceMaxVersion() {
+		return _visitorIDServiceMaxVersion;
+	}
+
+	public void setVisitorIDServiceMaxVersion(String visitorIDServiceMaxVersion) {
+		_visitorIDServiceMaxVersion = visitorIDServiceMaxVersion;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -243,6 +288,17 @@ public class PageTestDefinition implements Serializable {
 			setjQueryMinVersion(minVersion);
 			String maxVersion = (String) jQueryStuff.get("testMaxVersion");
 			setjQueryMaxVersion(maxVersion);
+		}
+
+		// check Visitor ID Service
+		JSONObject visitorIDStuff = (JSONObject) jsonObject.get("visitorIDService");
+		if (null != visitorIDStuff) {
+			boolean testVisitorIDServiceLoaded = (Boolean) visitorIDStuff.get("testLoaded");
+			setVisitorIDServiceLoaded(testVisitorIDServiceLoaded);
+			String minVersion = (String) visitorIDStuff.get("testMinVersion");
+			setVisitorIDServiceMinVersion(minVersion);
+			String maxVersion = (String) visitorIDStuff.get("testMaxVersion");
+			setVisitorIDServiceMaxVersion(maxVersion);
 		}
 
 		// get the list of data layer elements that must exist
@@ -412,10 +468,14 @@ public class PageTestDefinition implements Serializable {
 		setElementsByDOMSelectorThatMustExist(ebds);
 
 		// get flag for testing s_code.js load
-		temp = jsonObject.get("analyticsJSLoaded");
-		if (null != temp) {
-			boolean analyticsLoadedTest = (Boolean) jsonObject.get("analyticsJSLoaded");
+		JSONObject analyticsJSStuff = (JSONObject) jsonObject.get("analyticsJS");
+		if (null != analyticsJSStuff) {
+			boolean analyticsLoadedTest = (Boolean) analyticsJSStuff.get("testLoaded");
 			setAnalyticsJSLoaded(analyticsLoadedTest);
+			String analyticsJSType = (String) analyticsJSStuff.get("testLibType");
+			setAnalyticsJSLibType(analyticsJSType);
+			String analyticsJSMinVersion = (String) analyticsJSStuff.get("testMinVersion");
+			setAnalyticsJSMinVersion(analyticsJSMinVersion);
 		}
 
 	}

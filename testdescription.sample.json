@@ -12,7 +12,15 @@
       	"testMinVersion": "1",
       	"testMaxVersion": "2.99.99"
       },
-      "analyticsJSLoaded": true,
+      "visitorIDService": {
+      	"testLoaded": true,
+      	"testMinVersion": "1.5"
+      },
+      "analyticsJS": {
+      	"testLoaded": true,
+      	"testLibType": "AppMeasurement",
+      	"testMinVersion": "1.5" 
+      },
       "analyticsTagForReportSuiteFired": [ "jexnertest" ],
       "dataLayerElementsThatMustHaveASpecificValue": [
         {
