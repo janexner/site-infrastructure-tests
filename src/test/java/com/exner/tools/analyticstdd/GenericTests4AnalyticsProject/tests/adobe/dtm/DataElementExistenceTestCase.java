@@ -1,5 +1,6 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
@@ -8,7 +9,7 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 	public DataElementExistenceTestCase(String pageURL, String elementName) {
 		super(pageURL);
 		_elementName = elementName;
-		setName("DTM DE " + elementName + " exists - " + pageURL);
+		setName(Tools.DTM + " DE " + elementName + " exists - " + pageURL);
 	}
 
 	@Override
@@ -19,9 +20,9 @@ public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("DTM DE " + _elementName + " must exist", (Boolean) response);
+			assertTrue(Tools.DTM + " Data Element " + _elementName + " must exist", (Boolean) response);
 		} else {
-			fail("DTM DE " + _elementName + " does not exist");
+			fail(Tools.DTM + " Data Element " + _elementName + " does not exist");
 		}
 
 	}

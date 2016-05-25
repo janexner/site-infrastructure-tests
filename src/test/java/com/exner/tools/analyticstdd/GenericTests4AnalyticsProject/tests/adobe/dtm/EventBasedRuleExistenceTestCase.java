@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
@@ -12,7 +13,7 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
 		super(pageURL);
 		_ruleName = eventBasedRuleName;
-		setName("DTM EBR " + eventBasedRuleName + " exists - " + pageURL);
+		setName(Tools.DTM + " EBR " + eventBasedRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +34,7 @@ public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("DTM EBR " + _ruleName + " doesn't exist");
+		fail(Tools.DTM + " EBR " + _ruleName + " doesn't exist");
 	}
 
 }

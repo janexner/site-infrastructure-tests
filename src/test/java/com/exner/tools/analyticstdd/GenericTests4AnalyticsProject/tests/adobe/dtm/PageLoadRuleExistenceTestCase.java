@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
@@ -12,7 +13,7 @@ public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public PageLoadRuleExistenceTestCase(String pageURL, String pageLoadRuleName) {
 		super(pageURL);
 		_ruleName = pageLoadRuleName;
-		setName("DTM PLR " + pageLoadRuleName + " exists - " + pageURL);
+		setName(Tools.DTM + " PLR " + pageLoadRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,6 +34,6 @@ public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("DTM PLR " + _ruleName + " doesn't exist");
+		fail(Tools.DTM + " PLR " + _ruleName + " doesn't exist");
 	}
 }

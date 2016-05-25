@@ -33,13 +33,14 @@ public class PageTestDefinition implements Serializable {
 	private List<String> _elementsByDOMSelectorThatMustExist;
 	private boolean _jQueryLoaded;
 	private String _jQueryMinVersion;
-	private String _jQueryMaxVersion;
+	private String _jQueryVersionBefore;
 	private boolean _visitorIDServiceLoaded;
 	private String _visitorIDServiceMinVersion;
-	private String _visitorIDServiceMaxVersion;
+	private String _visitorIDServiceVersionBefore;
 	private boolean _analyticsJSLoaded;
 	private String _analyticsJSMinVersion;
 	private String _analyticsJSLibType;
+	private boolean _tiqLoaded;
 
 	public String getPageURL() {
 		return _pageURL;
@@ -230,12 +231,12 @@ public class PageTestDefinition implements Serializable {
 		_jQueryMinVersion = jQueryMinVersion;
 	}
 
-	public String getjQueryMaxVersion() {
-		return _jQueryMaxVersion;
+	public String getjQueryVersionBefore() {
+		return _jQueryVersionBefore;
 	}
 
-	public void setjQueryMaxVersion(String jQueryMaxVersion) {
-		_jQueryMaxVersion = jQueryMaxVersion;
+	public void setjQueryVersionBefore(String jQueryMaxVersion) {
+		_jQueryVersionBefore = jQueryMaxVersion;
 	}
 
 	public boolean isVisitorIDServiceLoaded() {
@@ -254,12 +255,20 @@ public class PageTestDefinition implements Serializable {
 		_visitorIDServiceMinVersion = visitorIDServiceMinVersion;
 	}
 
-	public String getVisitorIDServiceMaxVersion() {
-		return _visitorIDServiceMaxVersion;
+	public String getVisitorIDServiceVersionBefore() {
+		return _visitorIDServiceVersionBefore;
 	}
 
-	public void setVisitorIDServiceMaxVersion(String visitorIDServiceMaxVersion) {
-		_visitorIDServiceMaxVersion = visitorIDServiceMaxVersion;
+	public void setVisitorIDServiceVersionBefore(String visitorIDServiceVersionBefore) {
+		_visitorIDServiceVersionBefore = visitorIDServiceVersionBefore;
+	}
+
+	public boolean isTiqLoaded() {
+		return _tiqLoaded;
+	}
+
+	public void setTiqLoaded(boolean tiqLoaded) {
+		_tiqLoaded = tiqLoaded;
 	}
 
 	public void createFromJSON(JSONObject jsonObject) {
@@ -286,8 +295,8 @@ public class PageTestDefinition implements Serializable {
 			setjQueryLoaded(testJQueryLoaded);
 			String minVersion = (String) jQueryStuff.get("testMinVersion");
 			setjQueryMinVersion(minVersion);
-			String maxVersion = (String) jQueryStuff.get("testMaxVersion");
-			setjQueryMaxVersion(maxVersion);
+			String maxVersion = (String) jQueryStuff.get("testVersionBefore");
+			setjQueryVersionBefore(maxVersion);
 		}
 
 		// check Visitor ID Service
@@ -297,8 +306,8 @@ public class PageTestDefinition implements Serializable {
 			setVisitorIDServiceLoaded(testVisitorIDServiceLoaded);
 			String minVersion = (String) visitorIDStuff.get("testMinVersion");
 			setVisitorIDServiceMinVersion(minVersion);
-			String maxVersion = (String) visitorIDStuff.get("testMaxVersion");
-			setVisitorIDServiceMaxVersion(maxVersion);
+			String maxVersion = (String) visitorIDStuff.get("testVersionBefore");
+			setVisitorIDServiceVersionBefore(maxVersion);
 		}
 
 		// get the list of data layer elements that must exist
@@ -476,6 +485,13 @@ public class PageTestDefinition implements Serializable {
 			setAnalyticsJSLibType(analyticsJSType);
 			String analyticsJSMinVersion = (String) analyticsJSStuff.get("testMinVersion");
 			setAnalyticsJSMinVersion(analyticsJSMinVersion);
+		}
+
+		// get flag for testing tiq load
+		temp = jsonObject.get("tiqJSLoaded");
+		if (null != temp) {
+			boolean tiqLoadedTest = (Boolean) jsonObject.get("tiqJSLoaded");
+			setTiqLoaded(tiqLoadedTest);
 		}
 
 	}

@@ -3,12 +3,12 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.c
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class VisitorIDServiceMaxVersionTestCase extends WebDriverBasedTestCase {
+public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase {
 	protected String _maxVersion;
 
-	public VisitorIDServiceMaxVersionTestCase(String pageURL, String maxVersion) {
+	public VisitorIDServiceVersionBelowTestCase(String pageURL, String maxVersion) {
 		super(pageURL);
-		setName(Tools.MCVID + " max version " + maxVersion + " - " + pageURL);
+		setName(Tools.MCVID + " version before " + maxVersion + " - " + pageURL);
 		_maxVersion = maxVersion;
 	}
 
@@ -20,8 +20,8 @@ public class VisitorIDServiceMaxVersionTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
-			boolean result = Tools.testVersionNotNewerThanBaseVersion((String) response, _maxVersion);
-			assertTrue(Tools.MCVID + " max version should be " + _maxVersion, result);
+			boolean result = Tools.testVersionIsOlderThanBaseVersion((String) response, _maxVersion);
+			assertTrue(Tools.MCVID + " version should be before " + _maxVersion, result);
 		} else {
 			fail(Tools.MCVID + " version not available");
 		}

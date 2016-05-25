@@ -162,3 +162,4 @@ hs_err_pid*
 ### Project ###
 # unexclude packages under test.adobe.target
 !src/test/java/com/exner/tools/analyticstdd/GenericTests4AnalyticsProject/tests/adobe/target
+/testdescription.clients.conradde.json

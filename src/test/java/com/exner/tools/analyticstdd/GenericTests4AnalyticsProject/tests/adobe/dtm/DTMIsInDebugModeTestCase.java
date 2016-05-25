@@ -1,11 +1,12 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 	public DTMIsInDebugModeTestCase(String pageURL) {
 		super(pageURL);
-		setName("DTM in debug mode - " + pageURL);
+		setName(Tools.DTM + " in debug mode - " + pageURL);
 	}
 
 	@Override
@@ -14,14 +15,14 @@ public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (null == response) {
-			fail("DTM is not in debug mode");
+			fail(Tools.DTM + " is not in debug mode");
 		}
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("DTM in debug mode ", (Boolean) response);
+			assertTrue(Tools.DTM + " in debug mode ", (Boolean) response);
 		} else if (String.class.isAssignableFrom(response.getClass())) {
-			assertEquals("DTM in debug mode", "true", (String) response);
+			assertEquals(Tools.DTM + " in debug mode", "true", (String) response);
 		} else {
-			fail("DTM not in debug mode");
+			fail(Tools.DTM + " not in debug mode");
 		}
 
 	}

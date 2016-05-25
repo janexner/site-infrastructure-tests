@@ -3,6 +3,7 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.d
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class RuleHasRunTestCase extends WebDriverBasedTestCase {
@@ -11,7 +12,7 @@ public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
 		super(pageURL);
 		_ruleName = pageLoadRuleName;
-		setName("DTM Rule " + pageLoadRuleName + " fires - " + pageURL);
+		setName(Tools.DTM + " Rule " + pageLoadRuleName + " fires - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +34,7 @@ public class RuleHasRunTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("DTM Rule " + _ruleName + " doesn't fire");
+		fail(Tools.DTM + " Rule " + _ruleName + " doesn't fire");
 	}
 
 }

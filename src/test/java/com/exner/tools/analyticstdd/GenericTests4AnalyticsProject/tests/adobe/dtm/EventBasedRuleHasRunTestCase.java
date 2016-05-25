@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
@@ -18,7 +19,7 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		_ruleName = ruleName;
 		_triggerType = triggerType;
 		_triggerElement = triggerElement;
-		setName("DTM EBR " + _ruleName + " fires - " + pageURL);
+		setName(Tools.DTM + " EBR " + _ruleName + " fires - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -50,7 +51,7 @@ public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("DTM EBR " + _ruleName + "doesn't fire");
+		fail(Tools.DTM + " EBR " + _ruleName + "doesn't fire");
 	}
 
 }

@@ -10,7 +10,7 @@
       "jQuery": {
       	"testLoaded": true,
       	"testMinVersion": "1",
-      	"testMaxVersion": "2.99.99"
+      	"testVersionBefore": "3"
       },
       "visitorIDService": {
       	"testLoaded": true,

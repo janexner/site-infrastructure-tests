@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
@@ -12,7 +13,7 @@ public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 	public DirectCallRuleExistenceTestCase(String pageURL, String directCallRuleName) {
 		super(pageURL);
 		_ruleName = directCallRuleName;
-		setName("DTM DCR " + directCallRuleName + " exists - " + pageURL);
+		setName(Tools.DTM + " DCR " + directCallRuleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,6 +34,6 @@ public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
 		}
 
 		// didn't find the rule? Well...
-		fail("DTM DCR " + _ruleName + "doesn't exist");
+		fail(Tools.DTM + " DCR " + _ruleName + "doesn't exist");
 	}
 }

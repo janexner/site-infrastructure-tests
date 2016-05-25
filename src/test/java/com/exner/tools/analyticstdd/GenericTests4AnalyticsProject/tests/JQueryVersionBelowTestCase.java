@@ -2,12 +2,12 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 
-public class JQueryMaxVersionTestCase extends WebDriverBasedTestCase {
+public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 	protected String _maxVersion;
 
-	public JQueryMaxVersionTestCase(String pageURL, String maxVersion) {
+	public JQueryVersionBelowTestCase(String pageURL, String maxVersion) {
 		super(pageURL);
-		setName("jQuery max version " + maxVersion + " - " + pageURL);
+		setName("jQuery version before " + maxVersion + " - " + pageURL);
 		_maxVersion = maxVersion;
 	}
 
@@ -19,8 +19,8 @@ public class JQueryMaxVersionTestCase extends WebDriverBasedTestCase {
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
-			boolean result = Tools.testVersionNotNewerThanBaseVersion((String) response, _maxVersion);
-			assertTrue("jQuery max version should be " + _maxVersion, result);
+			boolean result = Tools.testVersionIsOlderThanBaseVersion((String) response, _maxVersion);
+			assertTrue("jQuery version should be before " + _maxVersion, result);
 		} else {
 			fail("jQuery version not available");
 		}

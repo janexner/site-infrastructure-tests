@@ -2,11 +2,14 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 public class Tools {
 	
-	public static final String DTM = "DTM";
+	public static final String DTM = "Activation/DTM";
 	public static final String AA = "Adobe Analytics";
 	public static final String AT = "Adobe Target";
 	public static final String AAM = "Adobe Audience Manager";
 	public static final String MCVID = "Marketing Cloud Visitor ID Service";
+	public static final String TEALIUM = "Tealium IQ";
+	public static final String GA = "Google Analytics";
+	public static final String GUA = "Google Universal Analytics";
 
 	public static boolean testVersionNotOlderThanBaseVersion(String version, String versionBase) {
 		String[] testVersionElements = version.split("\\.");
@@ -39,7 +42,7 @@ public class Tools {
 		return true;
 	}
 
-	public static boolean testVersionNotNewerThanBaseVersion(String version, String versionBase) {
+	public static boolean testVersionIsOlderThanBaseVersion(String version, String versionBase) {
 		String[] testVersionElements = version.split("\\.");
 		String[] baseVersionElements = versionBase.split("\\.");
 
@@ -67,6 +70,6 @@ public class Tools {
 			return true;
 		}
 
-		return true;
+		return false;
 	}
 }

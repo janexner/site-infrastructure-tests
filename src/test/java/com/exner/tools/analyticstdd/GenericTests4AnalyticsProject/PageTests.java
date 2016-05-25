@@ -12,14 +12,14 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLaye
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementExistenceTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.DataLayerElementValueTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryLoadedTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryMaxVersionTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryVersionBelowTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.JQueryMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeHasLoadedTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeLibTypeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsCodeMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics.AnalyticsTagForReportSuiteFiredTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceLoadedTestCase;
-import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceMaxVersionTestCase;
+import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceVersionBelowTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core.VisitorIDServiceMinVersionTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMIsInDebugModeTestCase;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm.DTMLoadedTestCase;
@@ -79,9 +79,9 @@ public class PageTests extends TestSuite {
 		if (null != jQueryMinVersion && !jQueryMinVersion.isEmpty()) {
 			suite.addTest(new JQueryMinVersionTestCase(pageURL, jQueryMinVersion));
 		}
-		String jQueryMaxVersion = pageTestDefinition.getjQueryMaxVersion();
+		String jQueryMaxVersion = pageTestDefinition.getjQueryVersionBefore();
 		if (null != jQueryMaxVersion && !jQueryMaxVersion.isEmpty()) {
-			suite.addTest(new JQueryMaxVersionTestCase(pageURL, jQueryMaxVersion));
+			suite.addTest(new JQueryVersionBelowTestCase(pageURL, jQueryMaxVersion));
 		}
 		if (pageTestDefinition.isVisitorIDServiceLoaded()) {
 			suite.addTest(new VisitorIDServiceLoadedTestCase(pageURL));
@@ -90,9 +90,9 @@ public class PageTests extends TestSuite {
 		if (null != visitorIDServiceMinVersion && !visitorIDServiceMinVersion.isEmpty()) {
 			suite.addTest(new VisitorIDServiceMinVersionTestCase(pageURL, visitorIDServiceMinVersion));
 		}
-		String visitorIDServiceMaxVersion = pageTestDefinition.getVisitorIDServiceMaxVersion();
+		String visitorIDServiceMaxVersion = pageTestDefinition.getVisitorIDServiceVersionBefore();
 		if (null != visitorIDServiceMaxVersion && !visitorIDServiceMaxVersion.isEmpty()) {
-			suite.addTest(new VisitorIDServiceMaxVersionTestCase(pageURL, visitorIDServiceMaxVersion));
+			suite.addTest(new VisitorIDServiceVersionBelowTestCase(pageURL, visitorIDServiceMaxVersion));
 		}
 		if (pageTestDefinition.isDtmLoaded()) {
 			suite.addTest(new DTMLoadedTestCase(pageURL));
