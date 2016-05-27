@@ -14,6 +14,13 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 import junit.framework.TestSuite;
 
 public class TestSuiteFactory {
+	private Class[] _cArgs;
+
+	public TestSuiteFactory() {
+		_cArgs = new Class[2];
+		_cArgs[0] = String.class;
+		_cArgs[1] = Object.class;
+	}
 
 	public TestSuite makeSuiteFromJSON(JSONObject jsonObject) {
 		String testName = (String) jsonObject.get("name");
@@ -39,11 +46,8 @@ public class TestSuiteFactory {
 				List<Object> testParams = parseTestParameters(params);
 				try {
 					for (Iterator<Object> iter4 = testParams.iterator(); iter4.hasNext();) {
-						Class[] cArgs = new Class[2];
-						cArgs[0] = String.class;
-						cArgs[1] = Object.class;
 						WebDriverBasedTestCase testCase = (WebDriverBasedTestCase) Class.forName(testClass)
-								.getDeclaredConstructor(cArgs).newInstance(pageURL, iter4.next());
+								.getDeclaredConstructor(_cArgs).newInstance(pageURL, iter4.next());
 						pageSuite.addTest(testCase);
 					}
 				} catch (InstantiationException e) {

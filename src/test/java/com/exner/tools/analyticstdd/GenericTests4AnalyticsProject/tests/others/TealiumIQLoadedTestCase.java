@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.nonAdobe;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.others;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;

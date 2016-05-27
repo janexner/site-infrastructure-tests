@@ -3,10 +3,10 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class GlobalMBoxExistsTestCase extends WebDriverBasedTestCase {
+public class TargetGlobalMboxExistsTestCase extends WebDriverBasedTestCase {
 	private final String _mboxName;
 
-	public GlobalMBoxExistsTestCase(String pageURL, Object params) {
+	public TargetGlobalMboxExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
 
 		if (String.class.isAssignableFrom(params.getClass())) {

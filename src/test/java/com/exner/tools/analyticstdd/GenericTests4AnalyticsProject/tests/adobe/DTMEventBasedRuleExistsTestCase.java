@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,13 +7,18 @@ import java.util.Map;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class EventBasedRuleExistenceTestCase extends WebDriverBasedTestCase {
+public class DTMEventBasedRuleExistsTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
 
-	public EventBasedRuleExistenceTestCase(String pageURL, String eventBasedRuleName) {
+	public DTMEventBasedRuleExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_ruleName = eventBasedRuleName;
-		setName(Tools.DTM + " EBR " + eventBasedRuleName + " exists - " + pageURL);
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify an element");
+		}
+		_ruleName = (String) params;
+
+		setName(Tools.DTM + " EBR " + _ruleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

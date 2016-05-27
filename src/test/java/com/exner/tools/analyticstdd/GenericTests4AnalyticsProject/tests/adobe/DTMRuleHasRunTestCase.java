@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,13 +6,18 @@ import java.util.Iterator;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class RuleHasRunTestCase extends WebDriverBasedTestCase {
-	private String _ruleName;
+public class DTMRuleHasRunTestCase extends WebDriverBasedTestCase {
+	private final String _ruleName;
 
-	public RuleHasRunTestCase(String pageURL, String pageLoadRuleName) {
+	public DTMRuleHasRunTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_ruleName = pageLoadRuleName;
-		setName(Tools.DTM + " Rule " + pageLoadRuleName + " fires - " + pageURL);
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify an element");
+		}
+		_ruleName = (String) params;
+
+		setName(Tools.DTM + " Rule " + _ruleName + " fires - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

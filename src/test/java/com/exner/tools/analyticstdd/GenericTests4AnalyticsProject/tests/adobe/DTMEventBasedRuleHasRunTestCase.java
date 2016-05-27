@@ -1,25 +1,43 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class EventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
+public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
 	private String _triggerType;
 	private String _triggerElement;
 
-	public EventBasedRuleHasRunTestCase(String pageURL, String ruleName, String triggerType, String triggerElement) {
+	public DTMEventBasedRuleHasRunTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_ruleName = ruleName;
-		_triggerType = triggerType;
-		_triggerElement = triggerElement;
-		setName(Tools.DTM + " EBR " + _ruleName + " fires - " + pageURL);
+
+		if (JSONObject.class.isAssignableFrom(params.getClass())) {
+			_ruleName = (String) ((JSONObject) params).get("name");
+			_triggerType = (String) ((JSONObject) params).get("triggerType");
+			_triggerElement = (String) ((JSONObject) params).get("triggerElement");
+		} else {
+			_ruleName = null;
+			_triggerType = null;
+			_triggerElement = null;
+		}
+		if (null == _ruleName) {
+			throw new IllegalArgumentException("Must specify name of rule and trigger values");
+		}
+		if (null == _triggerType) {
+			throw new IllegalArgumentException("Must specify type of trigger");
+		}
+		if (null == _triggerElement) {
+			throw new IllegalArgumentException("Must specify element for trigger");
+		}
+
+		setName(Tools.DTM + " EBR " + _ruleName + " fires on " + _triggerType + " - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

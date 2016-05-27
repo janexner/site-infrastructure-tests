@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,13 +7,18 @@ import java.util.Map;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class PageLoadRuleExistenceTestCase extends WebDriverBasedTestCase {
+public class DTMPageLoadRuleExistsTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
 
-	public PageLoadRuleExistenceTestCase(String pageURL, String pageLoadRuleName) {
+	public DTMPageLoadRuleExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_ruleName = pageLoadRuleName;
-		setName(Tools.DTM + " PLR " + pageLoadRuleName + " exists - " + pageURL);
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify an element");
+		}
+		_ruleName = (String) params;
+
+		setName(Tools.DTM + " PLR " + _ruleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")

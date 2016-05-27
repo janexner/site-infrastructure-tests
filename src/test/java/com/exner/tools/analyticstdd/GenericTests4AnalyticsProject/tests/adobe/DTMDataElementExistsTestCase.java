@@ -1,15 +1,20 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class DataElementExistenceTestCase extends WebDriverBasedTestCase {
+public class DTMDataElementExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
 
-	public DataElementExistenceTestCase(String pageURL, String elementName) {
+	public DTMDataElementExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_elementName = elementName;
-		setName(Tools.DTM + " DE " + elementName + " exists - " + pageURL);
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify an element");
+		}
+		_elementName = (String) params;
+
+		setName(Tools.DTM + " DE " + _elementName + " exists - " + pageURL);
 	}
 
 	@Override

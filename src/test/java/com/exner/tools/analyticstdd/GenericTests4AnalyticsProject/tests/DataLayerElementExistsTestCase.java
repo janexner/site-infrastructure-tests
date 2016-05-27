@@ -6,12 +6,10 @@ public class DataLayerElementExistsTestCase extends WebDriverBasedTestCase {
 	public DataLayerElementExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (String.class.isAssignableFrom(params.getClass())) {
-			_elementName = (String) params;
-		} else {
-			_elementName = "";
+		if (!String.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");
 		}
+		_elementName = (String) params;
 
 		setName("Data Layer element " + _elementName + " exists - " + pageURL);
 	}

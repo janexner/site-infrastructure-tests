@@ -26,6 +26,11 @@
 		"adobe.AnalyticsCodeLoaded": true,
 		"adobe.AnalyticsCodeType": "AppMeasurement",
 		"adobe.AnalyticsCodeMinVersion": "1.6",
+		"adobe.DTMDataElementExists": "Page Name",
+		"adobe.DTMDataElementValue": { "name": "Page Name", "value": "Home" },
+		"adobe.DTMDataElementDelayedValue": { "name": "Page Name", "value": "Home", "delay": 500 },
+		"adobe.DTMPageLoadRuleExists": "Normal Page Load",
+		"adobe.DTMRuleHasRun": "Normal Page Load",
  	},
   ]
 }

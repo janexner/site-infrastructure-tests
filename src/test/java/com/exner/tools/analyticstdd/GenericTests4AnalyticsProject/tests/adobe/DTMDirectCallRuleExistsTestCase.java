@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.dtm;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,13 +7,18 @@ import java.util.Map;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class DirectCallRuleExistenceTestCase extends WebDriverBasedTestCase {
+public class DTMDirectCallRuleExistsTestCase extends WebDriverBasedTestCase {
 	private final String _ruleName;
 
-	public DirectCallRuleExistenceTestCase(String pageURL, String directCallRuleName) {
+	public DTMDirectCallRuleExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_ruleName = directCallRuleName;
-		setName(Tools.DTM + " DCR " + directCallRuleName + " exists - " + pageURL);
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify an element");
+		}
+		_ruleName = (String) params;
+
+		setName(Tools.DTM + " DCR " + _ruleName + " exists - " + pageURL);
 	}
 
 	@SuppressWarnings("unchecked")
