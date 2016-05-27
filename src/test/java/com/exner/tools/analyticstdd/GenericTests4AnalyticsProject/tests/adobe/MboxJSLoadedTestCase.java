@@ -1,11 +1,11 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.target;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class MBoxJSLoadedTestCase extends WebDriverBasedTestCase {
+public class MboxJSLoadedTestCase extends WebDriverBasedTestCase {
 
-	public MBoxJSLoadedTestCase(String pageURL) {
+	public MboxJSLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName(Tools.AT + " mbox.js is loaded - " + pageURL);
 	}

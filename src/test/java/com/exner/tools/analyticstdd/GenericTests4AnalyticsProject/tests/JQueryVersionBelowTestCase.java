@@ -3,12 +3,21 @@ package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 
 public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
-	protected String _maxVersion;
+	private final String _maxVersion;
 
-	public JQueryVersionBelowTestCase(String pageURL, String maxVersion) {
+	public JQueryVersionBelowTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName("jQuery version before " + maxVersion + " - " + pageURL);
-		_maxVersion = maxVersion;
+
+		if (String.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = (String) params;
+		} else if (int.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = String.valueOf((Integer) params);
+		} else {
+			_maxVersion = "0";
+			throw new IllegalArgumentException("Must define a max version!");
+		}
+
+		setName("jQuery version before " + _maxVersion + " - " + pageURL);
 	}
 
 	@Override

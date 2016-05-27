@@ -1,11 +1,11 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class AnalyticsCodeHasLoadedTestCase extends WebDriverBasedTestCase {
+public class AnalyticsCodeLoadedTestCase extends WebDriverBasedTestCase {
 
-	public AnalyticsCodeHasLoadedTestCase(String pageURL) {
+	public AnalyticsCodeLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName(Tools.AA + " JS code loaded on page - " + pageURL);
 	}

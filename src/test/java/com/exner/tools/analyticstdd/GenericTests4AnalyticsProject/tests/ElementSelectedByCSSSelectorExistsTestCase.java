@@ -4,12 +4,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
-public class DOMElementForSelectorExistenceTestCase extends WebDriverBasedTestCase {
-	private String _elementSelector;
+public class ElementSelectedByCSSSelectorExistsTestCase extends WebDriverBasedTestCase {
+	private final String _elementSelector;
 
-	public DOMElementForSelectorExistenceTestCase(String pageURL, String elementSelector) {
+	public ElementSelectedByCSSSelectorExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_elementSelector = elementSelector;
+
+		if (String.class.isAssignableFrom(params.getClass())) {
+			_elementSelector = (String) params;
+		} else {
+			_elementSelector = "";
+			throw new IllegalArgumentException("You must specify a CSS selector");
+		}
+
 		setName("DOM element " + _elementSelector + " exists - " + _pageURL);
 	}
 

@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
@@ -6,10 +6,19 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 	protected String _minVersion;
 
-	public VisitorIDServiceMinVersionTestCase(String pageURL, String minVersion) {
+	public VisitorIDServiceMinVersionTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName(Tools.MCVID + " min version " + minVersion + " - " + pageURL);
-		_minVersion = minVersion;
+
+		if (String.class.isAssignableFrom(params.getClass())) {
+			_minVersion = (String) params;
+		} else if (int.class.isAssignableFrom(params.getClass())) {
+			_minVersion = String.valueOf((Integer) params);
+		} else {
+			_minVersion = "0";
+			throw new IllegalArgumentException("Must define a min version!");
+		}
+
+		setName(Tools.MCVID + " min version " + _minVersion + " - " + pageURL);
 	}
 
 	@Override

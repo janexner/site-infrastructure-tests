@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.pool2.PoolUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -44,16 +42,8 @@ public class AllTests extends TestSuite {
 		JSONObject jsonObject = (JSONObject) stuff;
 
 		// use the JSON for test setup
-		String testName = (String) jsonObject.get("name");
-		TestSuite suite = new TestSuite("Site test - " + testName);
-
-		// loop through pages to test and add one test suite per page
-		JSONArray pagesToTest = (JSONArray) jsonObject.get("pagesToTest");
-		for (Iterator<JSONObject> iterator = pagesToTest.iterator(); iterator.hasNext();) {
-			PageTestDefinition ptd = new PageTestDefinition();
-			ptd.createFromJSON(iterator.next());
-			suite.addTest(PageTests.suite(ptd));
-		}
+		TestSuiteFactory factory = new TestSuiteFactory();
+		TestSuite suite = factory.makeSuiteFromJSON(jsonObject);
 
 		TestSetup ts = new TestSetup(suite) {
 

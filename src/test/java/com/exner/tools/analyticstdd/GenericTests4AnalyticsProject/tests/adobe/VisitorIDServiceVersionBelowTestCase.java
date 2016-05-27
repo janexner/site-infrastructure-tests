@@ -1,4 +1,4 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
@@ -6,10 +6,19 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase {
 	protected String _maxVersion;
 
-	public VisitorIDServiceVersionBelowTestCase(String pageURL, String maxVersion) {
+	public VisitorIDServiceVersionBelowTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName(Tools.MCVID + " version before " + maxVersion + " - " + pageURL);
-		_maxVersion = maxVersion;
+
+		if (String.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = (String) params;
+		} else if (int.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = String.valueOf((Integer) params);
+		} else {
+			_maxVersion = "0";
+			throw new IllegalArgumentException("Must define a max version!");
+		}
+
+		setName(Tools.MCVID + " version before " + _maxVersion + " - " + pageURL);
 	}
 
 	@Override

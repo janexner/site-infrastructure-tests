@@ -1,18 +1,18 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.core;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
 	
-	public VisitorIDServiceLoadedTestCase(String pageURL) {
+	public VisitorIDServiceLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName(Tools.MCVID + " loaded - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
-		// check whether DTM has been loaded on the page
+		// check whether MCVID has been loaded on the page
 		Object response = _jsExecutor
 				.executeScript("if (typeof Visitor === 'function') { return true } else { return false }");
 

@@ -1,15 +1,21 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
-public class AnalyticsCodeLibTypeTestCase extends WebDriverBasedTestCase {
-	private String _libType;
+public class AnalyticsCodeTypeTestCase extends WebDriverBasedTestCase {
+	private final String _libType;
 
-	public AnalyticsCodeLibTypeTestCase(String pageURL, String libType) {
+	public AnalyticsCodeTypeTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName(Tools.AA + " code type " + libType + " - " + pageURL);
-		_libType = libType;
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must provide lib type");
+		}
+
+		_libType = (String) params;
+
+		setName(Tools.AA + " code type " + _libType + " - " + pageURL);
 	}
 
 	@Override
@@ -22,7 +28,7 @@ public class AnalyticsCodeLibTypeTestCase extends WebDriverBasedTestCase {
 		if (String.class.isAssignableFrom(response.getClass())) {
 			assertEquals(Tools.AA + " code type must be " + _libType, (String) response, _libType);
 		} else {
-			fail(Tools.AA + " code has not found");
+			fail(Tools.AA + " code has not been found");
 		}
 	}
 

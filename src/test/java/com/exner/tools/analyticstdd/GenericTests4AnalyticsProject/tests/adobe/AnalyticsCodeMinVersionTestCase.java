@@ -1,15 +1,24 @@
-package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe.analytics;
+package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
-	protected String _minVersion;
+	protected final String _minVersion;
 
-	public AnalyticsCodeMinVersionTestCase(String pageURL, String minVersion) {
+	public AnalyticsCodeMinVersionTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName(Tools.AA + " code min version " + minVersion + " - " + pageURL);
-		_minVersion = minVersion;
+
+		if (String.class.isAssignableFrom(params.getClass())) {
+			_minVersion = (String) params;
+		} else if (int.class.isAssignableFrom(params.getClass())) {
+			_minVersion = String.valueOf((Integer) params);
+		} else {
+			_minVersion = "0";
+			throw new IllegalArgumentException("Must define a min version!");
+		}
+
+		setName(Tools.AA + " code min version " + _minVersion + " - " + pageURL);
 	}
 
 	@Override

@@ -1,17 +1,23 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
+import org.json.simple.JSONObject;
+
 public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
-	private String _elementExpectedValue;
+	private final String _elementExpectedValue;
 	private long _delay;
 
-	public DataLayerElementDelayedValueTestCase(String pageURL, String elementName, String elementExpectedValue,
-			long delay) {
+	public DataLayerElementDelayedValueTestCase(String pageURL, Object params) {
 		super(pageURL);
-		_elementName = elementName;
-		_elementExpectedValue = elementExpectedValue;
-		_delay = delay;
-		setName("Data Layer element " + elementName + " value is " + _elementExpectedValue + " after " + _delay
+
+		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify name, value, and delay");
+		}
+		_elementName = (String) ((JSONObject) params).get("name");
+		_elementExpectedValue = (String) ((JSONObject) params).get("value");
+		_delay = (Long) ((JSONObject) params).get("delay");
+
+		setName("Data Layer element " + _elementName + " value is " + _elementExpectedValue + " after " + _delay
 				+ "ms - " + pageURL);
 	}
 

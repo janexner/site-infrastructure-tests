@@ -2,119 +2,30 @@
   "name": "jan-exner.de",
   "pagesToTest": [
     {
-      "pageURL": "http://www.jan-exner.de/",
-      "tagManagementDTMActive": {
-      	"testLoaded": true,
-      	"testDebugMode": true
-      },
-      "jQuery": {
-      	"testLoaded": true,
-      	"testMinVersion": "1",
-      	"testVersionBefore": "3"
-      },
-      "visitorIDService": {
-      	"testLoaded": true,
-      	"testMinVersion": "1.5"
-      },
-      "analyticsJS": {
-      	"testLoaded": true,
-      	"testLibType": "AppMeasurement",
-      	"testMinVersion": "1.5" 
-      },
-      "analyticsTagForReportSuiteFired": [ "jexnertest" ],
-      "dataLayerElementsThatMustHaveASpecificValue": [
-        {
-          "name": "dataLayer.page.pageInfo.pageName",
-          "value": "Home"
-        }
-      ],
-      "dataLayerElementsThatMustHaveASpecificValueAfterDelay": [
-        {
-          "name": "dataLayer.page.pageInfo.pageName",
-          "value": "Home",
-          "delay": 1500
-        }
-      ],
-      "pageLoadRulesThatMustExist": [ "Normal Page Load" ],
-      "pageLoadRulesThatMustHaveRun": [ "Normal Page Load" ],
-      "dataLayerElementsThatMustExist": [ "dataLayer.page.pageInfo.language" ],
-      "dataLayerElementsThatMustExistAfterDelay" : [
-        {
-          "name": "dataLayer.page.pageInfo.pageName",
-          "delay": 1500
-        }
-      ],
-      "directCallRulesThatMustExist": [],
-      "eventBasedRulesThatMustExist": [],
-      "dataElementsThatMustHaveASpecificValue": [
-      	{
-      		"name": "Page Name",
-      		"value": "Home"
-      	}
-      ],
-      "dataElementsThatMustHaveASpecificValueAfterDelay": [
-      	{
-      		"name": "Page Name",
-      		"value": "Home",
-      		"delay": 1500
-      	}
-      ],
-      "elementsSelectedByCSSSelectorThatMustExistInDOM": [
-      	"body",
-      	"h1",
-      	"div#author"
-      ]
-    },
-    {
-      "dataLayerElementsThatMustHaveASpecificValue": [
-        {
-          "name": "dataLayer.page.pageInfo.pageName",
-          "value": "berichte/b150904.php"
-        }
-      ],
-      "pageURL": "http://www.jan-exner.de/berichte/20150904",
-      "tagManagementDTMActive": {
-      	"testLoaded": true,
-      	"testDebugMode": true
-      },
-      "eventBasedRulesThatMustExist": [
-      	"Header Click (random)"
-      ],
-      "eventBasedRulesThatMustFire": [
-      	{
-      		"name": "Header Click (random)",
-      		"triggerType": "click",
-      		"triggerElement": "h1"
-      	}
-      ],
-      "dataLayerElementsThatMustExist": [
-        "dataLayer.page.pageInfo.language",
-        "dataLayer.page.pageInfo.author",
-        "dataLayer.page.pageInfo.issueDate",
-      ]
-    },
-    {
-      "dataLayerElementsThatMustHaveASpecificValue": [
-        {
-          "name": "dataLayer.page.pageInfo.pageName",
-          "value": "About me"
-        }
-      ],
-      "pageURL": "http://www.jan-exner.de/about/",
-      "tagManagementDTMActive": {
-      	"testLoaded": true,
-      	"testDebugMode": true
-      },
-      "dataLayerElementsThatMustExist": [
-        "dataLayer.page.pageInfo.language"
-      ]
-    },
-    {
-    	"pageURL": "http://heise-demo.businesscatalyst.com",
-    	"targetJSLoaded": true,
-    	"targetGlobalMboxLoaded": {
-    		"name": "target-global-mbox"
-    	}
-    }
+		"pageURL": "http://www.jan-exner.de/",
+		"jQueryLoaded": true,
+		"jQueryMinVersion": "1.1",
+		"jQueryVersionBelow": "3",
+		"elementSelectedByCSSSelectorExists": [ "h1", "p", "div#author" ],
+		"dataLayerElementExists": [ 
+			"dataLayer.page.pageInfo.pageName",
+			"dataLayer.page.pageInfo.language" 
+		],
+		"dataLayerElementValue": [
+			{ "name": "dataLayer.page.pageInfo.pageName", "value": "Home" }
+		],
+		"dataLayerElementDelayedExists": [
+			{ "name": "dataLayer.page.pageInfo.pageName", "delay": 500 }
+		],
+		"dataLayerElementDelayedValue": { "name": "dataLayer.page.pageInfo.pageName", "value": "Home", "delay": 500 },
+		"adobe.DTMLoaded": true,
+		"adobe.DTMIsInDebugMode": true,
+		"adobe.VisitorIDServiceLoaded": true,
+		"adobe.VisitorIDServiceMinVersion": "1.5",
+		"adobe.VisitorIDServiceVersionBelow": "2",
+		"adobe.AnalyticsCodeLoaded": true,
+		"adobe.AnalyticsCodeType": "AppMeasurement",
+		"adobe.AnalyticsCodeMinVersion": "1.6",
+ 	},
   ]
 }

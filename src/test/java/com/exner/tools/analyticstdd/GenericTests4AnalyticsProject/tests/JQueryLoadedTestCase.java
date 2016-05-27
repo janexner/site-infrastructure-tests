@@ -4,7 +4,7 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDrive
 
 public class JQueryLoadedTestCase extends WebDriverBasedTestCase {
 	
-	public JQueryLoadedTestCase(String pageURL) {
+	public JQueryLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName("jQuery loaded - " + pageURL);
 	}
