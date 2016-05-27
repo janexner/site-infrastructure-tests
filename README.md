@@ -6,7 +6,7 @@ This project contains code that you can use to build your own test suite.
 
 A JSON file (testdescription.json) contains all pages to be tested along with their tests. If you run the test, the AllTests test suite reads that file, then generates a dynamic test suite for each page. All of those will then run.
 
-You can specify which testdescription the test suite will read by specifying the `test.description.file` property when you run the test.
+You can specify which test description the test suite will read by specifying the `test.description.file` property when you run the test.
 
 ## Format of testdescription.json file
 
@@ -15,19 +15,21 @@ The `testdescription.json` file has two top level elements:
 - name
 - pagesToTest
 
-### 1 `name` element
+### `name` element
 
 The `name` element is used to give the test suite a name.
 
 Example: "name": "my-test-site.com"
 
-### 2 `pagesToTest` element
+### `pagesToTest` element
 
 The `pagesToTest` element contains a list of pages and the corresponding tests that should be run on them.
 
 Each sub-element of `pagesToTest` must contain a `pageURL` element. It can further contain elements that specify which tests should be run.
 
-### 2.1 `pageURL` element
+Those elements have two parts: the name of the test class, plus parameters that the test class can interpret. Section 2.2 and below show the test class names and parameters as currently implemented.
+
+### `pageURL` element
 
 The `pageURL` element specifies which page the test should load before it executes the tests specified for the page.
 
@@ -35,158 +37,240 @@ Example: "pageURL": "http://test.com/"
 
 *Note*: this element is mandatory
 
-### 2.2 `tagManagementDTMActive` element
+### Generic Elements
 
-The `tagManagementDTMActive` element lets you specify whether a page should be tested for DTM (presence & debug mode). It has two sub-elements:
+The following elements can be used to test the page itself.
 
-Example: "tagManagementDTMActive": {"testLoaded": true, "testDebugMode": true}
+#### `jQueryLoaded` element
 
-### 2.2.1 `testLoaded` element
+Specify this element if you want to test whether the page loads [jQuery](https://jquery.com).
 
-Specify `true` or `false` to enable or disable testing for the presence of DTM. The test checks whether the `_satellite` Javascript object exists or not.
+Example: "jQueryLoaded": true
 
-### 2.2.2 `testDebugMode` element
+#### `jQueryMinVersion` element
 
-Specify `true` or `false` to enable or disable testing for whether DTM is in debug mode.
+You can test the minimum version that you need on the page using this element.
 
-### 2.3 `dataLayerElementsThatMustExist` element
+Example: "jQueryMinVersion": "2.0"
 
-The `dataLayerElementsThatMustExist` element allows you to specify a list of Javascript variables that will be checked for existence.
+#### `jQueryVersionBelow` element
 
-This works very well with a [CEDDL-compatible data layer](https://www.w3.org/community/custexpdata/)
+You can test that the version is below a specific version.
 
-Example: "dataLayerElementsThatMustExist": ["digitalData.page.pageInfo.pageName", "digitalData.page.pageInfo.language"]
+Example: "jQueryVersionBelow": "3"
 
-### 2.4 `dataLayerElementsThatMustExistAfterDelay` element
+#### `ElementSelectedByCSSSelectorExists` element
 
-The `dataLayerElementsThatMustExistAfterDelay` element can be used to test for the existence of data layer elements after a delay.
+A test that allows you to test for the existence of DOM elements in the page.
 
-Each sub-element specifies a data layer element and a time to wait.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-Example: "dataLayerElementsThatMustExistAfterDelay" : [{"name": "digitalData.page.pageInfo.pageName", "delay": 1500}]
+Example: "elementSelectedByCSSSelectorExists": "h1"
 
-### 2.4.1 `name` element
+Example: "elementSelectedByCSSSelectorExists": [ "h1", "div#author" ]
 
-The `name` element specifies the name of the data layer element to test.
+#### `dataLayerElementExists` element
 
-### 2.4.2 `delay` element
+This test allows you to test for a Javascript data layer element in the page.
 
-The `delay` element lets you specify a time in milliseconds. The test for the existence of the data layer element will be run after the delay.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-### 2.5 `dataLayerElementsThatMustHaveASpecificValue` element
+Example: "dataLayerElementExists": "digitalData.page.pageInfo.pageName"
 
-Use the `dataLayerElementsThatMustHaveASpecificValue` element when you want to test the data layer for values.
+Example: "dataLayerElementExists": [ "digitalData.page.pageInfo.pageName", "digitalData.page.pageInfo.language" ]
 
-Example: "dataLayerElementsThatMustHaveASpecificValue": [{"name": "digitalData.page.pageInfo.pageName", "value": "Home"}]
+#### `dataLayerElementValue` element
 
-### 2.5.1 `name` element
+Similar to the one above, but this one checks whether the data layer element has the right value.
 
-The `name` element specifies the name of the data layer element to test.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-### 2.5.2 `value` element
+Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }
 
-The `value` element specifies the expected value of the data layer element.
+Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }, { "name":"digitalData.page.pageInfo.language", "value": "en" } ]
 
-### 2.6 `dataLayerElementsThatMustHaveASpecificValueAfterDelay` element
+#### `dataLayerElementDelayedExists` element
 
-The `dataLayerElementsThatMustHaveASpecificValueAfterDelay` element works just like the `dataLayerElementsThatMustHaveASpecificValue` element, but it allows to specify a delay before the test is made.
+This test allows you to test for a Javascript data layer element in the page after waiting for some time. Ideal for pages that load the data layer asynchronously.
 
-Example: "dataLayerElementsThatMustHaveASpecificValueAfterDelay": [{"name": "dataLayer.page.pageInfo.pageName", "value": "Home", "delay": 1500}]
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-### 2.6.1 `name` element
+Example: "dataLayerElementDelayedExists": { "name": "digitalData.page.pageInfo.pageName", "delay": 500 }
 
-Similar to 2.5.1
+Example: "dataLayerElementDelayedExists": [ { "name": "digitalData.page.pageInfo.pageName", "delay": 500 }, { "name": "digitalData.page.pageInfo.language", "delay": 500 } ]
 
-### 2.6.2 `value` element
+#### `dataLayerElementDelayedValue` element
 
-Similar to 2.5.2
+Similar to the one above, but this one checks whether the data layer element has the right value. Again, this can be used on pages that load the data layer asynchronously.
 
-### 2.6.3 `delay` element
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-The `delay` element lets you specify a time in milliseconds. The test for the existence of the data layer element will be run after the delay.
+Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 }
 
-### 2.7 `pageLoadRulesThatMustExist` element
+Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 }, { "name":"digitalData.page.pageInfo.language", "value": "en", "delay": 500 } ]
 
-The `pageLoadRulesThatMustExits` element allows you to specify a list of names of DTM Page Load Rules. The test will see whether all the PLRs are defined in DTM.
+### Adobe Marketing Cloud-related elements
 
-Example: "pageLoadRulesThatMustExist": [ "Normal Page Load" ]
+#### `adobe.DTMLoaded` element
 
-*Note*: since the existence of a rule does not depend on the currently loaded page, you can run this test on any page. It is also enough if you run it once.
+A test that checks whether DTM has been loaded on the page
 
-### 2.8 `directCallRulesThatMustExist` element
+Example: "adobe.DTMLoaded": true
 
-Same as 2.7, but for DTM Direct-call Rules.
+#### `adobe.DTMIsInDebugMode` element
 
-*Note*: since the existence of a rule does not depend on the currently loaded page, you can run this test on any page. It is also enough if you run it once.
+Testcase that checks whether DTM is in debug mode. Needed for some of the tests below, such as `adobe.DTMRuleHasRun`.
 
-### 2.9 `eventBasedRulesThatMustExist` element
+Example: "adobe.DTMIsInDebugMode": true
 
-Same as 2.7, but for DTM Event-based Rules.
+#### `adobe.DTMDataElementExists` element
 
-*Note*: since the existence of a rule does not depend on the currently loaded page, you can run this test on any page. It is also enough if you run it once.
+This test allows you to test for a Javascript data layer element in the page.
 
-*Note*: so far, only the "click" trigger has been implemented.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-### 2.10 `pageLoadRulesThatMustHaveRun` element
+Example: "adobe.DTMDataElementExists": "Page Name"
 
-The `pageLoadRulesThatMustHaveRun` element lets you specify a list of PLRs that must have executed on the current page.
+Example: "adobe.DTMDataElementExists": [ "Page Name", "Page Type" ]
 
-Example: "pageLoadRulesThatMustHaveRun": [ "Normal Page Load", "Product Page Load" ]
+#### `adobe.DTMDataElementValue` element
 
-*Note*: unlike the `pageLoadRulesThatMustExist` element, this one has to be tested on all the pages where you want the rule to fire.
+Similar to the one above, but this one checks whether the data layer element has the right value.
 
-### 2.11 `eventBasedRulesThatMustFire` element
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-The `eventBasedRulesThatMustFire` element contains a list of EBRs along with triggers. The test will try to use the trigger, then see if the EBR actually fired.
+Example: "adobe.DTMDataElementValue": { "name":"Page Name", "value": "Home" }
 
-Example: "eventBasedRulesThatMustFire": [{"name": "Header Click (random)", "triggerType": "click", "triggerElement": "h1"}]
+Example: "adobe.DTMDataElementValue": [ { "name":"Page Name", "value": "Home" }, { "name":"Page Language", "value": "en" } ]
 
-### 2.11.1 `name` element
+#### `adobe.DTMDataElementDelayedExists` element
 
-The `name` element specifies the name of the data layer element to test.
+This test allows you to test for a Javascript data layer element in the page after waiting for some time. Ideal for pages that load the data layer asynchronously.
 
-### 2.11.2 `triggerType` element
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-The `triggerType` element specifies which type of trigger should be used. This is similar to the "Event Type" drop down in DTM.
+Example: "adobe.DTMDataElementDelayedExists": { "name": "Page Name", "delay": 500 }
 
-### 2.11.3 `triggerElement` element
+Example: "adobe.DTMDataElementDelayedExists": [ { "name": "Page Name", "delay": 500 }, { "name": "Page Language", "delay": 500 } ]
 
-The `triggerElement` element lets you sepcify on which element in the page the trigger should be applied. This is similar to the "Element Tag or Selector" field in DTM.
+#### `adobe.DTMDataElementDelayedValue` element
 
-### 2.12 `dataElementsThatMustHaveASpecificValue` element
+Similar to the one above, but this one checks whether the data layer element has the right value. Again, this can be used on pages that load the data layer asynchronously.
 
-The `dataElementsThatMustHaveASpecificValue` element lets you specify a list of DTM Data Elements and the corresponding expected value for each of them.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-Example: "dataElementsThatMustHaveASpecificValue": [{"name": "Pagename","value": "Homepage"}]
+Example: "dataLayerElementValue": { "name":"Page Name", "value": "Home", "delay": 500 }
 
-### 2.12.1 `name` element
+Example: "dataLayerElementValue": [ { "name":"Page Name", "value": "Home", "delay": 500 }, { "name":"Page Language", "value": "en", "delay": 500 } ]
 
-The `name` element specifies the DTM Data Element.
+#### `adobe.DTMPageLoadRuleExists` element
 
-### 2.12.2 `value` element
+Allows you to test whether a PLR exists in the current setup.
 
-The `value` element lets you specify the expected value for the DTM Data Element.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-### 2.13 `dataElementsThatMustHaveASpecificValueAfterDelay` element
+Example: "adobe.DTMPageLoadRuleExists": "Normal Page Load"
 
-Similar to the difference between 2.5 and 2.6, this is like 2.12, but with a delay.
+Example: "adobe.DTMPageLoadRuleExists": [ "Normal Page Load", "Blog Article Page Load" ]
 
-Example: "dataElementsThatMustHaveASpecificValue": [{"name": "Pagename", "value": "Homepage", "delay": 1500}]
+#### `adobe.DTMDirectCallRuleExists` element
 
-### 2.13.1 `name` element
+Tests whether a DCR exists in the current setup.
 
-See 2.12.1
+See above for syntax.
 
-### 2.13.2 `value` element
+#### `adobe.DTMEventBasedRuleExists` element
 
-See 2.13.2
+A test that checks whether an EBR exists in the current setup.
 
-### 2.13.3 `delay` element
+See above for syntax.
 
-The `delay` element lets you specify a time in milliseconds. The test for the value of the DTM Data Element will be run after the delay.
+#### `adobe.DTMRuleHasRun` element
 
-### 2.14 `analyticsTagForReportSuiteFired` element
+Allows you to test whether a rule has actually fired.
 
-The `analyticsTagForReportSuiteFired` element can be used to test whether a tracking call to a specific report suite ID has actually been made.
+*Note*: the parameters can be one single parameter, or a list of parameters.
 
-Example: "analyticsTagForReportSuiteFired": [ "yourrsid" ]
+Example: "adobe.DTMRuleHasRun": "Normal Page Load"
+
+Example: "adobe.DTMRuleHasRun": [ "Normal Page Load", "Blog Article Page Load" ]
+
+#### `adobe.DTMEventBasedRuleHasRun` element
+
+You can test whether an EBR runs as a result of triggering something in the document.
+
+*Note*: current implementation only supports "click" triggers!
+
+*Note*: the parameters can be one single parameter, or a list of parameters.
+
+Example: "adobe.DTMEventBasedRuleHasRun": { "name": "Add to Cart", "triggerType": "click", "triggerElement": "button#cartAdd" }
+
+Example: "adobe.DTMEventBasedRuleHasRun": [ { "name": "Add to Cart", "triggerType": "click", "triggerElement": "button#cartAdd" }, { "name": "Shipping Info Popup", "triggerType": "click", "triggerElement": "a#terms_conditions" } ]
+
+#### `adobe.VisitorIDServiceLoaded` element
+
+A test to check whether the Marketing Cloud Visitor ID Service has loaded on the page.
+
+Example: "adobe.VisitorIDServiceLoaded": true
+
+#### `adobe.VisitorIDServiceMinVersion` element
+
+Tests the version of the MCVID against a minimum version.
+
+Example: "adobe.VisitorIDServiceMinVersion": "1.5"
+
+#### `adobe.VisitorIDServiceVersionBelow` element
+
+You can test that the MCVID is below a certain version.
+
+Example: "adobe.VisitorIDServiceVersionBelow": "2"
+
+#### `adobe.AnalyticsCodeLoaded` element
+
+Allows you to test whether Analytics Javascript code has loaded in the page.
+
+Example: "adobe.AnalyticsCodeLoaded": true
+
+#### `adobe.AnalyticsCodeType` element
+
+Tests whether the Analytics code is "AppMeasurement" or "legacy" (H.xx.y and before).
+
+Example: "adobe.AnalyticsCodeType": "AppMeasurement"
+
+#### `adobe.AnalyticsCodeMinVersion` element
+
+You can test the Analytics Javascript code against a minimum version.
+
+Example: "adobe.AnalyticsCodeMinVersion": "1.6"
+
+#### `adobe.AnalyticsTagForReportSuiteFired` element
+
+Checks whether there has been a tracking request against the specified report suite.
+
+*Note*: the parameters can be one single parameter, or a list of parameters.
+
+Example: "adobe.AnalyticsTagForReportSuiteFired": "myrsid"
+
+This works with multi-suite tagging!
+
+Example: "adobe.AnalyticsTagForReportSuiteFired": "myrsid,myglobalrsid"
+
+You can supply multiple rsids, which would test for multiple, independent tracking calls.
+
+Example: "adobe.AnalyticsTagForReportSuiteFired": [ "myrsid1", "myrsid2" ] 
+
+#### `adobe.TargetCodeLoaded` element
+
+Tests whether the Target Javascript code has loaded
+
+Example: "adobe.TargetCodeLoaded": true
+
+#### `adobe.TargetGlobalMboxExists` element
+
+Allows you to tests whether the Target global mbox with a specific name exists.
+
+Example: "adobe.TargetGlobalMboxExists": "global-mbox"
+
+### Other elements
+
+TBD

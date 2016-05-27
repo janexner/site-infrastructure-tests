@@ -4,18 +4,26 @@ import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
 public class AnalyticsTagForReportSuiteFiredTestCase extends WebDriverBasedTestCase {
-	private String _rsid;
+	private final String _rsid;
 
-	public AnalyticsTagForReportSuiteFiredTestCase(String pageURL, String rsid) {
+	public AnalyticsTagForReportSuiteFiredTestCase(String pageURL, Object params) {
 		super(pageURL);
-		setName(Tools.AA + " tag sent to " + rsid + " - " + pageURL);
-		_rsid = rsid;
+
+		if (!String.class.isAssignableFrom(params.getClass())) {
+			throw new IllegalArgumentException("Must specify a Report Suite ID");
+		}
+		_rsid = (String) params;
+
+		setName(Tools.AA + " tag sent to " + _rsid + " - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
+		// replace "," between rsids with "_"
+		String rsid = _rsid.replace(',', '_');
+		
 		// check whether Analytics code has been loaded on the page
-		Object response = _jsExecutor.executeScript("var rstest='" + _rsid
+		Object response = _jsExecutor.executeScript("var rstest='" + rsid
 				+ "';var rsprfx='s_i_';var retVal=false;for(var b in window){if(window['hasOwnProperty'](b)){if(b['indexOf'](rsprfx)===0){rsarr=b['substr'](rsprfx['length'],b['length'])['split']('_');if(rsarr['indexOf'](rstest)>=0){retVal=true}}}};return retVal");
 
 		// make sure the element exists
