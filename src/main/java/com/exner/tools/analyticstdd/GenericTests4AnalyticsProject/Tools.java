@@ -1,7 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject;
 
 public class Tools {
-	
+
 	public static final String DTM = "Activation/DTM";
 	public static final String AA = "Adobe Analytics";
 	public static final String AT = "Adobe Target";
@@ -16,9 +16,9 @@ public class Tools {
 		String[] baseVersionElements = versionBase.split("\\.");
 
 		int loops = Math.min(testVersionElements.length, baseVersionElements.length);
-		
+
 		// one special case: loops = 0
-		if (null == version || version.isEmpty()) {
+		if (null == version || version.isEmpty() || version.equals("unavailable")) {
 			return false;
 		}
 
@@ -31,8 +31,9 @@ public class Tools {
 				return false;
 			}
 		}
-		
-		// hm... they are the same up to the length of the shorter one. what now?
+
+		// hm... they are the same up to the length of the shorter one. what
+		// now?
 		if (testVersionElements.length > baseVersionElements.length) {
 			return true;
 		} else if (testVersionElements.length < baseVersionElements.length) {
@@ -47,9 +48,9 @@ public class Tools {
 		String[] baseVersionElements = versionBase.split("\\.");
 
 		int loops = Math.min(testVersionElements.length, baseVersionElements.length);
-		
+
 		// one special case: loops = 0
-		if (null == version || version.isEmpty()) {
+		if (null == version || version.isEmpty() || version.equals("unavailable")) {
 			return false;
 		}
 
@@ -62,8 +63,9 @@ public class Tools {
 				return true;
 			}
 		}
-		
-		// hm... they are the same up to the length of the shorter one. what now?
+
+		// hm... they are the same up to the length of the shorter one. what
+		// now?
 		if (testVersionElements.length > baseVersionElements.length) {
 			return false;
 		} else if (testVersionElements.length < baseVersionElements.length) {

@@ -203,6 +203,16 @@ Example: "adobe.DTMRuleHasRun": "Normal Page Load"
 
 Example: "adobe.DTMRuleHasRun": [ "Normal Page Load", "Blog Article Page Load" ]
 
+#### `adobe.DTMRuleHasRunAfterDelay`
+
+Allows you to test whether a rule has actually fired after a delay.
+
+*Note*: the parameters can be one single parameter, or a list of parameters.
+
+Example: "adobe.DTMRuleHasRunAfterDelay": { "name":"Normal Page Load", "delay":500 }
+
+Example: "adobe.DTMRuleHasRunAfterDelay": [ { "name":"Normal Page Load", "delay":500 }, { "name":"Blog Article Page Load", "delay": 500 } ]
+
 #### `adobe.DTMEventBasedRuleHasRun`
 
 You can test whether an EBR runs as a result of triggering something in the document.
@@ -266,6 +276,14 @@ Example: "adobe.AnalyticsTagForReportSuiteFired": "myrsid,myglobalrsid"
 You can supply multiple rsids, which would test for multiple, independent tracking calls.
 
 Example: "adobe.AnalyticsTagForReportSuiteFired": [ "myrsid1", "myrsid2" ] 
+
+#### `adobe.AnalyticsTagForReportSuiteFiredAfterDelay`
+
+As above, but the check happens after a delay.
+
+Example: "adobe.AnalyticsTagForReportSuiteFiresAfterDelay": { "rsid": "myrsid", "delay": 2000 }
+
+Supports the same features as above.
 
 #### `adobe.TargetCodeLoaded`
 
