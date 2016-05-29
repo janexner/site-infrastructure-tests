@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 import org.json.simple.JSONObject;
+import org.openqa.selenium.WebDriverException;
 
 public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -23,20 +24,22 @@ public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase
 
 	@Override
 	protected void runTest() throws Throwable {
-		// TODO - maybe test for undefined first!
-		// sleep
-		Thread.sleep(_delay);
+		try {
+			// sleep
+			Thread.sleep(_delay);
 
-		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript("return " + _elementName);
+			// get the value of the dl element from the page
+			Object response = _jsExecutor.executeScript("return " + _elementName);
 
-		// make sure the element exists
-		if (String.class.isAssignableFrom(response.getClass())) {
-			assertEquals("Data Layer element " + _elementName + " value should be " + _elementExpectedValue + "after "
-					+ _delay + "ms", _elementExpectedValue, (String) response);
-		} else {
+			// make sure the element exists
+			if (String.class.isAssignableFrom(response.getClass())) {
+				assertEquals("Data Layer element " + _elementName + " value should be " + _elementExpectedValue
+						+ "after " + _delay + "ms", _elementExpectedValue, (String) response);
+			} else {
+				fail("Data Layer element " + _elementName + " does not exist");
+			}
+		} catch (WebDriverException we) {
 			fail("Data Layer element " + _elementName + " does not exist");
 		}
-
 	}
 }

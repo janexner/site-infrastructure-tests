@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.adobe;
 
+import org.openqa.selenium.WebDriverException;
+
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.Tools;
 import com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests.WebDriverBasedTestCase;
 
@@ -23,18 +25,21 @@ public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 
 	@Override
 	protected void runTest() throws Throwable {
-		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof Visitor !== 'undefined') { return Visitor.version } else { return 'unavailable' }");
+		try {
+			// check whether DTM has been loaded on the page
+			Object response = _jsExecutor.executeScript(
+					"if (typeof Visitor !== 'undefined') { for (vv in s_c_il) { var nvv = s_c_il[vv]; if (typeof nvv._c !== 'undefined' && nvv._c == \"Visitor\") {  return nvv.version; } } return 'unavailable' } else { return 'unavailable' }");
 
-		// make sure the element exists
-		if (String.class.isAssignableFrom(response.getClass())) {
-			boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-			assertTrue(Tools.MCVID + " min version should be " + _minVersion, result);
-		} else {
-			fail(Tools.MCVID + " version not available");
+			// make sure the element exists
+			if (String.class.isAssignableFrom(response.getClass()) && !((String) response).equals("unavailable")) {
+				boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
+				assertTrue(Tools.MCVID + " min version should be " + _minVersion, result);
+			} else {
+				fail(Tools.MCVID + " version not available");
+			}
+		} catch (WebDriverException we) {
+			fail(Tools.MCVID + " not found");
 		}
-
 	}
 
 }

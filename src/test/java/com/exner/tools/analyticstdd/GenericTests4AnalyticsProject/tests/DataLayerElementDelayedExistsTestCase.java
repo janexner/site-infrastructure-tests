@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.GenericTests4AnalyticsProject.tests;
 
 import org.json.simple.JSONObject;
+import org.openqa.selenium.WebDriverException;
 
 public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -8,7 +9,7 @@ public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCas
 
 	public DataLayerElementDelayedExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
-		
+
 		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name and delay");
 		}
@@ -23,15 +24,19 @@ public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCas
 		// wait
 		Thread.sleep(_milliseconds);
 
-		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof " + _elementName + " !== 'undefined') { return true } else { return false }");
+		try {
+			// get the value of the dl element from the page
+			Object response = _jsExecutor.executeScript(
+					"if (typeof " + _elementName + " !== 'undefined') { return true } else { return false }");
 
-		// make sure the element exists
-		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue("Data Layer element " + _elementName + " must exist after " + _milliseconds + "ms",
-					(Boolean) response);
-		} else {
+			// make sure the element exists
+			if (Boolean.class.isAssignableFrom(response.getClass())) {
+				assertTrue("Data Layer element " + _elementName + " must exist after " + _milliseconds + "ms",
+						(Boolean) response);
+			} else {
+				fail("Data Layer element " + _elementName + " does not exist");
+			}
+		} catch (WebDriverException we) {
 			fail("Data Layer element " + _elementName + " does not exist");
 		}
 
