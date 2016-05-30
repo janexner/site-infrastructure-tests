@@ -31,7 +31,7 @@ public class BasePooledWebDriverFactory extends BasePooledObjectFactory<WebDrive
 	public void destroyObject(PooledObject<WebDriver> p) throws Exception {
 		LOGGER.log(Level.INFO, "Closing WebDriver");
 		WebDriver driver = p.getObject();
-		driver.close();
+		driver.quit();
 	}
 
 }
