@@ -33,7 +33,7 @@ public class AllTests extends TestSuite {
 		if (null != fnProperty && fnProperty.length() > 0) {
 			filename = fnProperty;
 		}
-		File tempFile = new File(fnProperty);
+		File tempFile = new File(filename);
 		if (!tempFile.exists() || !tempFile.canRead()) {
 			throw new FileNotFoundException("Could not find test description file " + filename);
 		}
