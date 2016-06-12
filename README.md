@@ -1,6 +1,10 @@
-#GenericTest4AnalyticsProject
+#Site Infrastructure Tests
 
 This project contains code that you can use to build your own test suite.
+
+The suite can be used to test parts of the site infrastructure that are important for whatever your Analytics/Marketing team ads on top of it using the tag management system.
+
+Running this suite as a regression tests effectively prevents dev from pulling the gound from under analytics feet.
 
 ## How it works
 
