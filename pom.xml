@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.exner.tools.analyticstdd</groupId>
-	<artifactId>GenericTests4AnalyticsProject</artifactId>
+	<artifactId>SiteInfraStructureTests</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>GenericTests4AnalyticsProject</name>
+	<name>Site Infrastructure Tests</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
