@@ -12,7 +12,7 @@ public class GTMLoadedTestCase extends WebDriverBasedTestCase {
 
 	@Override
 	protected void runTest() throws Throwable {
-		// check whether GTM has been loaded on the page
+		// check whether tool has been loaded on the page
 		Object response = _jsExecutor
 				.executeScript("if (typeof google_tag_manager === 'object') { return true } else { return false }");
 
