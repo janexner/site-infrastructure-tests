@@ -10,6 +10,7 @@ public class Tools {
 	public static final String TEALIUM = "Tealium IQ";
 	public static final String GA = "Google Analytics";
 	public static final String GUA = "Google Universal Analytics";
+	public static final String GTM = "Google Tag Manager";
 
 	public static boolean testVersionNotOlderThanBaseVersion(String version, String versionBase) {
 		String[] testVersionElements = version.split("\\.");
