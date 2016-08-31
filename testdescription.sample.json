@@ -21,7 +21,7 @@
 		"adobe.DTMLoaded": true,
 		"adobe.DTMIsInDebugMode": true,
 		"adobe.VisitorIDServiceLoaded": true,
-		"adobe.VisitorIDServiceMinVersion": "1.5",
+		"adobe.VisitorIDServiceMinVersion": "1.7",
 		"adobe.VisitorIDServiceVersionBelow": "2",
 		"adobe.AnalyticsCodeLoaded": true,
 		"adobe.AnalyticsCodeType": "AppMeasurement",
@@ -31,6 +31,8 @@
 		"adobe.DTMDataElementDelayedValue": { "name": "Page Name", "value": "Home", "delay": 500 },
 		"adobe.DTMPageLoadRuleExists": "Normal Page Load",
 		"adobe.DTMRuleHasRun": "Normal Page Load",
+		"adobe.DTMAllRulesCheckTrackingAllowedDataElement": "Tracking allowed",
+		"adobe.DTMAllRulesCheckTrackingAllowedDataElementPedantic": "Tracking allowed",
  	},
   ]
 }
