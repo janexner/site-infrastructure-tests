@@ -1,0 +1,15 @@
+{
+  "name": "WebADE",
+  "pagesToTest": [
+    {
+      "pageURL": "https://webanalyseaufdeutsch.de/",
+      "jQueryLoaded": true,
+      "adobe.DTMLoaded": true,
+      "adobe.DTMIsInDebugMode": true,
+      "adobe.VisitorIDServiceLoaded": true,
+      "adobe.AnalyticsCodeLoaded": true
+      "adobe.AnalyticsCodeType": "AppMeasurement",
+      "adobe.TargetCodeLoaded": true,
+    }
+  ]
+}
