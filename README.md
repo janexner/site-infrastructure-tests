@@ -131,7 +131,7 @@ Testcase that checks whether DTM is in debug mode. Needed for some of the tests 
 
 Example: "adobe.DTMIsInDebugMode": true
 
-### `adobe.DTMLibraryName`
+#### `adobe.DTMLibraryName`
 
 A test that checks that the site is loading the correct DTM library.
 
