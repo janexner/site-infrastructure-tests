@@ -20,6 +20,7 @@
 		"dataLayerElementDelayedValue": { "name": "dataLayer.page.pageInfo.pageName", "value": "Home", "delay": 500 },
 		"adobe.DTMLoaded": true,
 		"adobe.DTMIsInDebugMode": true,
+		"adobe.DTMLibraryName": "satelliteLib-ac622c249cb75df56320e968e6948d7d8ef95df1",
 		"adobe.VisitorIDServiceLoaded": true,
 		"adobe.VisitorIDServiceMinVersion": "1.7",
 		"adobe.VisitorIDServiceVersionBelow": "2",

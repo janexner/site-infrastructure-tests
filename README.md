@@ -131,6 +131,12 @@ Testcase that checks whether DTM is in debug mode. Needed for some of the tests 
 
 Example: "adobe.DTMIsInDebugMode": true
 
+### `adobe.DTMLibraryName`
+
+A test that checks that the site is loading the correct DTM library.
+
+Example: "adobe.DTMLibraryName": "satelliteLib-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 #### `adobe.DTMDataElementExists`
 
 This test allows you to test for a Javascript data layer element in the page.
