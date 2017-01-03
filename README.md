@@ -73,6 +73,14 @@ Example: "elementSelectedByCSSSelectorExists": "h1"
 
 Example: "elementSelectedByCSSSelectorExists": [ "h1", "div#author" ]
 
+#### `ElementSelectedByCSSSelectorExistsNTimes`
+
+A test that allows you to test a DOM element exists exactly n times in the page.
+
+*Note*: single CSS selector, only.
+
+Example: "elementSelectedByCSSSelectorExistsNTimes": { "selector": "h1", "n": 1 }
+
 #### `dataLayerElementExists`
 
 This test allows you to test for a Javascript data layer element in the page.
