@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 
 public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverBasedTestCase {
 	private final String _elementSelector;
-	private final int _n;
+	private final long _n;
 
 	public ElementSelectedByCSSSelectorExistsNTimesTestCase(String pageURL, Object params) {
 		super(pageURL);
@@ -19,7 +19,7 @@ public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverB
 		}
 
 		_elementSelector = (String) ((JSONObject) params).get("selector");
-		_n = (Integer) ((JSONObject) params).get("n");
+		_n = (Long) ((JSONObject) params).get("n");
 
 		setName("DOM element " + _elementSelector + " exists " + _n + " times - " + _pageURL);
 	}
@@ -32,7 +32,7 @@ public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverB
 			element = _webDriver.findElements(By.cssSelector(_elementSelector));
 		} catch (NoSuchElementException e) {
 			// it ain't there
-			fail("DOM element " + _elementSelector + " must exist");
+			fail("DOM element " + _elementSelector + " must exist " + _n + " times");
 		}
 
 		// make sure the element exists
