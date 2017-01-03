@@ -1,0 +1,63 @@
+{
+  "name": "jan-exner.de",
+  "pagesToTest": [
+    {
+		"pageURL": "https://www.jan-exner.de/",
+		"jQueryLoaded": true,
+		"jQueryMinVersion": "2",
+		"jQueryVersionBelow": "3",
+		"dataLayerElementExists": [ 
+			"digitalData.page.pageInfo.pageName",
+			"digitalData.page.pageInfo.language" 
+		],
+		"dataLayerElementValue": [
+			{ "name": "digitalData.page.pageInfo.pageName", "value": "Home" }
+		],
+		"dataLayerElementDelayedExists": [
+			{ "name": "digitalData.page.pageInfo.pageName", "delay": 500 }
+		],
+		"dataLayerElementDelayedValue": { "name": "digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 },
+		"adobe.DTMLoaded": true,
+		"adobe.DTMIsInDebugMode": true,
+		"adobe.DTMLibraryName": "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5",
+		"adobe.VisitorIDServiceLoaded": true,
+		"adobe.VisitorIDServiceMinVersion": "1.10",
+		"adobe.VisitorIDServiceVersionBelow": "2",
+		"adobe.AnalyticsCodeLoaded": true,
+		"adobe.AnalyticsCodeType": "AppMeasurement",
+		"adobe.AnalyticsCodeMinVersion": "1.7",
+		"adobe.DTMDataElementExists": "PageName",
+		"adobe.DTMDataElementValue": { "name": "PageName", "value": "Home" },
+		"adobe.DTMDataElementDelayedValue": { "name": "PageName", "value": "Home", "delay": 500 },
+		"adobe.DTMPageLoadRuleExists": "Normal Page Load Rule",
+		"adobe.DTMRuleHasRun": "Normal Page Load Rule",
+ 	},
+ 	{
+ 		"pageURL": "https://www.jan-exner.de/about/",
+		"jQueryLoaded": true,
+		"jQueryMinVersion": "2",
+		"jQueryVersionBelow": "3",
+		"dataLayerElementExists": [ 
+			"digitalData.page.pageInfo.pageName",
+			"digitalData.page.pageInfo.language" 
+		],
+		"dataLayerElementValue": [
+			{ "name": "digitalData.page.pageInfo.pageName", "value": "About me" },
+			{ "name": "digitalData.page.pageInfo.language", "value": "en-GB" }
+		],
+		"adobe.DTMLoaded": true,
+		"adobe.DTMIsInDebugMode": true,
+		"adobe.DTMLibraryName": "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5",
+		"adobe.VisitorIDServiceLoaded": true,
+		"adobe.VisitorIDServiceMinVersion": "1.10",
+		"adobe.VisitorIDServiceVersionBelow": "2",
+		"adobe.AnalyticsCodeLoaded": true,
+		"adobe.AnalyticsCodeType": "AppMeasurement",
+		"adobe.AnalyticsCodeMinVersion": "1.7",
+		"adobe.DTMDataElementExists": "PageName",
+		"adobe.DTMDataElementValue": { "name": "PageName", "value": "About me" },
+		"adobe.DTMPageLoadRuleExists": "Normal Page Load Rule",
+		"adobe.DTMRuleHasRun": "Normal Page Load Rule",
+ 	}
+  ]
+}
