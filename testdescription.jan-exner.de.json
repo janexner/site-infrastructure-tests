@@ -46,6 +46,8 @@
 			{ "name": "digitalData.page.pageInfo.language", "value": "en-GB" }
 		],
 		"genericJavascript": "return true;",
+		"elementSelectedByCSSSelectorExists": "a.amzWishlist",
+		"elementSelectedByCSSSelectorExistsNTimes": { "selector": "a.amzWishlist", "n": 2 },
 		"adobe.DTMLoaded": true,
 		"adobe.DTMIsInDebugMode": true,
 		"adobe.DTMLibraryName": "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5",
