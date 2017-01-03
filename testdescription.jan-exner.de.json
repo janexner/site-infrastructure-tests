@@ -45,6 +45,7 @@
 			{ "name": "digitalData.page.pageInfo.pageName", "value": "About me" },
 			{ "name": "digitalData.page.pageInfo.language", "value": "en-GB" }
 		],
+		"genericJavascript": "return true;",
 		"adobe.DTMLoaded": true,
 		"adobe.DTMIsInDebugMode": true,
 		"adobe.DTMLibraryName": "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5",

@@ -117,6 +117,12 @@ Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName",
 
 Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 }, { "name":"digitalData.page.pageInfo.language", "value": "en", "delay": 500 } ]
 
+#### `genericJavascript`
+
+This test allows you to inject arbitrary Javascript code into the page and test whether it returns 'true'.
+
+Example: "genericJavascript": "return true;"
+
 ### Adobe Marketing Cloud-related elements
 
 #### `adobe.DTMLoaded`
