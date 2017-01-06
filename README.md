@@ -91,13 +91,15 @@ Example: "dataLayerElementExists": "digitalData.page.pageInfo.pageName"
 
 Example: "dataLayerElementExists": [ "digitalData.page.pageInfo.pageName", "digitalData.page.pageInfo.language" ]
 
-#### `dataLayerElementValue`
+#### `dataLayerElementValue`/`dataLayerNumericElementValue`
 
 Similar to the one above, but this one checks whether the data layer element has the right value.
 
 *Note*: the parameters can be one single parameter, or a list of parameters.
 
 Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }
+
+Example: "dataLayerNumericElementValue": { "name":"digitalData.page.pageInfo.pageID", "value": 896 }
 
 Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }, { "name":"digitalData.page.pageInfo.language", "value": "en" } ]
 
@@ -113,7 +115,7 @@ Example: "dataLayerElementDelayedExists": { "name": "digitalData.page.pageInfo.p
 
 Example: "dataLayerElementDelayedExists": [ { "name": "digitalData.page.pageInfo.pageName", "delay": 500 }, { "name": "digitalData.page.pageInfo.language", "delay": 500 } ]
 
-#### `dataLayerElementDelayedValue`
+#### `dataLayerElementDelayedValue` / `dataLayerNumericElementDelayedValue`
 
 Similar to the one above, but this one checks whether the data layer element has the right value. Again, this can be used on pages that load the data layer asynchronously.
 
