@@ -165,3 +165,8 @@ hs_err_pid*
 # exclude some more stuff
 /testdescription.clients.conradde.json
 /phantomjsdriver.log
+*.gradle
+build/
+build.gradle
+gradle/
+gradlew*
