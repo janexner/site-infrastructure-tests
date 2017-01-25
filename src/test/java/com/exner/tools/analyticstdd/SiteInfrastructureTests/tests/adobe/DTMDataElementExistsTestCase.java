@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DTMDataElementExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -9,10 +10,10 @@ public class DTMDataElementExistsTestCase extends WebDriverBasedTestCase {
 	public DTMDataElementExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");
 		}
-		_elementName = (String) params;
+		_elementName = ((TextNode) params).asText();
 
 		setName(Tools.DTM + " DE " + _elementName + " exists - " + pageURL);
 	}

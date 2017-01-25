@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.BooleanNode;
 
 public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 
@@ -12,8 +13,8 @@ public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 
 		// handle parameters
 		String note = "";
-		if (Boolean.class.isAssignableFrom(params.getClass())) {
-			_test = (Boolean) params;
+		if (BooleanNode.class.isAssignableFrom(params.getClass())) {
+			_test = ((BooleanNode) params).asBoolean();
 			if (!_test) {
 				note = " (inactive)";
 			}

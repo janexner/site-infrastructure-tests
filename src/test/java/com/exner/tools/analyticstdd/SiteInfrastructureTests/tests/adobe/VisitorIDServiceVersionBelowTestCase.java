@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase {
 	protected String _maxVersion;
@@ -9,10 +10,8 @@ public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase
 	public VisitorIDServiceVersionBelowTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (String.class.isAssignableFrom(params.getClass())) {
-			_maxVersion = (String) params;
-		} else if (int.class.isAssignableFrom(params.getClass())) {
-			_maxVersion = String.valueOf((Integer) params);
+		if (TextNode.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = ((TextNode) params).asText();
 		} else {
 			_maxVersion = "0";
 			throw new IllegalArgumentException("Must define a max version!");

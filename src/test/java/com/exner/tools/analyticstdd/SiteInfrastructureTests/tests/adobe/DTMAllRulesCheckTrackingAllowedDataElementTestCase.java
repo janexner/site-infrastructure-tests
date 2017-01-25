@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DTMAllRulesCheckTrackingAllowedDataElementTestCase extends WebDriverBasedTestCase {
 	private final String _dataElementName;
@@ -14,10 +15,10 @@ public class DTMAllRulesCheckTrackingAllowedDataElementTestCase extends WebDrive
 	public DTMAllRulesCheckTrackingAllowedDataElementTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");
 		}
-		_dataElementName = (String) params;
+		_dataElementName = ((TextNode) params).asText();
 
 		setName(Tools.DTM + " All Rules check DE '" + _dataElementName + "' - " + pageURL);
 	}

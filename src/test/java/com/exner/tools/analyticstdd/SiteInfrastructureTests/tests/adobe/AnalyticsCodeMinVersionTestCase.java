@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	protected final String _minVersion;
@@ -9,10 +10,8 @@ public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	public AnalyticsCodeMinVersionTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (String.class.isAssignableFrom(params.getClass())) {
-			_minVersion = (String) params;
-		} else if (int.class.isAssignableFrom(params.getClass())) {
-			_minVersion = String.valueOf((Integer) params);
+		if (TextNode.class.isAssignableFrom(params.getClass())) {
+			_minVersion = ((TextNode) params).asText();
 		} else {
 			_minVersion = "0";
 			throw new IllegalArgumentException("Must define a min version!");

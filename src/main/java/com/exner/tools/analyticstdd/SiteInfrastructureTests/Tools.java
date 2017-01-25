@@ -6,7 +6,7 @@ public class Tools {
 	public static final String AA = "Adobe Analytics";
 	public static final String AT = "Adobe Target";
 	public static final String AAM = "Adobe Audience Manager";
-	public static final String MCVID = "Marketing Cloud Visitor ID Service";
+	public static final String MCVID = "Marketing Cloud ID Service";
 	public static final String TEALIUM = "Tealium IQ";
 	public static final String GA = "Google Analytics";
 	public static final String GUA = "Google Universal Analytics";

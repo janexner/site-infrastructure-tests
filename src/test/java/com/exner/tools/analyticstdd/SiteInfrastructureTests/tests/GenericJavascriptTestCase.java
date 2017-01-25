@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import com.fasterxml.jackson.databind.node.TextNode;
+
 public class GenericJavascriptTestCase extends WebDriverBasedTestCase {
 	private final String _jsToRun;
 
@@ -7,8 +9,8 @@ public class GenericJavascriptTestCase extends WebDriverBasedTestCase {
 		super(pageURL);
 		setName("Generic JS - " + pageURL);
 		
-		if (String.class.isAssignableFrom(params.getClass())) {
-			_jsToRun = (String) params;
+		if (TextNode.class.isAssignableFrom(params.getClass())) {
+			_jsToRun = ((TextNode) params).asText();
 		} else {
 			throw new IllegalArgumentException("Must define some script to run!");
 		}

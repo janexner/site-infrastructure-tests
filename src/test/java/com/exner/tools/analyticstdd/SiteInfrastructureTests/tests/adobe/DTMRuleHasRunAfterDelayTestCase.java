@@ -3,10 +3,9 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.json.simple.JSONObject;
-
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DTMRuleHasRunAfterDelayTestCase extends WebDriverBasedTestCase {
 	private final String _ruleName;
@@ -15,11 +14,11 @@ public class DTMRuleHasRunAfterDelayTestCase extends WebDriverBasedTestCase {
 	public DTMRuleHasRunAfterDelayTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name and delay");
 		}
-		_ruleName = (String) ((JSONObject) params).get("name");
-		_delay = (Long) ((JSONObject) params).get("delay");
+		_ruleName = ((ObjectNode) params).get("name").asText();
+		_delay = ((ObjectNode) params).get("delay").asLong();
 
 		setName(Tools.DTM + " Rule " + _ruleName + " fires after " + _delay + " - " + pageURL);
 	}
@@ -29,7 +28,7 @@ public class DTMRuleHasRunAfterDelayTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// delay
 		Thread.sleep(_delay);
-		
+
 		// get the list of Rules which fired on the page
 		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _jsExecutor
 				.executeScript("return _satellite.Logger.getHistory()");

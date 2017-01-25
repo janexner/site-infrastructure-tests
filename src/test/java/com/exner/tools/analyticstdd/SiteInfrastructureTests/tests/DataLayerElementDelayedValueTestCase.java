@@ -1,7 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
-import org.json.simple.JSONObject;
 import org.openqa.selenium.WebDriverException;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -11,12 +12,12 @@ public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase
 	public DataLayerElementDelayedValueTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!JsonNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name, value, and delay");
 		}
-		_elementName = (String) ((JSONObject) params).get("name");
-		_elementExpectedValue = (String) ((JSONObject) params).get("value");
-		_delay = (Long) ((JSONObject) params).get("delay");
+		_elementName = ((JsonNode) params).get("name").asText();
+		_elementExpectedValue = ((JsonNode) params).get("value").asText();
+		_delay = ((JsonNode) params).get("delay").asLong();
 
 		setName("Data Layer element " + _elementName + " value is " + _elementExpectedValue + " after " + _delay
 				+ "ms - " + pageURL);

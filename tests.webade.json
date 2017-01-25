@@ -17,7 +17,7 @@
       "adobe.AnalyticsCodeType": "AppMeasurement",
       "adobe.AnalyticsCodeMinVersion": "1.7",
       "adobe.AnalyticsTagForReportSuiteFired": "ags055webade",
-      "adobe.TargetCodeLoaded": true,
+      "adobe.TargetCodeLoaded": true
     },
     {
       "pageURL": "https://webanalyseaufdeutsch.de/2016/07/05/das-aem-contexthub-tool-in-dtm/",
@@ -40,7 +40,7 @@
       "adobe.AnalyticsCodeType": "AppMeasurement",
       "adobe.AnalyticsCodeMinVersion": "1.7",
       "adobe.AnalyticsTagForReportSuiteFired": "ags055webade",
-      "adobe.TargetCodeLoaded": true,      
+      "adobe.TargetCodeLoaded": true
     }
   ]
 }

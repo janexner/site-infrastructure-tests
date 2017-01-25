@@ -1,9 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
-import org.json.simple.JSONObject;
-
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DTMDataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -13,12 +12,12 @@ public class DTMDataElementDelayedValueTestCase extends WebDriverBasedTestCase {
 	public DTMDataElementDelayedValueTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name, value, and delay");
 		}
-		_elementName = (String) ((JSONObject) params).get("name");
-		_elementExpectedValue = (String) ((JSONObject) params).get("value");
-		_delay = (Long) ((JSONObject) params).get("delay");
+		_elementName = ((ObjectNode) params).get("name").asText();
+		_elementExpectedValue = ((ObjectNode) params).get("value").asText();
+		_delay = ((ObjectNode) params).get("delay").asLong();
 
 		setName(Tools.DTM + " DE " + _elementName + " value is " + _elementExpectedValue + " after " + _delay + "ms - "
 				+ pageURL);

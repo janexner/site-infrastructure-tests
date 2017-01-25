@@ -1,9 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
-import org.json.simple.JSONObject;
-
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class AnalyticsTagForReportSuiteFiredAfterDelayTestCase extends WebDriverBasedTestCase {
 	private final String _rsid;
@@ -12,11 +11,11 @@ public class AnalyticsTagForReportSuiteFiredAfterDelayTestCase extends WebDriver
 	public AnalyticsTagForReportSuiteFiredAfterDelayTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify rsid and delay");
 		}
-		_rsid = (String) ((JSONObject) params).get("rsid");
-		_delay = (Long) ((JSONObject) params).get("delay");
+		_rsid = ((ObjectNode) params).get("rsid").asText();
+		_delay = ((ObjectNode) params).get("delay").asLong();
 
 		setName(Tools.AA + " tag sent to " + _rsid + " after " + _delay + " - " + pageURL);
 	}
@@ -25,10 +24,10 @@ public class AnalyticsTagForReportSuiteFiredAfterDelayTestCase extends WebDriver
 	protected void runTest() throws Throwable {
 		// delay
 		Thread.sleep(_delay);
-		
+
 		// replace "," between rsids with "_"
 		String rsid = _rsid.replace(',', '_');
-		
+
 		// check whether Analytics code has been loaded on the page
 		Object response = _jsExecutor.executeScript("var rstest='" + rsid
 				+ "';var rsprfx='s_i_';var retVal=false;for(var b in window){if(window['hasOwnProperty'](b)){if(b['indexOf'](rsprfx)===0){rsarr=b['substr'](rsprfx['length'],b['length'])['split']('_');if(rsarr['indexOf'](rstest)>=0){retVal=true}}}};return retVal");

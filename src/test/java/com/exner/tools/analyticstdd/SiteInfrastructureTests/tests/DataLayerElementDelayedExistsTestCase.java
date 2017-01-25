@@ -1,7 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
-import org.json.simple.JSONObject;
 import org.openqa.selenium.WebDriverException;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -10,11 +11,11 @@ public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCas
 	public DataLayerElementDelayedExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name and delay");
 		}
-		_elementName = (String) ((JSONObject) params).get("name");
-		_milliseconds = (Long) ((JSONObject) params).get("delay");
+		_elementName = ((ObjectNode) params).get("name").asText();
+		_milliseconds = ((ObjectNode) params).get("delay").asLong();
 
 		setName("Data Layer element" + _elementName + " exists after " + _milliseconds + "ms - " + pageURL);
 	}

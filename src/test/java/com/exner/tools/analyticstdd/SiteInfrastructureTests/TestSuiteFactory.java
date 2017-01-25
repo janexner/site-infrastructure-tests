@@ -4,16 +4,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import junit.framework.TestSuite;
 
 public class TestSuiteFactory {
+	@SuppressWarnings("rawtypes")
 	private Class[] _cArgs;
 
 	public TestSuiteFactory() {
@@ -22,23 +21,22 @@ public class TestSuiteFactory {
 		_cArgs[1] = Object.class;
 	}
 
-	public TestSuite makeSuiteFromJSON(JSONObject jsonObject) {
-		String testName = (String) jsonObject.get("name");
+	public TestSuite makeSuiteFromJSON(JsonNode jsonObject) {
+		String testName = jsonObject.get("name").asText();
 		TestSuite suite = new TestSuite("Site test - " + testName);
 
 		// loop through pages to test and add one test suite per page
-		JSONArray pagesToTest = (JSONArray) jsonObject.get("pagesToTest");
-		for (Iterator<JSONObject> iterator = pagesToTest.iterator(); iterator.hasNext();) {
+		ArrayNode pagesToTest = (ArrayNode) jsonObject.get("pagesToTest");
+		for (Iterator<JsonNode> iterator = pagesToTest.iterator(); iterator.hasNext();) {
 			suite.addTest(makeSuiteForPage(iterator.next()));
 		}
 		return suite;
 	}
 
-	private TestSuite makeSuiteForPage(JSONObject pageTests) {
-		String pageURL = (String) pageTests.get("pageURL");
+	private TestSuite makeSuiteForPage(JsonNode pageTests) {
+		String pageURL = pageTests.get("pageURL").asText();
 		TestSuite pageSuite = new TestSuite("Page tests - " + pageURL);
-		Set<String> keys = pageTests.keySet();
-		for (Iterator<String> iter2 = keys.iterator(); iter2.hasNext();) {
+		for (Iterator<String> iter2 = pageTests.fieldNames(); iter2.hasNext();) {
 			String key = iter2.next();
 			if (!key.equals("pageURL")) {
 				Object params = pageTests.get(key);
@@ -80,8 +78,8 @@ public class TestSuiteFactory {
 	private List<Object> parseTestParameters(Object params) {
 		List<Object> testParams = new ArrayList<Object>();
 		// is this an array?
-		if (JSONArray.class.isAssignableFrom(params.getClass())) {
-			for (Iterator<JSONObject> iter3 = ((JSONArray) params).iterator(); iter3.hasNext();) {
+		if (ArrayNode.class.isAssignableFrom(params.getClass())) {
+			for (Iterator<JsonNode> iter3 = ((ArrayNode) params).iterator(); iter3.hasNext();) {
 				testParams.add(iter3.next());
 			}
 		} else {

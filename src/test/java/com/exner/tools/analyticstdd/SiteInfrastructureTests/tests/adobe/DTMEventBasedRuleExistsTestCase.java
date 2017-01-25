@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DTMEventBasedRuleExistsTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
@@ -13,10 +14,10 @@ public class DTMEventBasedRuleExistsTestCase extends WebDriverBasedTestCase {
 	public DTMEventBasedRuleExistsTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");
 		}
-		_ruleName = (String) params;
+		_ruleName = ((TextNode) params).asText();
 
 		setName(Tools.DTM + " EBR " + _ruleName + " exists - " + pageURL);
 	}

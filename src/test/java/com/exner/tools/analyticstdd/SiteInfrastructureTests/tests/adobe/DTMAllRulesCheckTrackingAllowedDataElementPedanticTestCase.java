@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends WebDriverBasedTestCase {
 	private final String _dataElementName;
@@ -14,10 +15,10 @@ public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends 
 	public DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");
 		}
-		_dataElementName = (String) params;
+		_dataElementName = ((TextNode) params).asText();
 
 		setName(Tools.DTM + " All Rules check DE '" + _dataElementName + "' (pedantic) - " + pageURL);
 	}
@@ -47,7 +48,8 @@ public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends 
 					Object condition = iter.next();
 					if (String.class.isAssignableFrom(condition.getClass())) {
 						String func = (String) condition;
-						if (func.contains("return _satellite.textMatch(_satellite.getVar(\"" + _dataElementName + "\")),\"yes\")")) {
+						if (func.contains("return _satellite.textMatch(_satellite.getVar(\"" + _dataElementName
+								+ "\")),\"yes\")")) {
 							checksTheDE = true;
 							break;
 						}
@@ -69,7 +71,8 @@ public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends 
 
 		// didn't find the rule? Well...
 		if (rulesThatDoNotCheckTheDE.length() > 0) {
-			fail(Tools.DTM + " Some rules do not check DE '" + _dataElementName + "' (pedantic): " + rulesThatDoNotCheckTheDE);
+			fail(Tools.DTM + " Some rules do not check DE '" + _dataElementName + "' (pedantic): "
+					+ rulesThatDoNotCheckTheDE);
 		}
 	}
 

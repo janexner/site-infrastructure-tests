@@ -2,10 +2,11 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
 import java.util.List;
 
-import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverBasedTestCase {
 	private final String _elementSelector;
@@ -14,12 +15,12 @@ public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverB
 	public ElementSelectedByCSSSelectorExistsNTimesTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!JSONObject.class.isAssignableFrom(params.getClass())) {
+		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify selector and n");
 		}
 
-		_elementSelector = (String) ((JSONObject) params).get("selector");
-		_n = (Long) ((JSONObject) params).get("n");
+		_elementSelector = ((ObjectNode) params).get("selector").asText();
+		_n = ((ObjectNode) params).get("n").asLong();
 
 		setName("DOM element " + _elementSelector + " exists " + _n + " times - " + _pageURL);
 	}

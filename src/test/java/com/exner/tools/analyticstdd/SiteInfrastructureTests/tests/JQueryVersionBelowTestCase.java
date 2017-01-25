@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 	private final String _maxVersion;
@@ -8,10 +9,8 @@ public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 	public JQueryVersionBelowTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (String.class.isAssignableFrom(params.getClass())) {
-			_maxVersion = (String) params;
-		} else if (int.class.isAssignableFrom(params.getClass())) {
-			_maxVersion = String.valueOf((Integer) params);
+		if (TextNode.class.isAssignableFrom(params.getClass())) {
+			_maxVersion = ((TextNode) params).asText();
 		} else {
 			_maxVersion = "0";
 			throw new IllegalArgumentException("Must define a max version!");

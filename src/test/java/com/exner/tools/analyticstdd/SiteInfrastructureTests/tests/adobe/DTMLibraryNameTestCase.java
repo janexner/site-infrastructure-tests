@@ -1,11 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DTMLibraryNameTestCase extends WebDriverBasedTestCase {
 	private String _libraryName;
@@ -13,15 +10,14 @@ public class DTMLibraryNameTestCase extends WebDriverBasedTestCase {
 	public DTMLibraryNameTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify a library name");
 		}
-		_libraryName = (String) params;
+		_libraryName = ((TextNode) params).asText();
 
 		setName(Tools.DTM + " library name is " + _libraryName + " - " + pageURL);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void runTest() throws Throwable {
 		// get the list of PLRs from the page

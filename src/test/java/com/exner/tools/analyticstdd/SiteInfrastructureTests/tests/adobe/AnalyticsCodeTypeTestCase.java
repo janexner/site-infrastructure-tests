@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 public class AnalyticsCodeTypeTestCase extends WebDriverBasedTestCase {
 	private final String _libType;
@@ -9,11 +10,11 @@ public class AnalyticsCodeTypeTestCase extends WebDriverBasedTestCase {
 	public AnalyticsCodeTypeTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (!String.class.isAssignableFrom(params.getClass())) {
+		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must provide lib type");
 		}
 
-		_libType = (String) params;
+		_libType = ((TextNode) params).asText();
 
 		setName(Tools.AA + " code type " + _libType + " - " + pageURL);
 	}

@@ -3,12 +3,12 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
@@ -18,10 +18,10 @@ public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	public DTMEventBasedRuleHasRunTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (JSONObject.class.isAssignableFrom(params.getClass())) {
-			_ruleName = (String) ((JSONObject) params).get("name");
-			_triggerType = (String) ((JSONObject) params).get("triggerType");
-			_triggerElement = (String) ((JSONObject) params).get("triggerElement");
+		if (ObjectNode.class.isAssignableFrom(params.getClass())) {
+			_ruleName = ((ObjectNode) params).get("name").asText();
+			_triggerType = ((ObjectNode) params).get("triggerType").asText();
+			_triggerElement = ((ObjectNode) params).get("triggerElement").asText();
 		} else {
 			_ruleName = null;
 			_triggerType = null;

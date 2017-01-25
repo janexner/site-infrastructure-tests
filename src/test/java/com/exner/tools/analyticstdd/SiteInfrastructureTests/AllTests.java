@@ -2,7 +2,6 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,12 +9,13 @@ import java.util.logging.Logger;
 import org.apache.commons.pool2.PoolUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 
-import com.exner.tools.analyticstdd.SiteInfrastructureTests.BasePooledWebDriverFactory;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jackson.JsonLoader;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.github.fge.jsonschema.main.JsonSchema;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -23,13 +23,13 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
+	private final static String SCHEMAFILENAME = "testschema.json";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	private static GenericObjectPool<WebDriver> _webDriverPool;
 
-	public static Test suite() throws FileNotFoundException, IOException, ParseException, InterruptedException {
+	public static Test suite() throws FileNotFoundException, IOException, InterruptedException, ProcessingException {
 		// try loading JSON from the file
-		JSONParser parser = new JSONParser();
 		String filename = TESTDESCRIPTIONFILENAME;
 		String fnProperty = System.getProperty("test.description.file");
 		if (null != fnProperty && fnProperty.length() > 0) {
@@ -40,12 +40,17 @@ public class AllTests extends TestSuite {
 			throw new FileNotFoundException("Could not find test description file " + filename);
 		}
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
-		Object stuff = parser.parse(new FileReader(filename));
-		JSONObject jsonObject = (JSONObject) stuff;
+		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
+
+		LOGGER.log(Level.INFO, "Validating description against JSON-schema");
+		JsonNode schemaNode = JsonLoader.fromFile(new File(SCHEMAFILENAME));
+		JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
+		JsonSchema schema = schemaFactory.getJsonSchema(schemaNode);
+		schema.validate(testDescription);
 
 		// use the JSON for test setup
 		TestSuiteFactory factory = new TestSuiteFactory();
-		TestSuite suite = factory.makeSuiteFromJSON(jsonObject);
+		TestSuite suite = factory.makeSuiteFromJSON(testDescription);
 
 		TestSetup ts = new TestSetup(suite) {
 

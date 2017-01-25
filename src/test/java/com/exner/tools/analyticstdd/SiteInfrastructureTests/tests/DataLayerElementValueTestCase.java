@@ -1,6 +1,6 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
-import org.json.simple.JSONObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DataLayerElementValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
@@ -9,9 +9,9 @@ public class DataLayerElementValueTestCase extends WebDriverBasedTestCase {
 	public DataLayerElementValueTestCase(String pageURL, Object params) {
 		super(pageURL);
 
-		if (JSONObject.class.isAssignableFrom(params.getClass())) {
-			_elementName = (String) ((JSONObject) params).get("name");
-			_elementExpectedValue = (String) ((JSONObject) params).get("value");
+		if (ObjectNode.class.isAssignableFrom(params.getClass())) {
+			_elementName = ((ObjectNode) params).get("name").asText();
+			_elementExpectedValue = ((ObjectNode) params).get("value").asText();
 		} else {
 			_elementName = null;
 			_elementExpectedValue = null;
