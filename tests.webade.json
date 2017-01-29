@@ -61,7 +61,7 @@
       "adobe.AnalyticsCodeType": "AppMeasurement",
       "adobe.AnalyticsCodeMinVersion": "1.7",
       "adobe.AnalyticsTagForReportSuiteFired": "ags055webade",
-      "adobe.TargetCodeLoaded": true,      
+      "adobe.TargetCodeLoaded": true
     },
     {
       "pageURL": "https://webanalyseaufdeutsch.de/category/tips-tricks/",
@@ -81,7 +81,7 @@
       "adobe.AnalyticsCodeType": "AppMeasurement",
       "adobe.AnalyticsCodeMinVersion": "1.7",
       "adobe.AnalyticsTagForReportSuiteFired": "ags055webade",
-      "adobe.TargetCodeLoaded": true,      
+      "adobe.TargetCodeLoaded": true
     },
     {
       "pageURL": "https://webanalyseaufdeutsch.de/tag/data-layer/",
@@ -101,7 +101,7 @@
       "adobe.AnalyticsCodeType": "AppMeasurement",
       "adobe.AnalyticsCodeMinVersion": "1.7",
       "adobe.AnalyticsTagForReportSuiteFired": "ags055webade",
-      "adobe.TargetCodeLoaded": true,      
+      "adobe.TargetCodeLoaded": true
     }
   ]
 }
