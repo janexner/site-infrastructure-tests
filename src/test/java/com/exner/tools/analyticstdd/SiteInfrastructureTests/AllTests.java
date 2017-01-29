@@ -14,8 +14,6 @@ import org.openqa.selenium.WebDriver;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import com.github.fge.jsonschema.main.JsonSchema;
-import com.github.fge.jsonschema.main.JsonSchemaFactory;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -42,11 +40,11 @@ public class AllTests extends TestSuite {
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
 
-		LOGGER.log(Level.INFO, "Validating description against JSON-schema");
-		JsonNode schemaNode = JsonLoader.fromFile(new File(SCHEMAFILENAME));
-		JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
-		JsonSchema schema = schemaFactory.getJsonSchema(schemaNode);
-		schema.validate(testDescription);
+		// LOGGER.log(Level.INFO, "Validating description against JSON-schema");
+		// JsonNode schemaNode = JsonLoader.fromFile(new File(SCHEMAFILENAME));
+		// JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
+		// JsonSchema schema = schemaFactory.getJsonSchema(schemaNode);
+		// schema.validate(testDescription);
 
 		// use the JSON for test setup
 		TestSuiteFactory factory = new TestSuiteFactory();
