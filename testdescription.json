@@ -3,7 +3,7 @@
   "pagesToTest": [
     {
 		"pageURL": "http://www.jan-exner.de/",
-		"jQueryLoaded": true,
+		"jQueryLoaded": true
 	}
 	]
 }
