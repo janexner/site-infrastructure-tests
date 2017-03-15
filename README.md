@@ -1,10 +1,15 @@
-#Site Infrastructure Tests
+# Site Infrastructure Tests
 
 This project contains code that you can use to build your own test suite.
 
 The suite can be used to test parts of the site infrastructure that are important for whatever your Analytics/Marketing team ads on top of it using the tag management system.
 
 Running this suite as a regression tests effectively prevents dev from pulling the gound from under analytics feet.
+
+For suggestions on how to set this up, refer to these articles:
+- Raspberry Pi + Jenkins: https://webanalyticsfordevelopers.com/2017/03/07/automating-tests/,
+- Mac: https://webanalyticsfordevelopers.com/2017/01/03/wanna-test-mac-edition/, and 
+- Windows: https://webanalyticsfordevelopers.com/2016/06/07/wanna-test-heres-how/
 
 ## How it works
 
@@ -63,7 +68,7 @@ You can test that the version is below a specific version.
 
 Example: "jQueryVersionBelow": "3"
 
-#### `ElementSelectedByCSSSelectorExists`
+#### `elementSelectedByCSSSelectorExists`
 
 A test that allows you to test for the existence of DOM elements in the page.
 
@@ -73,7 +78,7 @@ Example: "elementSelectedByCSSSelectorExists": "h1"
 
 Example: "elementSelectedByCSSSelectorExists": [ "h1", "div#author" ]
 
-#### `ElementSelectedByCSSSelectorExistsNTimes`
+#### `elementSelectedByCSSSelectorExistsNTimes`
 
 A test that allows you to test a DOM element exists exactly n times in the page.
 
