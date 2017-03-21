@@ -37,7 +37,7 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 			_webDriver.get(_pageURL);
 
 			// Wait up to 10 seconds for jQuery to load
-			WebDriverWait waiting = new WebDriverWait(_webDriver, 10);
+			WebDriverWait waiting = new WebDriverWait(_webDriver, 30);
 			waiting.until(new Predicate<WebDriver>() {
 				public boolean apply(WebDriver driver) {
 					String testresult = (String) ((JavascriptExecutor) driver).executeScript("return document.readyState");
