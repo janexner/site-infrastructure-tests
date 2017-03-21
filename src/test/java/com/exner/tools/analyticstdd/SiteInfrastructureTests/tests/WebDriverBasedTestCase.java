@@ -40,13 +40,13 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 			WebDriverWait waiting = new WebDriverWait(_webDriver, 10);
 			waiting.until(new Predicate<WebDriver>() {
 				public boolean apply(WebDriver driver) {
-					String testresult = (String) ((JavascriptExecutor) driver).executeScript("return typeof jQuery");
-					LOGGER.log(Level.FINE, "Page " + _pageURL + " - jQuery status: " + testresult);
-					return testresult.equals("function");
+					String testresult = (String) ((JavascriptExecutor) driver).executeScript("return document.readyState");
+					LOGGER.log(Level.FINE, "Page " + _pageURL + " - document.readyState: " + testresult);
+					return testresult.equals("complete");
 				}
 			});
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, e.getMessage());
+			LOGGER.log(Level.SEVERE, "Page load took too long: " + e.getMessage());
 			AllTests.getWebDriverPool().returnObject(_webDriver);
 			_webDriver = null;
 		}
