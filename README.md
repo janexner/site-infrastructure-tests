@@ -146,12 +146,6 @@ A test that checks whether DTM has been loaded on the page
 
 Example: "adobe.DTMLoaded": true
 
-#### `adobe.DTMIsInDebugMode`
-
-Testcase that checks whether DTM is in debug mode. Needed for some of the tests below, such as `adobe.DTMRuleHasRun`.
-
-Example: "adobe.DTMIsInDebugMode": true
-
 #### `adobe.DTMLibraryName`
 
 A test that checks that the site is loading the correct DTM library.
