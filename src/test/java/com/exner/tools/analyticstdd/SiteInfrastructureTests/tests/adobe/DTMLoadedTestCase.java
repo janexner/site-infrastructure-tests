@@ -7,37 +7,38 @@ import com.fasterxml.jackson.databind.node.BooleanNode;
 public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 
 	private final boolean _test;
+	private final String _note;
 
 	public DTMLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 
 		// handle parameters
-		String note = "";
 		if (BooleanNode.class.isAssignableFrom(params.getClass())) {
 			_test = ((BooleanNode) params).asBoolean();
-			if (!_test) {
-				note = " (inactive)";
+			if (_test) {
+				_note = "";
+			} else {
+				_note = "not ";
 			}
 		} else {
 			_test = true;
+			_note = "";
 		}
 
-		setName(Tools.DTM + " loaded" + note + " - " + pageURL);
+		setName(Tools.DTM + " " + _note + "loaded" + " - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
-		if (_test) {
-			// check whether DTM has been loaded on the page
-			Object response = _jsExecutor
-					.executeScript("if (typeof _satellite !== 'undefined') { return true } else { return false }");
+		// check whether DTM has been loaded on the page
+		Object response = _jsExecutor
+					.executeScript("if (typeof _satellite !== 'undefined') { return " + String.valueOf(_test) + " } else { return " + String.valueOf(!_test) + " }");
 
-			// make sure the element exists
-			if (Boolean.class.isAssignableFrom(response.getClass())) {
-				assertTrue(Tools.DTM + " must load", (Boolean) response);
-			} else {
-				fail(Tools.DTM + " not loaded");
-			}
+		// make sure the element exists
+		if (Boolean.class.isAssignableFrom(response.getClass())) {
+			assertTrue(Tools.DTM + " must " + _note + "load", (Boolean) response);
+		} else {
+			fail(Tools.DTM + " " + _note + "not loaded");
 		}
 	}
 

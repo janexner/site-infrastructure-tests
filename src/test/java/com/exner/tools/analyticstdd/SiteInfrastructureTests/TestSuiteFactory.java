@@ -37,6 +37,8 @@ public class TestSuiteFactory {
 		String pageURL = pageTests.get("pageURL").asText();
 		TestSuite pageSuite = new TestSuite("Page tests - " + pageURL);
 		for (Iterator<String> iter2 = pageTests.fieldNames(); iter2.hasNext();) {
+			// this looks stupid, but remember: keys in JSON nodes are unique!
+			// common practice is to pass back the last one if there's more than one
 			String key = iter2.next();
 			if (!key.equals("pageURL")) {
 				Object params = pageTests.get(key);
