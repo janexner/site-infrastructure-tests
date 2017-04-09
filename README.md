@@ -317,6 +317,20 @@ Tests whether the Target Javascript code has loaded
 
 Example: "adobe.TargetCodeLoaded": true
 
+#### `adobe.TargetCodeType`
+
+Tests whether the Target code is "atjs" (using at.js) or "legacy" (using mbox.js).
+
+Example: "adobe.TargetCodeType": "atjs"
+
+#### `adobe.TargetCodeMinVersion`
+
+You can test the Target Javascript code against a minimum version.
+
+Example: "adobe.TargetCodeMinVersion": "0.9.1"
+
+*Note*: Makes most sense in conjunction with adobe.TargetCodeType!
+
 #### `adobe.TargetGlobalMboxExists`
 
 Allows you to tests whether the Target global mbox with a specific name exists.

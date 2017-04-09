@@ -25,7 +25,7 @@ public class DTMLibraryNameTestCase extends WebDriverBasedTestCase {
 
 		// make sure the library name is correct
 		if (String.class.isAssignableFrom(response.getClass())) {
-			assertEquals(Tools.DTM + " library name must be " + _libraryName, (String) response, _libraryName);
+			assertEquals(Tools.DTM + " library name must be " + _libraryName, _libraryName, (String) response);
 		} else {
 			fail(Tools.DTM + " library name has not been found");
 		}
