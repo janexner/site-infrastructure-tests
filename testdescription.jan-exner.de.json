@@ -23,7 +23,7 @@
 		"adobe.AnalyticsCodeMinVersion": "1.7",
 		"adobe.DTMDataElementValue": { "name": "PageName", "value": "Home" },
 		"adobe.DTMPageLoadRuleExists": "Normal Page Load Rule",
-		"adobe.DTMRuleHasRun": "Normal Page Load Rule",
+		"adobe.DTMRuleHasRun": "Normal Page Load Rule"
  	},
  	{
  		"pageURL": "https://www.jan-exner.de/about/",
@@ -48,7 +48,7 @@
 		"adobe.AnalyticsCodeMinVersion": "1.7",
 		"adobe.DTMDataElementValue": { "name": "PageName", "value": "About me" },
 		"adobe.DTMPageLoadRuleExists": "Normal Page Load Rule",
-		"adobe.DTMRuleHasRun": "Normal Page Load Rule",
+		"adobe.DTMRuleHasRun": "Normal Page Load Rule"
  	}
   ]
 }
