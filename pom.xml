@@ -60,13 +60,19 @@
 			<artifactId>guava</artifactId>
 			<version>21.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-proxy -->
 		<dependency>
 			<groupId>net.lightbody.bmp</groupId>
 			<artifactId>browsermob-core</artifactId>
 			<version>2.1.4</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-proxy -->
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-codec-http -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-http</artifactId>
+			<version>4.1.10.Final</version>
+		</dependency>
 
 	</dependencies>
 
