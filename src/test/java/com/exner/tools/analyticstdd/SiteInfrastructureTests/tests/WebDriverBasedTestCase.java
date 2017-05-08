@@ -1,5 +1,6 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.AllTests;
-import com.google.common.base.Predicate;
 
 import junit.framework.TestCase;
 
@@ -38,9 +38,12 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 
 			// Wait up to 30 seconds for jQuery to load
 			WebDriverWait waiting = new WebDriverWait(_webDriver, 30);
-			waiting.until(new Predicate<WebDriver>() {
-				public boolean apply(WebDriver driver) {
-					String testresult = (String) ((JavascriptExecutor) driver).executeScript("return document.readyState");
+			waiting.until(new Function<WebDriver, Boolean>() {
+
+				@Override
+				public Boolean apply(WebDriver t) {
+					String testresult = (String) ((JavascriptExecutor) _webDriver)
+							.executeScript("return document.readyState");
 					LOGGER.log(Level.FINE, "Page " + _pageURL + " - document.readyState: " + testresult);
 					return testresult.equals("complete");
 				}
