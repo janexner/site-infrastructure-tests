@@ -35,10 +35,13 @@ public class TestSuiteFactory {
 
 	private TestSuite makeSuiteForPage(JsonNode pageTests) {
 		String pageURL = pageTests.get("pageURL").asText();
+		// let's figure out whether we need to suppress AA tracking for this
+		// page
 		TestSuite pageSuite = new TestSuite("Page tests - " + pageURL);
 		for (Iterator<String> iter2 = pageTests.fieldNames(); iter2.hasNext();) {
 			// this looks stupid, but remember: keys in JSON nodes are unique!
-			// common practice is to pass back the last one if there's more than one
+			// common practice is to pass back the last one if there's more than
+			// one
 			String key = iter2.next();
 			if (!key.equals("pageURL")) {
 				Object params = pageTests.get(key);
@@ -47,7 +50,8 @@ public class TestSuiteFactory {
 				try {
 					for (Iterator<Object> iter4 = testParams.iterator(); iter4.hasNext();) {
 						WebDriverBasedTestCase testCase = (WebDriverBasedTestCase) Class.forName(testClass)
-								.getDeclaredConstructor(_cArgs).newInstance(pageURL, iter4.next());
+								.getDeclaredConstructor(_cArgs)
+								.newInstance(pageURL, iter4.next());
 						pageSuite.addTest(testCase);
 					}
 				} catch (InstantiationException e) {

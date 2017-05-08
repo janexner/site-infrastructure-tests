@@ -29,7 +29,7 @@ public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-			assertTrue(Tools.AA + " code min version should be " + _minVersion, result);
+			assertTrue(Tools.AA + " code min version should be " + _minVersion + ", is " + (String) response, result);
 		} else {
 			fail(Tools.AA + " code version not available");
 		}

@@ -32,7 +32,7 @@ public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 			// make sure the element exists
 			if (String.class.isAssignableFrom(response.getClass()) && !((String) response).equals("unavailable")) {
 				boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-				assertTrue(Tools.MCVID + " min version should be " + _minVersion, result);
+				assertTrue(Tools.MCVID + " min version should be " + _minVersion + ", is " + (String) response, result);
 			} else {
 				fail(Tools.MCVID + " version not available");
 			}

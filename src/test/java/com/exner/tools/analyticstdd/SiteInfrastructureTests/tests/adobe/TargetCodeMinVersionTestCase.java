@@ -29,7 +29,7 @@ public class TargetCodeMinVersionTestCase extends WebDriverBasedTestCase {
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionNotOlderThanBaseVersion((String) response, _minVersion);
-			assertTrue(Tools.AT + " code min version should be " + _minVersion, result);
+			assertTrue(Tools.AT + " code min version should be " + _minVersion + ", is " + (String) response, result);
 		} else {
 			fail(Tools.AT + " code version not available");
 		}

@@ -36,7 +36,7 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 			_jsExecutor.executeScript("if (typeof _satellite !== 'undefined') { _satellite.setDebug(true); }");
 			_webDriver.get(_pageURL);
 
-			// Wait up to 10 seconds for jQuery to load
+			// Wait up to 30 seconds for jQuery to load
 			WebDriverWait waiting = new WebDriverWait(_webDriver, 30);
 			waiting.until(new Predicate<WebDriver>() {
 				public boolean apply(WebDriver driver) {

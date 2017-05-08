@@ -28,7 +28,7 @@ public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionIsOlderThanBaseVersion((String) response, _maxVersion);
-			assertTrue("jQuery version should be before " + _maxVersion, result);
+			assertTrue("jQuery version should be before " + _maxVersion + ", is " + (String) response, result);
 		} else {
 			fail("jQuery version not available");
 		}

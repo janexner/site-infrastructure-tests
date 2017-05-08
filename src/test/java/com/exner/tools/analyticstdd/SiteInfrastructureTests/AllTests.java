@@ -13,7 +13,6 @@ import org.openqa.selenium.WebDriver;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -21,12 +20,11 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
-	private final static String SCHEMAFILENAME = "testschema.json";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	private static GenericObjectPool<WebDriver> _webDriverPool;
 
-	public static Test suite() throws FileNotFoundException, IOException, InterruptedException, ProcessingException {
+	public static Test suite() throws FileNotFoundException, IOException, InterruptedException {
 		// try loading JSON from the file
 		String filename = TESTDESCRIPTIONFILENAME;
 		String fnProperty = System.getProperty("test.description.file");
@@ -39,12 +37,17 @@ public class AllTests extends TestSuite {
 		}
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
-
-		// LOGGER.log(Level.INFO, "Validating description against JSON-schema");
-		// JsonNode schemaNode = JsonLoader.fromFile(new File(SCHEMAFILENAME));
-		// JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
-		// JsonSchema schema = schemaFactory.getJsonSchema(schemaNode);
-		// schema.validate(testDescription);
+		
+		// check whether we need to suppress AA tracking
+		String saatProperty = System.getProperty("suppress.adobe.analytics.tracking", "never suppress");
+		final SuppressAdobeAnalyticsOptions suppressAdobeAnalytics;
+		if ("never suppress".equals(saatProperty)) {
+			suppressAdobeAnalytics = SuppressAdobeAnalyticsOptions.NeverSuppress;
+		} else if (saatProperty.length() > 0) { // any other value
+			suppressAdobeAnalytics = SuppressAdobeAnalyticsOptions.AlwaysSuppress;
+		} else {
+			suppressAdobeAnalytics = SuppressAdobeAnalyticsOptions.NeverSuppress;
+		}
 
 		// use the JSON for test setup
 		TestSuiteFactory factory = new TestSuiteFactory();
@@ -58,7 +61,7 @@ public class AllTests extends TestSuite {
 				_webDriverPoolConfig.setBlockWhenExhausted(true);
 				_webDriverPoolConfig.setMinIdle(5);
 				_webDriverPoolConfig.setMaxTotal(15);
-				BasePooledWebDriverFactory factory = new BasePooledWebDriverFactory();
+				BasePooledWebDriverFactory factory = new BasePooledWebDriverFactory(suppressAdobeAnalytics);
 				_webDriverPool = new GenericObjectPool<WebDriver>(PoolUtils.synchronizedPooledFactory(factory),
 						_webDriverPoolConfig);
 			}

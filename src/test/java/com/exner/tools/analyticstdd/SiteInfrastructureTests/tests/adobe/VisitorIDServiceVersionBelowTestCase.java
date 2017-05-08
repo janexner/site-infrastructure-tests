@@ -29,7 +29,7 @@ public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			boolean result = Tools.testVersionIsOlderThanBaseVersion((String) response, _maxVersion);
-			assertTrue(Tools.MCVID + " version should be before " + _maxVersion, result);
+			assertTrue(Tools.MCVID + " version should be before " + _maxVersion + ", is " + (String) response, result);
 		} else {
 			fail(Tools.MCVID + " version not available");
 		}
