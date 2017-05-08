@@ -37,11 +37,12 @@ public class AllTests extends TestSuite {
 		}
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
-		
+
 		// check whether we need to suppress AA tracking
-		String saatProperty = System.getProperty("suppress.adobe.analytics.tracking", "never suppress");
+		String saatProperty = System.getProperty("suppress.adobe.analytics.tracking", "never");
 		final SuppressAdobeAnalyticsOptions suppressAdobeAnalytics;
-		if ("never suppress".equals(saatProperty)) {
+		if ("never".equalsIgnoreCase(saatProperty) || "false".equalsIgnoreCase(saatProperty)
+				|| "no".equalsIgnoreCase(saatProperty)) {
 			suppressAdobeAnalytics = SuppressAdobeAnalyticsOptions.NeverSuppress;
 		} else if (saatProperty.length() > 0) { // any other value
 			suppressAdobeAnalytics = SuppressAdobeAnalyticsOptions.AlwaysSuppress;

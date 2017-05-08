@@ -36,7 +36,7 @@ public class BasePooledWebDriverFactory extends BasePooledObjectFactory<WebDrive
 		super();
 
 		// check whether we'll use a proxy or not
-		if (SuppressAdobeAnalyticsOptions.AlwaysSuppress == suppressAdobeAnalyticsTracking) {
+		if (SuppressAdobeAnalyticsOptions.NeverSuppress == suppressAdobeAnalyticsTracking) {
 			_useProxy = false;
 
 			// no need
