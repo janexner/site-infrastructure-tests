@@ -14,6 +14,8 @@ public class GenericJavascriptTestCase extends WebDriverBasedTestCase {
 		} else {
 			throw new IllegalArgumentException("Must define some script to run!");
 		}
+		
+		setName("Generic JS - " + pageURL);
 	}
 
 	@Override

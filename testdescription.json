@@ -3,7 +3,8 @@
   "pagesToTest": [
     {
 		"pageURL": "http://www.jan-exner.de/",
-		"jQueryLoaded": true
+		"jQueryLoaded": true,
+		"GenericJavascriptSetupAndCheckLater": { "setupScript": "window.aaa = true;", "verificationScript": "return window.aaa;", "delay": 1000 }
 	}
 	]
 }

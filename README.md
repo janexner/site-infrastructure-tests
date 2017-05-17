@@ -138,6 +138,14 @@ This test allows you to inject arbitrary Javascript code into the page and test 
 
 Example: "genericJavascript": "return true;"
 
+#### `genericJavascriptSetupAndCheckLater`
+
+A test that lets you inject two snippets of code into the page. The first snippet can serve as a setup, while the second represents the actual test. The second snippet therefore must return a boolean value.
+
+The third parameter is a delay in milliseconds, which defines how long the test should wait between executing the two snippets.
+
+Example: "GenericJavascriptSetupAndCheckLater": { "setupScript": "var a = true;", "verificationScript": "return a;", "delay": 1000
+
 ### Adobe Marketing Cloud-related elements
 
 #### `adobe.DTMLoaded`

@@ -21,7 +21,6 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
-	private final static String SCHEMAFILENAME = "testschema.json";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	private static GenericObjectPool<WebDriver> _webDriverPool;
@@ -39,12 +38,6 @@ public class AllTests extends TestSuite {
 		}
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
-
-		// LOGGER.log(Level.INFO, "Validating description against JSON-schema");
-		// JsonNode schemaNode = JsonLoader.fromFile(new File(SCHEMAFILENAME));
-		// JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
-		// JsonSchema schema = schemaFactory.getJsonSchema(schemaNode);
-		// schema.validate(testDescription);
 
 		// use the JSON for test setup
 		TestSuiteFactory factory = new TestSuiteFactory();
