@@ -144,7 +144,13 @@ A test that lets you inject two snippets of code into the page. The first snippe
 
 The third parameter is a delay in milliseconds, which defines how long the test should wait between executing the two snippets.
 
-Example: "GenericJavascriptSetupAndCheckLater": { "setupScript": "var a = true;", "verificationScript": "return a;", "delay": 1000
+Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "var a = true;", "verificationScript": "return a;", "delay": 1000
+
+#### `genericJavascriptCascade`
+
+This test can inject an arbitrary number of arbitrary Javascript snippets into a page in a given order, waiting between each injection, and finally running a verification script that must return true or false.
+
+Example: "genericJavascriptCascade": { "scripts": [ "window.aaa1 = 1;", "window.aaa2 = 2;" ], "verificationsScript": "return (window.aaa1 + window.aaa2 == 3);", 500 }
 
 ### Adobe Marketing Cloud-related elements
 
