@@ -1,7 +1,6 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 
 public class GenericJavascriptSetupAndCheckLaterTestCase extends WebDriverBasedTestCase {
 	private final String _jsToRunForSetup;
