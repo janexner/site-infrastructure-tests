@@ -19,7 +19,7 @@ public class GenericJavascriptSetupAndCheckLaterTestCase extends WebDriverBasedT
 		_jsToRunForVerification = ((ObjectNode) params).get("verificationScript").asText();
 		_delay = ((ObjectNode) params).get("delay").asLong();
 
-		setName("Generic JS in 2 steps after " + _delay + "ms - " + pageURL);
+		setName("Generic JS in 2 steps with " + _delay + "ms wait - " + pageURL);
 	}
 
 	@Override
