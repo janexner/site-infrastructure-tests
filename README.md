@@ -144,7 +144,7 @@ A test that lets you inject two snippets of code into the page. The first snippe
 
 The third parameter is a delay in milliseconds, which defines how long the test should wait between executing the two snippets.
 
-Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "var a = true;", "verificationScript": "return a;", "delay": 1000
+Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "window.aaa = true;", "verificationScript": "return window.aaa;", "delay": 1000
 
 #### `genericJavascriptCascade`
 
