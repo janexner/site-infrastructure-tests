@@ -16,24 +16,35 @@ public class TestSuiteFactory {
 	private Class[] _cArgs;
 
 	public TestSuiteFactory() {
-		_cArgs = new Class[2];
+		_cArgs = new Class[3];
 		_cArgs[0] = String.class;
-		_cArgs[1] = Object.class;
+		_cArgs[1] = List.class;
+		_cArgs[2] = Object.class;
 	}
 
 	public TestSuite makeSuiteFromJSON(JsonNode jsonObject) {
 		String testName = jsonObject.get("name").asText();
 		TestSuite suite = new TestSuite("Site test - " + testName);
 
+		// see whether there are url to block
+		List<String> blockPatterns = new ArrayList<String>();
+		ArrayNode urlPatternsToBlock = (ArrayNode) jsonObject.get("urlPatternsToBlock");
+		if (null != urlPatternsToBlock) {
+			for (Iterator<JsonNode> iter = urlPatternsToBlock.iterator(); iter.hasNext();) {
+				JsonNode element = iter.next();
+				blockPatterns.add(element.asText());
+			}
+		}
+
 		// loop through pages to test and add one test suite per page
 		ArrayNode pagesToTest = (ArrayNode) jsonObject.get("pagesToTest");
 		for (Iterator<JsonNode> iterator = pagesToTest.iterator(); iterator.hasNext();) {
-			suite.addTest(makeSuiteForPage(iterator.next()));
+			suite.addTest(makeSuiteForPage(iterator.next(), blockPatterns));
 		}
 		return suite;
 	}
 
-	private TestSuite makeSuiteForPage(JsonNode pageTests) {
+	private TestSuite makeSuiteForPage(JsonNode pageTests, List<String> blockPatterns) {
 		String pageURL = pageTests.get("pageURL").asText();
 		String description = null;
 		if (pageTests.hasNonNull("description")) {
@@ -53,7 +64,7 @@ public class TestSuiteFactory {
 				try {
 					for (Iterator<Object> iter4 = testParams.iterator(); iter4.hasNext();) {
 						WebDriverBasedTestCase testCase = (WebDriverBasedTestCase) Class.forName(testClass)
-								.getDeclaredConstructor(_cArgs).newInstance(pageURL, iter4.next());
+								.getDeclaredConstructor(_cArgs).newInstance(pageURL, blockPatterns, iter4.next());
 						pageSuite.addTest(testCase);
 					}
 				} catch (InstantiationException e) {

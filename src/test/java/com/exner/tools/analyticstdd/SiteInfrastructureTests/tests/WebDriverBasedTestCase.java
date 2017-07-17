@@ -1,8 +1,10 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.exner.tools.analyticstdd.SiteInfrastructureTests.WebConnectionThatBlocksTracking;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -14,13 +16,15 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 	private final static Logger LOGGER = Logger.getLogger(WebDriverBasedTestCase.class.getName());
 
 	protected final String _pageURL;
+	protected final List<String> _blockPatterns;
 
 	private WebClient _webClient;
 	protected HtmlPage _page;
 
-	protected WebDriverBasedTestCase(String pageURL) {
+	protected WebDriverBasedTestCase(String pageURL, List<String> blockPatterns) {
 		super();
 		_pageURL = pageURL;
+		_blockPatterns = blockPatterns;
 	}
 
 	@Override
@@ -28,6 +32,7 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 		super.setUp();
 		LOGGER.log(Level.FINE, "Setting up test for " + _pageURL);
 		_webClient = new WebClient();
+		_webClient.setWebConnection(new WebConnectionThatBlocksTracking(_webClient, _blockPatterns));
 		_webClient.waitForBackgroundJavaScriptStartingBefore(10000);
 		_webClient.getOptions().setJavaScriptEnabled(true);
 		_webClient.getOptions().setThrowExceptionOnScriptError(false);

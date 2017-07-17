@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriverException;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,8 +11,8 @@ public class DataLayerElementDelayedValueTestCase extends WebDriverBasedTestCase
 	private final String _elementExpectedValue;
 	private long _delay;
 
-	public DataLayerElementDelayedValueTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DataLayerElementDelayedValueTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!JsonNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name, value, and delay");

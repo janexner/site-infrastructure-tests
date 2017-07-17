@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class GenericJavascriptSetupAndCheckLaterTestCase extends WebDriverBasedTestCase {
@@ -7,8 +9,8 @@ public class GenericJavascriptSetupAndCheckLaterTestCase extends WebDriverBasedT
 	private final String _jsToRunForVerification;
 	private final long _delay;
 
-	public GenericJavascriptSetupAndCheckLaterTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public GenericJavascriptSetupAndCheckLaterTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName("Generic JS - " + pageURL);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {

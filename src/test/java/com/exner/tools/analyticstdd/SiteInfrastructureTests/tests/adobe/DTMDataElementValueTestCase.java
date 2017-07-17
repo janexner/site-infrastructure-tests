@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,8 +10,8 @@ public class DTMDataElementValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
 	private final String _elementExpectedValue;
 
-	public DTMDataElementValueTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMDataElementValueTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (ObjectNode.class.isAssignableFrom(params.getClass())) {
 			_elementName = ((ObjectNode) params).get("name").asText();

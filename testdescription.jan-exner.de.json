@@ -1,5 +1,6 @@
 {
   "name": "jan-exner.de",
+  "urlPatternsToBlock": [ "/b/ss/" ],
   "pagesToTest": [
     {
 		"pageURL": "https://www.jan-exner.de/",

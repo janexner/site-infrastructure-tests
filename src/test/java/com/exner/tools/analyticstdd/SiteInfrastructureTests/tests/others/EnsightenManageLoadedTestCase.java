@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.others;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class EnsightenManageLoadedTestCase extends WebDriverBasedTestCase {
 
-	public EnsightenManageLoadedTestCase(String pageURL) {
-		super(pageURL);
+	public EnsightenManageLoadedTestCase(String pageURL, List<String> blockPattern) {
+		super(pageURL, blockPattern);
 		setName(Tools.ENSIGHTEN + " loaded - " + pageURL);
 	}
 

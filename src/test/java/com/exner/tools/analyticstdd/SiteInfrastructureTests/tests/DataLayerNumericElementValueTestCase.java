@@ -1,13 +1,15 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DataLayerNumericElementValueTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
 	private final Long _elementExpectedValue;
 
-	public DataLayerNumericElementValueTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DataLayerNumericElementValueTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (ObjectNode.class.isAssignableFrom(params.getClass())) {
 			_elementName = ((ObjectNode) params).get("name").asText();

@@ -12,8 +12,8 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends WebDriverBasedTestCase {
 	private final String _dataElementName;
 
-	public DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");

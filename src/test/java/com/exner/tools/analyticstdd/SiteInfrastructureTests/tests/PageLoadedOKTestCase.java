@@ -1,9 +1,11 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 public class PageLoadedOKTestCase extends WebDriverBasedTestCase {
 
-	public PageLoadedOKTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public PageLoadedOKTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName("Page loads successful - " + pageURL);
 	}
 

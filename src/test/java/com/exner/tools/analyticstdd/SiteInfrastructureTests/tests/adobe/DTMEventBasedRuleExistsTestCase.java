@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class DTMEventBasedRuleExistsTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
 
-	public DTMEventBasedRuleExistsTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMEventBasedRuleExistsTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");

@@ -11,8 +11,8 @@ public class GenericJavascriptCascadeTestCase extends WebDriverBasedTestCase {
 	private final String _jsToRunForVerification;
 	private final long _delay;
 
-	public GenericJavascriptCascadeTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public GenericJavascriptCascadeTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName("Generic JS Cascade - " + pageURL);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {

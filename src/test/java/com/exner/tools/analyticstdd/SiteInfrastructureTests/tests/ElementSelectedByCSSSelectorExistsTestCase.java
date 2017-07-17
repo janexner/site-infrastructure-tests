@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import org.openqa.selenium.NoSuchElementException;
 
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -10,8 +12,8 @@ import se.fishtank.css.selectors.dom.W3CNode;
 public class ElementSelectedByCSSSelectorExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementSelector;
 
-	public ElementSelectedByCSSSelectorExistsTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public ElementSelectedByCSSSelectorExistsTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (TextNode.class.isAssignableFrom(params.getClass())) {
 			_elementSelector = ((TextNode) params).asText();

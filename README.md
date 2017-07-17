@@ -19,9 +19,10 @@ You can specify which test description the test suite will read by specifying th
 
 ## Format of testdescription.json file
 
-The `testdescription.json` file has two top level elements:
+The `testdescription.json` file has three top level elements:
 
 - name
+- urlPatternsToBlock
 - pagesToTest
 
 ### `name`
@@ -29,6 +30,16 @@ The `testdescription.json` file has two top level elements:
 The `name` element is used to give the test suite a name.
 
 Example: "name": "my-test-site.com"
+
+### `urlPatternsToBlock`
+
+The `urlPatternsToBlock` element allows you to block Analytics tracking or other ressources from being loaded during the test.
+
+Example: "urlPatternsToBlock": [ "/b/ss/" ]
+
+*Note*: this element is optional
+
+*Note*: since all requests pass through the matching, you can effectively block whatever calls you want, including the one that loads DTM, or even the pages themselves. Great power comes with great opportunity to shoot yourself in the foot.
 
 ### `pagesToTest`
 

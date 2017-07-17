@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriverException;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
@@ -9,8 +11,8 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 	protected String _minVersion;
 
-	public VisitorIDServiceMinVersionTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public VisitorIDServiceMinVersionTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (TextNode.class.isAssignableFrom(params.getClass())) {
 			_minVersion = ((TextNode) params).asText();

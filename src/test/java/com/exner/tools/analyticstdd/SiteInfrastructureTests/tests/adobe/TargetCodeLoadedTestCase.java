@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class TargetCodeLoadedTestCase extends WebDriverBasedTestCase {
 
-	public TargetCodeLoadedTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public TargetCodeLoadedTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName(Tools.AT + " mbox.js is loaded - " + pageURL);
 	}
 

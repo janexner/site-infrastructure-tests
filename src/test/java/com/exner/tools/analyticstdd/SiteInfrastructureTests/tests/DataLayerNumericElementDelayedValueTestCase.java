@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriverException;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,8 +11,8 @@ public class DataLayerNumericElementDelayedValueTestCase extends WebDriverBasedT
 	private final Long _elementExpectedValue;
 	private long _delay;
 
-	public DataLayerNumericElementDelayedValueTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DataLayerNumericElementDelayedValueTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name, value, and delay");

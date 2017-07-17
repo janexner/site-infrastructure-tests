@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.others;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class GTMLoadedTestCase extends WebDriverBasedTestCase {
 
-	protected GTMLoadedTestCase(String pageURL) {
-		super(pageURL);
+	protected GTMLoadedTestCase(String pageURL, List<String> blockPattern) {
+		super(pageURL, blockPattern);
 		setName(Tools.GTM + " loaded - " + pageURL);
 	}
 

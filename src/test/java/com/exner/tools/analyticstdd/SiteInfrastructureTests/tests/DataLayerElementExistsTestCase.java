@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class DataLayerElementExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementName;
 
-	public DataLayerElementExistsTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DataLayerElementExistsTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");

@@ -1,7 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
@@ -17,8 +17,8 @@ public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _triggerType;
 	private String _triggerElement;
 
-	public DTMEventBasedRuleHasRunTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMEventBasedRuleHasRunTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (ObjectNode.class.isAssignableFrom(params.getClass())) {
 			_ruleName = ((ObjectNode) params).get("name").asText();
@@ -57,16 +57,17 @@ public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		Thread.sleep(1000l);
 
 		// get the list of Rules which fired on the page
-		NativeArray logEntries = (NativeArray) _page.executeJavaScript("_satellite.Logger.getHistory()")
-				.getJavaScriptResult();
-		for (Iterator<ArrayList<String>> iterator = logEntries.iterator(); iterator.hasNext();) {
-			ArrayList<String> arrayList = iterator.next();
-			String logMessage = arrayList.get(1);
-			if (logMessage.startsWith("Rule ") && logMessage.endsWith("fired.")) {
-				String ruleName = logMessage.replace("Rule \"", "").replace("\" fired.", "");
-				if (ruleName.equals(_ruleName)) {
-					// yay, it fired! It's a pass!
-					return;
+		Object logEntries = _page.executeJavaScript("_satellite.Logger.getHistory()").getJavaScriptResult();
+		if (NativeArray.class.isAssignableFrom(logEntries.getClass())) {
+			for (Iterator<NativeArray> iter = ((NativeArray) logEntries).iterator(); iter.hasNext();) {
+				NativeArray line = iter.next();
+				String logMessage = line.get(1).toString();
+				if (logMessage.startsWith("Rule ") && logMessage.endsWith("fired.")) {
+					String ruleName = logMessage.replace("Rule \"", "").replace("\" fired.", "");
+					if (ruleName.equals(_ruleName)) {
+						// yay, it fired! It's a pass!
+						return;
+					}
 				}
 			}
 		}

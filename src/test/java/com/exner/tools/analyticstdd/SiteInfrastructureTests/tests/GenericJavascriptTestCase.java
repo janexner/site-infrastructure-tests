@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class GenericJavascriptTestCase extends WebDriverBasedTestCase {
 	private final String _jsToRun;
 
-	public GenericJavascriptTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public GenericJavascriptTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName("Generic JS - " + pageURL);
 
 		if (TextNode.class.isAssignableFrom(params.getClass())) {

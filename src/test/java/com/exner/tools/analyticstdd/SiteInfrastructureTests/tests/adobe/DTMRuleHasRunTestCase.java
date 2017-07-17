@@ -1,6 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
@@ -11,8 +12,8 @@ import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
 public class DTMRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private final String _ruleName;
 
-	public DTMRuleHasRunTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMRuleHasRunTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!TextNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify an element");

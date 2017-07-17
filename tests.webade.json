@@ -1,5 +1,6 @@
 {
   "name": "WebADE",
+  "urlPatternsToBlock": [ "/b/ss/" ],
   "pagesToTest": [
     {
       "pageURL": "https://webanalyseaufdeutsch.de/",

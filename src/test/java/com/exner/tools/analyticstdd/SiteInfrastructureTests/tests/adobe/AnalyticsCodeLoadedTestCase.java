@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class AnalyticsCodeLoadedTestCase extends WebDriverBasedTestCase {
 
-	public AnalyticsCodeLoadedTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public AnalyticsCodeLoadedTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName(Tools.AA + " JS code loaded on page - " + pageURL);
 	}
 

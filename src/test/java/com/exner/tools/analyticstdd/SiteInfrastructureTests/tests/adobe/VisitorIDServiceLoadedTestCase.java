@@ -1,12 +1,14 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
 
-	public VisitorIDServiceLoadedTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public VisitorIDServiceLoadedTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 		setName(Tools.MCVID + " loaded - " + pageURL);
 	}
 

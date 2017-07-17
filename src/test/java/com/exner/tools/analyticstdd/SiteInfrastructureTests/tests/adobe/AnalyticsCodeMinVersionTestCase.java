@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -7,8 +9,8 @@ import com.fasterxml.jackson.databind.node.TextNode;
 public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	protected final String _minVersion;
 
-	public AnalyticsCodeMinVersionTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public AnalyticsCodeMinVersionTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (TextNode.class.isAssignableFrom(params.getClass())) {
 			_minVersion = ((TextNode) params).asText();

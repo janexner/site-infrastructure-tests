@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,8 +10,8 @@ public class AnalyticsTagForReportSuiteFiredAfterDelayTestCase extends WebDriver
 	private final String _rsid;
 	private final long _delay;
 
-	public AnalyticsTagForReportSuiteFiredAfterDelayTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public AnalyticsTagForReportSuiteFiredAfterDelayTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify rsid and delay");

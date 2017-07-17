@@ -2,6 +2,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
@@ -11,8 +12,8 @@ public class DTMRuleHasRunAfterDelayTestCase extends WebDriverBasedTestCase {
 	private final String _ruleName;
 	private final long _delay;
 
-	public DTMRuleHasRunAfterDelayTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMRuleHasRunAfterDelayTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify name and delay");

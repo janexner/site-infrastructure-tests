@@ -1,5 +1,7 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.BooleanNode;
@@ -8,8 +10,8 @@ public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 
 	private final boolean _test;
 
-	public DTMIsInDebugModeTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public DTMIsInDebugModeTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		String note = "";
 		if (BooleanNode.class.isAssignableFrom(params.getClass())) {

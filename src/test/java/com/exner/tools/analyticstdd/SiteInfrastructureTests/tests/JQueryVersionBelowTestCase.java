@@ -1,13 +1,15 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
+import java.util.List;
+
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 	private final String _maxVersion;
 
-	public JQueryVersionBelowTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public JQueryVersionBelowTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (TextNode.class.isAssignableFrom(params.getClass())) {
 			_maxVersion = ((TextNode) params).asText();

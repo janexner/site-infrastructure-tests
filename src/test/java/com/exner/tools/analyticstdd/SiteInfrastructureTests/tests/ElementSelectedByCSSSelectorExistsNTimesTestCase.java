@@ -15,8 +15,8 @@ public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverB
 	private final String _elementSelector;
 	private final long _n;
 
-	public ElementSelectedByCSSSelectorExistsNTimesTestCase(String pageURL, Object params) {
-		super(pageURL);
+	public ElementSelectedByCSSSelectorExistsNTimesTestCase(String pageURL, List<String> blockPatterns, Object params) {
+		super(pageURL, blockPatterns);
 
 		if (!ObjectNode.class.isAssignableFrom(params.getClass())) {
 			throw new IllegalArgumentException("Must specify selector and n");
