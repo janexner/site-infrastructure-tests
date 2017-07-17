@@ -3,12 +3,14 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.adobe;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+
+import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
+import se.fishtank.css.selectors.Selectors;
+import se.fishtank.css.selectors.dom.W3CNode;
 
 public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	private String _ruleName;
@@ -45,7 +47,8 @@ public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// trigger the rule
 		if ("click".equals(_triggerType)) {
-			WebElement el = _webDriver.findElement(By.cssSelector(_triggerElement));
+			Selectors selectors = new Selectors(new W3CNode(_page));
+			HtmlElement el = (HtmlElement) selectors.querySelector(_triggerElement);
 			if (null != el)
 				el.click();
 		}
@@ -54,10 +57,10 @@ public class DTMEventBasedRuleHasRunTestCase extends WebDriverBasedTestCase {
 		Thread.sleep(1000l);
 
 		// get the list of Rules which fired on the page
-		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _jsExecutor
-				.executeScript("return _satellite.Logger.getHistory()");
+		NativeArray logEntries = (NativeArray) _page.executeJavaScript("_satellite.Logger.getHistory()")
+				.getJavaScriptResult();
 		for (Iterator<ArrayList<String>> iterator = logEntries.iterator(); iterator.hasNext();) {
-			ArrayList<String> arrayList = (ArrayList<String>) iterator.next();
+			ArrayList<String> arrayList = iterator.next();
 			String logMessage = arrayList.get(1);
 			if (logMessage.startsWith("Rule ") && logMessage.endsWith("fired.")) {
 				String ruleName = logMessage.replace("Rule \"", "").replace("\" fired.", "");

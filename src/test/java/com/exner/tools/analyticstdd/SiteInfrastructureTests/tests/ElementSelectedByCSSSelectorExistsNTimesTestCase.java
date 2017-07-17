@@ -2,11 +2,14 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.gargoylesoftware.htmlunit.javascript.host.dom.Node;
+
+import se.fishtank.css.selectors.Selectors;
+import se.fishtank.css.selectors.dom.DOMNode;
+import se.fishtank.css.selectors.dom.W3CNode;
 
 public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverBasedTestCase {
 	private final String _elementSelector;
@@ -28,9 +31,10 @@ public class ElementSelectedByCSSSelectorExistsNTimesTestCase extends WebDriverB
 	@Override
 	protected void runTest() throws Throwable {
 		// try finding the element in the page
-		List<WebElement> element = null;
+		List<Node> element = null;
 		try {
-			element = _webDriver.findElements(By.cssSelector(_elementSelector));
+			Selectors selectors = new Selectors(new W3CNode(_page));
+			element = (List<Node>) selectors.querySelectorAll(_elementSelector);
 		} catch (NoSuchElementException e) {
 			// it ain't there
 			fail("DOM element " + _elementSelector + " must exist " + _n + " times");

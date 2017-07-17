@@ -21,8 +21,11 @@ public class DTMDataElementExistsTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript("for(var de in _satellite.dataElements) { if (de == '"
-				+ _elementName + "') { return true; }} return false;");
+		// TODO this is ugly!
+		Object response = _page
+				.executeJavaScript("var result = false;for(var de in _satellite.dataElements) { if (de == '"
+						+ _elementName + "') { result = true; }}; result")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

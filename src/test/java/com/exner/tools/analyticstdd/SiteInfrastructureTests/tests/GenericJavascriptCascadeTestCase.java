@@ -35,18 +35,18 @@ public class GenericJavascriptCascadeTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// iterate through "first" scripts, including wait after each one
 		for (final String cmd : _jsToRunForCascade) {
-			_jsExecutor.executeScript(cmd);
+			_page.executeJavaScript(cmd);
 			Thread.sleep(_delay);
 		}
 
 		// run second script for verification
-		Object response = _jsExecutor.executeScript(_jsToRunForVerification);
+		Object response = _page.executeJavaScript(_jsToRunForVerification).getJavaScriptResult();
 
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
 			boolean br = (Boolean) response;
-			assertTrue("JS must return true", br);
+			assertTrue("JS must give true", br);
 		} else {
-			fail("JS must return true!");
+			fail("JS must give true!");
 		}
 	}
 

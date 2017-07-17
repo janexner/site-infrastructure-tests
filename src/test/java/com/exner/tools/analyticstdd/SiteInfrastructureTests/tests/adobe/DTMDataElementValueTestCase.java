@@ -31,7 +31,7 @@ public class DTMDataElementValueTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript("return _satellite.getVar('" + _elementName + "');");
+		Object response = _page.executeJavaScript("_satellite.getVar('" + _elementName + "');").getJavaScriptResult();
 
 		// make sure the element exists
 		if (null != response && String.class.isAssignableFrom(response.getClass())) {

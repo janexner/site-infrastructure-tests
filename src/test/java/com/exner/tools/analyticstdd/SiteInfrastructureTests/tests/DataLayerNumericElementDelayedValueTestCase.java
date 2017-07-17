@@ -30,7 +30,7 @@ public class DataLayerNumericElementDelayedValueTestCase extends WebDriverBasedT
 			Thread.sleep(_delay);
 
 			// get the value of the dl element from the page
-			Object response = _jsExecutor.executeScript("return " + _elementName);
+			Object response = _page.executeJavaScript(_elementName).getJavaScriptResult();
 
 			// make sure the element exists
 			if (Long.class.isAssignableFrom(response.getClass())) {

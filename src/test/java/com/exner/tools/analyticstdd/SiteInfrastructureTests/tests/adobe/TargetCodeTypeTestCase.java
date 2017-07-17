@@ -22,8 +22,8 @@ public class TargetCodeTypeTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// inject and run JS test
-		Object response = _jsExecutor.executeScript(
-				"if (typeof mboxVersion !== 'undefined' ) { return 'legacy' } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return 'legacy'; } else { return 'none'; }");
+		Object response = _page.executeJavaScript(
+				"(typeof mboxVersion !== 'undefined' ) ? 'legacy' : (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') ? 'atjs' : 'none'");
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			assertEquals(Tools.AT + " code type must be " + _libType, _libType, (String) response);

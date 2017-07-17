@@ -30,7 +30,7 @@ public class DataLayerElementValueTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// TODO - maybe test for undefined first!
 		// get the value of the dl element from the page
-		Object response = _jsExecutor.executeScript("return " + _elementName);
+		Object response = _page.executeJavaScript(_elementName).getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

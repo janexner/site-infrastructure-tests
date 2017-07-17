@@ -23,9 +23,10 @@ public class TargetGlobalMboxExistsTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the value of the dl element from the page
-		Object response = _jsExecutor
-				.executeScript("if (typeof mboxCurrent != 'undefined' && mboxCurrent.getName() == '" + _mboxName
-						+ "') { return true; } else { return false; }");
+		Object response = _page
+				.executeJavaScript(
+						"(typeof mboxCurrent != 'undefined' && mboxCurrent.getName() == '" + _mboxName + "')")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

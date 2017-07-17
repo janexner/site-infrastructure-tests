@@ -29,8 +29,9 @@ public class DTMAllRulesCheckTrackingAllowedDataElementPedanticTestCase extends 
 		String rulesThatDoNotCheckTheDE = "";
 
 		// get the list of EBRs from the page
-		List<Object> responseEBRs = (List<Object>) _jsExecutor.executeScript("return _satellite.rules");
-		List<Object> responsePLRs = (List<Object>) _jsExecutor.executeScript("return _satellite.pageLoadRules");
+		List<Object> responseEBRs = (List<Object>) _page.executeJavaScript("_satellite.rules").getJavaScriptResult();
+		List<Object> responsePLRs = (List<Object>) _page.executeJavaScript("_satellite.pageLoadRules")
+				.getJavaScriptResult();
 		List<Object> response = responsePLRs;
 		response.addAll(responseEBRs);
 

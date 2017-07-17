@@ -24,17 +24,17 @@ public class GenericJavascriptSetupAndCheckLaterTestCase extends WebDriverBasedT
 	@Override
 	protected void runTest() throws Throwable {
 		// run first script to perform some setup
-		Object response = _jsExecutor.executeScript(_jsToRunForSetup);
+		Object response = _page.executeJavaScript(_jsToRunForSetup);
 		// wait a tick
 		Thread.sleep(_delay);
 		// run second script for verification
-		response = _jsExecutor.executeScript(_jsToRunForVerification);
+		response = _page.executeJavaScript(_jsToRunForVerification).getJavaScriptResult();
 
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
 			boolean br = (Boolean) response;
-			assertTrue("JS must return true", br);
+			assertTrue("JS must give true", br);
 		} else {
-			fail("JS must return true!");
+			fail("JS must give true!");
 		}
 	}
 

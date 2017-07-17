@@ -13,8 +13,7 @@ public class TargetCodeLoadedTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether mbox.js has been loaded on the page
-		Object response = _jsExecutor
-				.executeScript("if (typeof TNT == 'object') { return true; } else { return false; }");
+		Object response = _page.executeJavaScript("(typeof TNT == 'object')").getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

@@ -23,8 +23,10 @@ public class TargetCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof mboxVersion !== 'undefined') { return mboxVersion } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return adobe.target.VERSION } else { return 'unavailable' }");
+		Object response = _page
+				.executeJavaScript(
+						"(typeof mboxVersion !== 'undefined') ? mboxVersion : (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') ? adobe.target.VERSION : 'unavailable'")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

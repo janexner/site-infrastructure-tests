@@ -36,7 +36,7 @@ The `pagesToTest` element contains a list of pages and the corresponding tests t
 
 Each sub-element of `pagesToTest` must contain a `pageURL` element. It can further contain elements that specify which tests should be run.
 
-Those elements have two parts: the name of the test class, plus parameters that the test class can interpret. Section 2.2 and below show the test class names and parameters as currently implemented.
+Those elements have two parts: the name of the test class, plus parameters that the test class can interpret. The below show the test class names and parameters as currently implemented.
 
 ### `pageURL`
 
@@ -45,6 +45,14 @@ The `pageURL` element specifies which page the test should load before it execut
 Example: "pageURL": "http://test.com/"
 
 *Note*: this element is mandatory
+
+### `description`
+
+The `description` element can be used to annotate the test(s) for the current page. Should ideally be used with more complex tests like `genericJavascript`, `genericJavascriptSetupAndCheckLater`, or `genericJavascriptCascade`.
+
+Example: "description": "Test that adds three items to the shopping cart, moves on into checkout, then checks the data layer to see if product, quantity, and price are ok."
+
+*Note*: this element is optional
 
 ### Generic Elements
 
@@ -134,23 +142,23 @@ Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName
 
 #### `genericJavascript`
 
-This test allows you to inject arbitrary Javascript code into the page and test whether it returns 'true'.
+This test allows you to inject arbitrary Javascript code into the page and test whether the result is 'true'.
 
-Example: "genericJavascript": "return true;"
+Example: "genericJavascript": "true"
 
 #### `genericJavascriptSetupAndCheckLater`
 
-A test that lets you inject two snippets of code into the page. The first snippet can serve as a setup, while the second represents the actual test. The second snippet therefore must return a boolean value.
+A test that lets you inject two snippets of code into the page. The first snippet can serve as a setup, while the second represents the actual test. The second snippet therefore must generate a boolean value.
 
 The third parameter is a delay in milliseconds, which defines how long the test should wait between executing the two snippets.
 
-Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "window.aaa = true;", "verificationScript": "return window.aaa;", "delay": 1000
+Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "window.aaa = true;", "verificationScript": "window.aaa;", "delay": 1000
 
 #### `genericJavascriptCascade`
 
-This test can inject an arbitrary number of arbitrary Javascript snippets into a page in a given order, waiting between each injection, and finally running a verification script that must return true or false.
+This test can inject an arbitrary number of arbitrary Javascript snippets into a page in a given order, waiting between each injection, and finally running a verification script that must generate true or false.
 
-Example: "genericJavascriptCascade": { "scripts": [ "window.aaa1 = 1;", "window.aaa2 = 2;" ], "verificationsScript": "return (window.aaa1 + window.aaa2 == 3);", 500 }
+Example: "genericJavascriptCascade": { "scripts": [ "window.aaa1 = 1;", "window.aaa2 = 2;" ], "verificationsScript": "(window.aaa1 + window.aaa2 == 3);", 500 }
 
 ### Adobe Marketing Cloud-related elements
 

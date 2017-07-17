@@ -22,8 +22,10 @@ public class AnalyticsCodeTypeTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// inject and run JS test
-		Object response = _jsExecutor.executeScript(
-				"if (typeof AppMeasurement == 'function' ) { return 'AppMeasurement' } else if (typeof s_gi == 'function') { return 'legacy'; } else { return 'none'; }");
+		Object response = _page
+				.executeJavaScript(
+						"(typeof AppMeasurement == 'function' ) ? 'AppMeasurement' : (typeof s_gi == 'function') ? 'legacy' : 'none';")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

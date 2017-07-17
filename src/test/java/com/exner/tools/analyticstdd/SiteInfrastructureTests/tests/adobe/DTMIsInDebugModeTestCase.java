@@ -27,7 +27,7 @@ public class DTMIsInDebugModeTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		if (_test) {
-			Object response = _jsExecutor.executeScript("return localStorage.getItem('sdsat_debug');");
+			Object response = _page.executeJavaScript("localStorage.getItem('sdsat_debug');").getJavaScriptResult();
 
 			// make sure the element exists
 			if (null == response) {

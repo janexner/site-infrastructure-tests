@@ -26,7 +26,7 @@ public class DTMEventBasedRuleExistsTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the list of EBRs from the page
-		List<Object> response = (List<Object>) _jsExecutor.executeScript("return _satellite.rules");
+		List<Object> response = (List<Object>) _page.executeJavaScript("_satellite.rules").getJavaScriptResult();
 
 		// loop through the list until we find the rule we're looking for
 		for (Iterator<Object> iterator = response.iterator(); iterator.hasNext();) {

@@ -10,6 +10,12 @@ public class PageLoadedOKTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// TODO define test case
-		_jsExecutor.executeScript("");
+		_page.getReadyState();
+		
+		if ("ready".equalsIgnoreCase(_page.getReadyState())) {
+			// good
+		} else {
+			fail("Page was not loaded successfully");
+		}
 	}
 }

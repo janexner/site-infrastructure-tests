@@ -1,14 +1,13 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
-import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 
 public class JQueryLoadedTestCase extends WebDriverBasedTestCase {
 
 	private final boolean _test;
 	private final String _note;
-	
+
 	public JQueryLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 
@@ -31,12 +30,15 @@ public class JQueryLoadedTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether jQuery has been loaded on the page
-		Object response = _jsExecutor
-					.executeScript("if (typeof jQuery !== 'undefined') { return " + String.valueOf(_test) + " } else { return " + String.valueOf(!_test) + " }");
+		String testScript = "typeof jQuery !== 'undefined'";
+		if (!_test) {
+			testScript = "typeof jQuery === 'undefined'";
+		}
+		Object result = _page.executeJavaScript(testScript).getJavaScriptResult();
 
 		// make sure the element exists
-		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue(Tools.JQUERY + " must " + _note + "load", (Boolean) response);
+		if (Boolean.class.isAssignableFrom(result.getClass())) {
+			assertTrue(Tools.JQUERY + " must " + _note + "load", (Boolean) result);
 		} else {
 			fail(Tools.JQUERY + " " + _note + "not loaded");
 		}

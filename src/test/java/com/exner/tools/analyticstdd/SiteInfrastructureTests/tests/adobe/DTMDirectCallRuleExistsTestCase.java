@@ -26,7 +26,8 @@ public class DTMDirectCallRuleExistsTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the list of DCRs from the page
-		List<Object> response = (List<Object>) _jsExecutor.executeScript("return _satellite.directCallRules");
+		List<Object> response = (List<Object>) _page.executeJavaScript("_satellite.directCallRules")
+				.getJavaScriptResult();
 
 		// loop through the list until we find the rule we're looking for
 		for (Iterator<Object> iterator = response.iterator(); iterator.hasNext();) {

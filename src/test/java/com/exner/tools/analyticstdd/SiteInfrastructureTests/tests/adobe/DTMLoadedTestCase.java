@@ -31,8 +31,11 @@ public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor
-					.executeScript("if (typeof _satellite !== 'undefined') { return " + String.valueOf(_test) + " } else { return " + String.valueOf(!_test) + " }");
+		String testScript = "(typeof _satellite !== 'undefined')";
+		if (!_test) {
+			testScript = "(typeof _satellite === 'undefined')";
+		}
+		Object response = _page.executeJavaScript(testScript).getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

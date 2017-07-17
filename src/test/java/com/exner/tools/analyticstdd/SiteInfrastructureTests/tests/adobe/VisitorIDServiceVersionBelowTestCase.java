@@ -23,8 +23,8 @@ public class VisitorIDServiceVersionBelowTestCase extends WebDriverBasedTestCase
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof Visitor !== 'undefined') { return Visitor.version } else { return 'unavailable' }");
+		Object response = _page.executeJavaScript("(typeof Visitor !== 'undefined') ? Visitor.version : 'unavailable'")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

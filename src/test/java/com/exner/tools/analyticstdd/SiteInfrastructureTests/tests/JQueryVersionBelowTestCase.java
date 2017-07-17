@@ -22,8 +22,8 @@ public class JQueryVersionBelowTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof jQuery !== 'undefined') { return jQuery.fn.jquery } else { return 'unavailable' }");
+		Object response = _page.executeJavaScript("(typeof jQuery !== 'undefined') ? jQuery.fn.jquery : 'unavailable'")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

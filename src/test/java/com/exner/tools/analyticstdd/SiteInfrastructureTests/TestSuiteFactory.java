@@ -35,12 +35,18 @@ public class TestSuiteFactory {
 
 	private TestSuite makeSuiteForPage(JsonNode pageTests) {
 		String pageURL = pageTests.get("pageURL").asText();
+		String description = null;
+		if (pageTests.hasNonNull("description")) {
+			description = pageTests.get("description").asText();
+		}
 		TestSuite pageSuite = new TestSuite("Page tests - " + pageURL);
+		// pageSuite.addDescription(description);
 		for (Iterator<String> iter2 = pageTests.fieldNames(); iter2.hasNext();) {
 			// this looks stupid, but remember: keys in JSON nodes are unique!
-			// common practice is to pass back the last one if there's more than one
+			// common practice is to pass back the last one if there's more than
+			// one
 			String key = iter2.next();
-			if (!key.equals("pageURL")) {
+			if (!key.equals("pageURL") && !key.equals("description")) {
 				Object params = pageTests.get(key);
 				String testClass = testNameFromKey(key);
 				List<Object> testParams = parseTestParameters(params);

@@ -4,7 +4,7 @@ import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 
 public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
-	
+
 	public VisitorIDServiceLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName(Tools.MCVID + " loaded - " + pageURL);
@@ -13,8 +13,7 @@ public class VisitorIDServiceLoadedTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether MCVID has been loaded on the page
-		Object response = _jsExecutor
-				.executeScript("if (typeof Visitor === 'function') { return true } else { return false }");
+		Object response = _page.executeJavaScript("(typeof Visitor === 'function')").getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

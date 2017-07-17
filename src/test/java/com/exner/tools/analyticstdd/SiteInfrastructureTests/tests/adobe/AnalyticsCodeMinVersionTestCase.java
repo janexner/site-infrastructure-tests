@@ -23,8 +23,10 @@ public class AnalyticsCodeMinVersionTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof AppMeasurement !== 'undefined') { return (new AppMeasurement()).version } else if (typeof s_gi !== 'undefined') { return s.version } else { return 'unavailable' }");
+		Object response = _page
+				.executeJavaScript(
+						"(typeof AppMeasurement !== 'undefined') ? (new AppMeasurement()).version : (typeof s_gi !== 'undefined') ? s.version : 'unavailable'")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {

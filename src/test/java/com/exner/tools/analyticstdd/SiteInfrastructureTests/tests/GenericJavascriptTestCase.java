@@ -8,25 +8,25 @@ public class GenericJavascriptTestCase extends WebDriverBasedTestCase {
 	public GenericJavascriptTestCase(String pageURL, Object params) {
 		super(pageURL);
 		setName("Generic JS - " + pageURL);
-		
+
 		if (TextNode.class.isAssignableFrom(params.getClass())) {
 			_jsToRun = ((TextNode) params).asText();
 		} else {
 			throw new IllegalArgumentException("Must define some script to run!");
 		}
-		
+
 		setName("Generic JS - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
-		Object response = _jsExecutor.executeScript(_jsToRun);
-		
+		Object response = _page.executeJavaScript(_jsToRun).getJavaScriptResult();
+
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
 			boolean br = (Boolean) response;
-			assertTrue("JS must return true", br);
+			assertTrue("JS must give true", br);
 		} else {
-			fail("JS must return true!");
+			fail("JS must give true!");
 		}
 	}
 

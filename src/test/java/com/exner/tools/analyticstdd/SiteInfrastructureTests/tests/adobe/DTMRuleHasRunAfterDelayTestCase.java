@@ -30,8 +30,8 @@ public class DTMRuleHasRunAfterDelayTestCase extends WebDriverBasedTestCase {
 		Thread.sleep(_delay);
 
 		// get the list of Rules which fired on the page
-		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _jsExecutor
-				.executeScript("return _satellite.Logger.getHistory()");
+		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _page
+				.executeJavaScript("_satellite.Logger.getHistory()").getJavaScriptResult();
 		for (Iterator<ArrayList<String>> iterator = logEntries.iterator(); iterator.hasNext();) {
 			ArrayList<String> arrayList = (ArrayList<String>) iterator.next();
 			String logMessage = arrayList.get(1);

@@ -13,8 +13,8 @@ public class AnalyticsCodeLoadedTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// inject and run JS test
-		Object response = _jsExecutor.executeScript(
-				"if (typeof AppMeasurement == 'function' || typeof s_gi == 'function') { return true; } else { return false; }");
+		Object response = _page.executeJavaScript("(typeof AppMeasurement == 'function' || typeof s_gi == 'function')")
+				.getJavaScriptResult();
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {

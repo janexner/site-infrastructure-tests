@@ -27,8 +27,8 @@ public class DataLayerElementDelayedExistsTestCase extends WebDriverBasedTestCas
 
 		try {
 			// get the value of the dl element from the page
-			Object response = _jsExecutor.executeScript(
-					"if (typeof " + _elementName + " !== 'undefined') { return true } else { return false }");
+			Object response = _page.executeJavaScript("(typeof " + _elementName + " !== 'undefined')")
+					.getJavaScriptResult();
 
 			// make sure the element exists
 			if (Boolean.class.isAssignableFrom(response.getClass())) {

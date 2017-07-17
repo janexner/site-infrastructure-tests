@@ -26,8 +26,9 @@ public class VisitorIDServiceMinVersionTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		try {
 			// check whether DTM has been loaded on the page
-			Object response = _jsExecutor.executeScript(
-					"if (typeof Visitor !== 'undefined') { for (vv in s_c_il) { var nvv = s_c_il[vv]; if (typeof nvv._c !== 'undefined' && nvv._c == \"Visitor\") {  return nvv.version; } } return 'unavailable' } else { return 'unavailable' }");
+			Object response = _page
+					.executeJavaScript("(typeof Visitor !== 'undefined') ? Visitor.version : 'unavailable'")
+					.getJavaScriptResult();
 
 			// make sure the element exists
 			if (String.class.isAssignableFrom(response.getClass()) && !((String) response).equals("unavailable")) {

@@ -1,10 +1,11 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
 
 import com.fasterxml.jackson.databind.node.TextNode;
+
+import se.fishtank.css.selectors.Selectors;
+import se.fishtank.css.selectors.dom.W3CNode;
 
 public class ElementSelectedByCSSSelectorExistsTestCase extends WebDriverBasedTestCase {
 	private final String _elementSelector;
@@ -25,9 +26,10 @@ public class ElementSelectedByCSSSelectorExistsTestCase extends WebDriverBasedTe
 	@Override
 	protected void runTest() throws Throwable {
 		// try finding the element in the page
-		WebElement element = null;
+		Object element = null;
 		try {
-			element = _webDriver.findElement(By.cssSelector(_elementSelector));
+			Selectors selectors = new Selectors(new W3CNode(_page));
+			element = selectors.querySelector(_elementSelector);
 		} catch (NoSuchElementException e) {
 			// it ain't there
 			fail("DOM element " + _elementSelector + " must exist");
