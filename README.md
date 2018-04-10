@@ -19,6 +19,14 @@ You can specify which test description the test suite will read by specifying th
 
 You can (and probably *must*) specify the location of your chromedriver executable using the `webdriver.chrome.driver` property! See https://sites.google.com/a/chromium.org/chromedriver/getting-started for hints.
 
+## "Drivers"
+
+While I originally used phantomJS, I changed to HTMLUnit at some point, and now to ChromeDriver. I presume you know how to checkout by Release, so suffice it to say that 1.0 uses phantomJS, 1.1 is HTMLUnit and 1.2 uses ChromeDriver.
+
+The block tracking feature of 1.1 is gone in 1.2, but might come back if I find out how to do it.
+
+Note that the there is a blog article for version 1.1: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
+
 ## Format of testdescription.json file
 
 The `testdescription.json` file has two top level elements:
