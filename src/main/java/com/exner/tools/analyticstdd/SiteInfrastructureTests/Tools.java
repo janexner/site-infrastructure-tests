@@ -3,6 +3,7 @@ package com.exner.tools.analyticstdd.SiteInfrastructureTests;
 public class Tools {
 
 	public static final String DTM = "Activation/DTM";
+	public static final String LAUNCH = "Launch, by Adobe";
 	public static final String AA = "Adobe Analytics";
 	public static final String AT = "Adobe Target";
 	public static final String AAM = "Adobe Audience Manager";

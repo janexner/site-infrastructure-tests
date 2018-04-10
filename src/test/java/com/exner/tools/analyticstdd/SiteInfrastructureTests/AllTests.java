@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.pool2.PoolUtils;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
@@ -23,7 +21,7 @@ public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
-	private static GenericObjectPool<WebDriver> _webDriverPool;
+	protected static ChromeDriverService _service;
 
 	public static Test suite() throws FileNotFoundException, IOException, InterruptedException, ProcessingException {
 		// try loading JSON from the file
@@ -46,19 +44,15 @@ public class AllTests extends TestSuite {
 		TestSetup ts = new TestSetup(suite) {
 
 			protected void setUp() throws Exception {
-				LOGGER.log(Level.INFO, "Setting up web driver pool");
-				GenericObjectPoolConfig _webDriverPoolConfig = new GenericObjectPoolConfig();
-				_webDriverPoolConfig.setBlockWhenExhausted(true);
-				_webDriverPoolConfig.setMinIdle(5);
-				_webDriverPoolConfig.setMaxTotal(15);
-				BasePooledWebDriverFactory factory = new BasePooledWebDriverFactory();
-				_webDriverPool = new GenericObjectPool<WebDriver>(PoolUtils.synchronizedPooledFactory(factory),
-						_webDriverPoolConfig);
+				LOGGER.log(Level.INFO, "Setting up web driver service");
+				_service = new ChromeDriverService.Builder().usingDriverExecutable(new File("c:/bin/chromedriver.exe"))
+						.usingAnyFreePort().build();
+				_service.start();
 			}
 
 			protected void tearDown() throws Exception {
-				LOGGER.log(Level.CONFIG, "Closing web driver pool");
-				_webDriverPool.close();
+				LOGGER.log(Level.CONFIG, "Closing web driver service");
+				_service.stop();
 			}
 
 		};
@@ -66,8 +60,7 @@ public class AllTests extends TestSuite {
 		return ts;
 	}
 
-	public static GenericObjectPool<WebDriver> getWebDriverPool() {
-		return _webDriverPool;
+	public static ChromeDriverService getChromeDriverService() {
+		return _service;
 	}
-
 }
