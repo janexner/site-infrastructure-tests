@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,6 +18,7 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
+	private final static String CHROMEDRIVERPATH = "c:/bin/chromedriver.exe";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	protected static ChromeDriverService _service;
@@ -37,6 +37,17 @@ public class AllTests extends TestSuite {
 		LOGGER.log(Level.CONFIG, "Reading test description from file " + filename);
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
 
+		// try to find ChromeDriver executable
+		String chromeDriverExecPath = CHROMEDRIVERPATH;
+		String cdProperty = System.getProperty("webdriver.chrome.driver");
+		if (null != cdProperty && cdProperty.length() > 0) {
+			chromeDriverExecPath = cdProperty;
+		}
+		final File chromeDriverExecutable = new File(chromeDriverExecPath);
+		if (!chromeDriverExecutable.exists() || !chromeDriverExecutable.canExecute()) {
+			throw new IOException("Could not find or execute chromedriver file " + chromeDriverExecPath);
+		}
+
 		// use the JSON for test setup
 		TestSuiteFactory factory = new TestSuiteFactory();
 		TestSuite suite = factory.makeSuiteFromJSON(testDescription);
@@ -45,7 +56,7 @@ public class AllTests extends TestSuite {
 
 			protected void setUp() throws Exception {
 				LOGGER.log(Level.INFO, "Setting up web driver service");
-				_service = new ChromeDriverService.Builder().usingDriverExecutable(new File("c:/bin/chromedriver.exe"))
+				_service = new ChromeDriverService.Builder().usingDriverExecutable(chromeDriverExecutable)
 						.usingAnyFreePort().build();
 				_service.start();
 			}

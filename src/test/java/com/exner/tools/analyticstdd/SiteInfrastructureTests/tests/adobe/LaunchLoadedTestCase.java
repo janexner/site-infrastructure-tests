@@ -4,12 +4,12 @@ import com.exner.tools.analyticstdd.SiteInfrastructureTests.Tools;
 import com.exner.tools.analyticstdd.SiteInfrastructureTests.tests.WebDriverBasedTestCase;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 
-public class DTMLoadedTestCase extends WebDriverBasedTestCase {
+public class LaunchLoadedTestCase extends WebDriverBasedTestCase {
 
 	private final boolean _test;
 	private final String _note;
 
-	public DTMLoadedTestCase(String pageURL, Object params) {
+	public LaunchLoadedTestCase(String pageURL, Object params) {
 		super(pageURL);
 
 		// handle parameters
@@ -25,21 +25,20 @@ public class DTMLoadedTestCase extends WebDriverBasedTestCase {
 			_note = "";
 		}
 
-		setName(Tools.DTM + " " + _note + "loaded" + " - " + pageURL);
+		setName(Tools.LAUNCH + " " + _note + "loaded" + " - " + pageURL);
 	}
 
 	@Override
 	protected void runTest() throws Throwable {
 		// check whether DTM has been loaded on the page
-		Object response = _jsExecutor.executeScript(
-				"if (typeof _satellite !== 'undefined' && _satellite && typeof _satellite.appVersion !== 'undefined' && _satellite.appVersion) { return "
-						+ String.valueOf(_test) + " } else { return " + String.valueOf(!_test) + " }");
+		Object response = _jsExecutor
+					.executeScript("if (typeof _satellite !== 'undefined') { return " + String.valueOf(_test) + " } else { return " + String.valueOf(!_test) + " }");
 
 		// make sure the element exists
 		if (Boolean.class.isAssignableFrom(response.getClass())) {
-			assertTrue(Tools.DTM + " must " + _note + "load", (Boolean) response);
+			assertTrue(Tools.LAUNCH + " must " + _note + "load", (Boolean) response);
 		} else {
-			fail(Tools.DTM + " " + _note + "not loaded");
+			fail(Tools.LAUNCH + " " + _note + "not loaded");
 		}
 	}
 
