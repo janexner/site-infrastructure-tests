@@ -17,6 +17,8 @@ A JSON file (testdescription.json) contains all pages to be tested along with th
 
 You can specify which test description the test suite will read by specifying the `test.description.file` property when you run the test.
 
+You can (and probably *must*) specify the location of your chromedriver executable using the `webdriver.chrome.driver` property! See https://sites.google.com/a/chromium.org/chromedriver/getting-started for hints.
+
 ## Format of testdescription.json file
 
 The `testdescription.json` file has two top level elements:
@@ -136,7 +138,11 @@ Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName
 
 This test allows you to inject arbitrary Javascript code into the page and test whether it returns 'true'.
 
+*Note*: the parameters can be one single parameter, or a list of parameters.
+
 Example: "genericJavascript": "return true;"
+
+Example: "genericJavascript": [ "return true;", "return 1 == 1;" ]
 
 #### `genericJavascriptSetupAndCheckLater`
 
