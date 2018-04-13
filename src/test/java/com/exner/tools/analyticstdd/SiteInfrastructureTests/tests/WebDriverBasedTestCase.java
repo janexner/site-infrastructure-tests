@@ -32,7 +32,6 @@ public abstract class WebDriverBasedTestCase extends TestCase {
 		LOGGER.log(Level.FINE, "Setting up test for " + _pageURL);
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--headless");
-		chromeOptions.merge(DesiredCapabilities.chrome());
 		_webDriver = new RemoteWebDriver(AllTests.getChromeDriverService().getUrl(), chromeOptions);
 		try {
 			_webDriver.get(_pageURL);
