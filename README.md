@@ -21,11 +21,11 @@ You can (and probably *must*) specify the location of your chromedriver executab
 
 ## "Drivers"
 
-While I originally used phantomJS, I changed to HTMLUnit at some point, and now to ChromeDriver. I presume you know how to checkout by Release, so suffice it to say that 1.0 uses phantomJS, 1.1 is HTMLUnit and 1.2 uses ChromeDriver.
+While I originally used phantomJS, I changed to HTMLUnit at some point, and now to ChromeDriver. I presume you know how to checkout by Release, so suffice it to say that 1.0 uses phantomJS, 2.0 is HTMLUnit and 3.x uses ChromeDriver.
 
-The block tracking feature of 1.1 is gone in 1.2, but might come back if I find out how to do it.
+The block tracking feature of 2.0 is gone in 3.x, but might come back if I find out how to do it.
 
-Note that the there is a blog article for version 1.1: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
+Note that the there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
 
 ## Format of testdescription.json file
 
