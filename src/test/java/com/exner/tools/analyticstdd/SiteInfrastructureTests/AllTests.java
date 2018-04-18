@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
@@ -19,7 +19,8 @@ import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
 	private final static String TESTDESCRIPTIONFILENAME = "testdescription.json";
-	private final static String CHROMEDRIVERPATH = "c:/bin/chromedriver.exe";
+	private final static String CHROMEDRIVERPATHWINDOWS = "c:/bin/chromedriver.exe";
+	private final static String CHROMEDRIVERPATHLINUX = "/usr/local/bin/chromedriver";
 	private final static Logger LOGGER = Logger.getLogger(AllTests.class.getName());
 
 	protected static ChromeDriverService _service;
@@ -39,10 +40,20 @@ public class AllTests extends TestSuite {
 		JsonNode testDescription = JsonLoader.fromFile(new File(filename));
 
 		// try to find ChromeDriver executable
-		String chromeDriverExecPath = CHROMEDRIVERPATH;
+		String chromeDriverExecPath;
 		String cdProperty = System.getProperty("webdriver.chrome.driver");
 		if (null != cdProperty && cdProperty.length() > 0) {
 			chromeDriverExecPath = cdProperty;
+		} else {
+			// try some defaults
+			if (SystemUtils.IS_OS_WINDOWS) {
+				chromeDriverExecPath = CHROMEDRIVERPATHWINDOWS;
+			} else if (SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_UNIX || SystemUtils.IS_OS_MAC) {
+				chromeDriverExecPath = CHROMEDRIVERPATHLINUX;
+			} else {
+				throw new FileNotFoundException(
+						"Unable to find chromedriver executable. Please specify path using the webdriver.chrome.driver property!");
+			}
 		}
 		final File chromeDriverExecutable = new File(chromeDriverExecPath);
 		if (!chromeDriverExecutable.exists() || !chromeDriverExecutable.canExecute()) {

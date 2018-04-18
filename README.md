@@ -17,7 +17,8 @@ A JSON file (testdescription.json) contains all pages to be tested along with th
 
 You can specify which test description the test suite will read by specifying the `test.description.file` property when you run the test.
 
-You can (and probably *must*) specify the location of your chromedriver executable using the `webdriver.chrome.driver` property! See https://sites.google.com/a/chromium.org/chromedriver/getting-started for hints.
+You can (and probably *must*) specify the location of your chromedriver executable using the `webdriver.chrome.driver` property! If you're on Linux/Mac, the tool will look for chromedriver in `/usr/local/bin/`, and on Windows it'll look in `c:\bin\`. If your chromedriver is anywhere else, you *must* tell the tool!
+See https://sites.google.com/a/chromium.org/chromedriver/getting-started for hints.
 
 ## "Drivers"
 
