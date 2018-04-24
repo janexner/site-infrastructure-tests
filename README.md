@@ -28,9 +28,9 @@ The block tracking feature of 2.0 is gone in 3.x, but might come back if I find 
 
 Note that the there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
 
-## Format of testdescription.json file
+## Format of test description JSON
 
-The `testdescription.json` file has two top level elements:
+The test description JSON has two top level elements:
 
 - name
 - pagesToTest
