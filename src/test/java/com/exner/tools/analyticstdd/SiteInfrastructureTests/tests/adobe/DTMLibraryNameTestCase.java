@@ -21,10 +21,11 @@ public class DTMLibraryNameTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the list of PLRs from the page
-		Object response = _jsExecutor.executeScript("return _satellite.settings.libraryName");
+		Object response = _jsExecutor
+				.executeScript("return _satellite && _satellite.settings && _satellite.settings.libraryName");
 
 		// make sure the library name is correct
-		if (String.class.isAssignableFrom(response.getClass())) {
+		if (null != response && String.class.isAssignableFrom(response.getClass())) {
 			assertEquals(Tools.DTM + " library name must be " + _libraryName, _libraryName, (String) response);
 		} else {
 			fail(Tools.DTM + " library name has not been found");

@@ -26,15 +26,18 @@ public class DTMRuleHasRunTestCase extends WebDriverBasedTestCase {
 	protected void runTest() throws Throwable {
 		// get the list of Rules which fired on the page
 		ArrayList<ArrayList<String>> logEntries = (ArrayList<ArrayList<String>>) _jsExecutor
-				.executeScript("return _satellite.Logger.getHistory()");
-		for (Iterator<ArrayList<String>> iterator = logEntries.iterator(); iterator.hasNext();) {
-			ArrayList<String> arrayList = (ArrayList<String>) iterator.next();
-			String logMessage = arrayList.get(1);
-			if (logMessage.startsWith("Rule ") && logMessage.endsWith("fired.")) {
-				String ruleName = logMessage.replace("Rule \"", "").replace("\" fired.", "");
-				if (ruleName.equals(_ruleName)) {
-					// yay, it fired! It's a pass!
-					return;
+				.executeScript("return _satellite && _satellite.Logger && _satellite.Logger.getHistory()");
+
+		if (null != logEntries) {
+			for (Iterator<ArrayList<String>> iterator = logEntries.iterator(); iterator.hasNext();) {
+				ArrayList<String> arrayList = (ArrayList<String>) iterator.next();
+				String logMessage = arrayList.get(1);
+				if (logMessage.startsWith("Rule ") && logMessage.endsWith("fired.")) {
+					String ruleName = logMessage.replace("Rule \"", "").replace("\" fired.", "");
+					if (ruleName.equals(_ruleName)) {
+						// yay, it fired! It's a pass!
+						return;
+					}
 				}
 			}
 		}

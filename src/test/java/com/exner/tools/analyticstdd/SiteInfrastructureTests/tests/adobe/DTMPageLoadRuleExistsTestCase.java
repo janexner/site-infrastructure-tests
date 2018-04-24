@@ -26,16 +26,19 @@ public class DTMPageLoadRuleExistsTestCase extends WebDriverBasedTestCase {
 	@Override
 	protected void runTest() throws Throwable {
 		// get the list of PLRs from the page
-		List<Object> response = (List<Object>) _jsExecutor.executeScript("return _satellite.pageLoadRules");
+		List<Object> response = (List<Object>) _jsExecutor
+				.executeScript("return _satellite && _satellite.pageLoadRules");
 
-		// loop through the list until we find the rule we're looking for
-		for (Iterator<Object> iterator = response.iterator(); iterator.hasNext();) {
-			Object plr = iterator.next();
-			Map<String, Object> map = (Map<String, Object>) plr;
-			String ruleName = (String) map.get("name");
-			if (ruleName.equals(_ruleName)) {
-				// good, we found the rule! It's a pass!
-				return;
+		if (null != response) {
+			// loop through the list until we find the rule we're looking for
+			for (Iterator<Object> iterator = response.iterator(); iterator.hasNext();) {
+				Object plr = iterator.next();
+				Map<String, Object> map = (Map<String, Object>) plr;
+				String ruleName = (String) map.get("name");
+				if (ruleName.equals(_ruleName)) {
+					// good, we found the rule! It's a pass!
+					return;
+				}
 			}
 		}
 
