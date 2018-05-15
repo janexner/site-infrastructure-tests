@@ -148,7 +148,7 @@ Causes the framework to test whether the DTM library is the correct one.
 
 Example: `the DTM library is "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5"`
 
-#### `(?:MCID|ECID|Experience Cloud ID Service) is present`
+#### `MCID|ECID|Experience Cloud ID Service is present`
 
 Causes the framework to test whether the Experience Cloud ID Service (aka Marketing Cloud ID Service, aka Visitor ID Service)
 
@@ -160,7 +160,7 @@ Example: `Experience Cloud ID Service is present`
 
 *Note that the three examples are equivalent and will result in the exact same test.*
 
-#### `(?:MCID|ECID|Experience Cloud ID Service) version is "<version>" or later`
+#### `MCID|ECID|Experience Cloud ID Service version is "<version>" or later`
 
 Causes the framework to test whether Experience Cloud ID Service is at least of a specific version.
 
@@ -172,7 +172,7 @@ Example `Experience Cloud ID Service version is "2.1.0" or later`
 
 *Note that the three examples are equivalent and will result in the exact same test.*
 
-#### `(?:MCID|ECID|Experience Cloud ID Service) version is below "<version>"`
+#### `MCID|ECID|Experience Cloud ID Service version is below "<version>"`
 
 Causes the framework to test whether Experience Cloud ID Service is not too recent.
 
@@ -184,7 +184,7 @@ Example: `Experience Cloud ID Service version is below "2.4"`
 
 *Note that the three examples are equivalent and will result in the exact same test.*
 
-#### `(?:AA|Adobe Analytics) is present`
+#### `AA|Adobe Analytics is present`
 
 Causes the framework to test whether Analytics is loaded into the page.
 
@@ -194,7 +194,7 @@ Example: `Adobe Analytics is present`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `(?:AA|Adobe Analytics) version is "<version>" or later`
+#### `AA|Adobe Analytics version is "<version>" or later`
 
 Causes the framework to test whether Analytics is at least of a specific version.
 
@@ -204,7 +204,7 @@ Example: `Adobe Analytics version is "2.4.0" or later`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `(?:AA|Adobe Analytics) lib type is "<type>"`
+#### `AA|Adobe Analytics lib type is "<type>"`
 
 Causes the framework to test whether the Analytics library is of the given type ("AppMeasurement", "legacy", or "none")
 
@@ -214,7 +214,7 @@ Example: `Adobe Analytics lib type is "AppMeasurement"`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `an (?:AA|Adobe Analytics) call has been sent for report suite id "<rsid>"`
+#### `an AA|Adobe Analytics call has been sent for report suite id "<rsid>"`
 
 Causes the framework to test whether a tracking call for Analytics was sent.
 
@@ -224,7 +224,7 @@ Example: `an Adobe Analytics call has been sent for report suite "jexnerprod"`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `(?:AT|Adobe Target) is present`
+#### `AT|Adobe Target is present`
 
 Causes the framework to test whether Target has been loaded.
 
@@ -234,7 +234,7 @@ Example `Adobe Target is present`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `(?:AT|Adobe Target) version is "<version>" or later`
+#### `AT|Adobe Target version is "<version>" or later`
 
 Causes the framework to test whether Target is at least of a specific version.
 
@@ -244,7 +244,7 @@ Example: `Adobe Target version is "1.0" or later`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `(?:AT|Adobe Target) lib type is "<version>"`
+#### `AT|Adobe Target lib type is "<version>"`
 
 Causes the framework to test whether the Target library is of the given type ("at.js", "legacy", or "none")
 
@@ -254,7 +254,7 @@ Example: `Adobe Target lib type is "at.js"`
 
 *Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `an (?:AT|Adobe Target) mbox named "<name>" exists `
+#### `an AT|Adobe Target mbox named "<name>" exists `
 
 Causes the framework to test whether a Target mbox of the given name exists on the page.
 
