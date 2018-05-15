@@ -28,7 +28,7 @@ While I originally used phantomJS, I changed to HTMLUnit at some point, and now 
 
 The block tracking feature of 2.0 is gone in 3.x, but might come back if I find out how to do it.
 
-Note that the there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
+Note that there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
 
 ## Features
 
