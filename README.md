@@ -6,11 +6,6 @@ The suite can be used to test parts of the site infrastructure that are importan
 
 Running this suite as a regression tests effectively prevents dev from pulling the ground from under analytics feet.
 
-~~ For suggestions on how to set this up, refer to these articles:
-- Raspberry Pi + Jenkins: https://webanalyticsfordevelopers.com/2017/03/07/automating-tests/,
-- Mac: https://webanalyticsfordevelopers.com/2017/01/03/wanna-test-mac-edition/, and 
-- Windows: https://webanalyticsfordevelopers.com/2016/06/07/wanna-test-heres-how/ ~~
-
 ## How it works
 
 The Site Infrastructure Tests framework is based on cucumber/gherkin. Check https://docs.cucumber.io/guides/10-minute-tutorial/#write-a-scenario for a quick introduction.
