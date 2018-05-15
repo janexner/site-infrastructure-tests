@@ -215,7 +215,7 @@ public class PageSteps {
 	@Then("^(?:AT|Adobe Target) lib type is \\\"([^\\\"]*)\\\"$")
 	public void at_lib_type_is(String libType) {
 		Object response = _jsExecutor.executeScript(
-				"if (typeof mboxVersion !== 'undefined' ) { return 'legacy' } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return 'legacy'; } else { return 'none'; }");
+				"if (typeof mboxVersion !== 'undefined' ) { return 'legacy' } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return 'at.js'; } else { return 'none'; }");
 		// make sure the element exists
 		if (String.class.isAssignableFrom(response.getClass())) {
 			Assert.assertEquals(libType, (String) response);

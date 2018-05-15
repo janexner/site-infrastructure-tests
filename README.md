@@ -4,18 +4,20 @@ This project contains code that you can use to build your own test suite.
 
 The suite can be used to test parts of the site infrastructure that are important for whatever your Analytics/Marketing team ads on top of it using the tag management system.
 
-Running this suite as a regression tests effectively prevents dev from pulling the gound from under analytics feet.
+Running this suite as a regression tests effectively prevents dev from pulling the ground from under analytics feet.
 
-For suggestions on how to set this up, refer to these articles:
+~~ For suggestions on how to set this up, refer to these articles:
 - Raspberry Pi + Jenkins: https://webanalyticsfordevelopers.com/2017/03/07/automating-tests/,
 - Mac: https://webanalyticsfordevelopers.com/2017/01/03/wanna-test-mac-edition/, and 
-- Windows: https://webanalyticsfordevelopers.com/2016/06/07/wanna-test-heres-how/
+- Windows: https://webanalyticsfordevelopers.com/2016/06/07/wanna-test-heres-how/ ~~
 
 ## How it works
 
-A test description (JSON format, can be a URL or a file) contains all pages to be tested along with their tests. If you run the test, the AllTests test suite reads that description, then generates a dynamic test suite for each page. All of those will then run.
+The Site Infrastructure Tests framework is based on cucumber/gherkin. Check https://docs.cucumber.io/guides/10-minute-tutorial/#write-a-scenario for a quick introduction.
 
-You can specify which test description the test suite will read by specifying the `test.description.url` or `test.description.file` properties when you run the test.
+Tests, called "features" in cucumber/gherkin, describe how we expect the site to react to loading a page or actions happening on the page.
+
+In order to use the framework on your site, you provide features.
 
 You can (and probably *must*) specify the location of your chromedriver executable using the `webdriver.chrome.driver` property! If you're on Linux/Mac, the tool will look for chromedriver in `/usr/local/bin/`, and on Windows it'll look in `c:\bin\`. If your chromedriver is anywhere else, you *must* tell the tool!
 See https://sites.google.com/a/chromium.org/chromedriver/getting-started for hints.
@@ -28,343 +30,277 @@ The block tracking feature of 2.0 is gone in 3.x, but might come back if I find 
 
 Note that the there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
 
-## Format of test description JSON
+## Features
 
-The test description JSON has two top level elements:
+While gherkin describes the formal language used in features, the semantics of the statements still has to be coded. The following list shows all statements / tests that are currently available.
 
-- name
-- pagesToTest
+Here is an example of a feature file:
 
-### `name`
+```gherkin
+@analytics
+Feature: Minimal tracking infrastructure on the home page is ok
+  As an analytics team
+  I want the home page to contain tracking infrastructure
+  so I can track data and analyse it
 
-The `name` element is used to give the test suite a name.
+  @trackingdata
+  Scenario: The home page loads and all data is present
+    Given the page "https://www.jan-exner.de/" is loaded
+    And we wait for 1 second
+    Then there is a data layer element called "digitalData.page.pageInfo.language"
+    And the "digitalData.page.pageInfo.pageName" data layer element is "Home"
 
-Example: "name": "my-test-site.com"
+  @trackingtools
+  Scenario: The home page loads and contains DTM
+    Given the page "https://www.jan-exner.de/" is loaded
+    Then DTM is present
+    And the DTM library is "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5"
+```
 
-### `pagesToTest`
+This example contains 1 feature called "Minimal tracking infrastructure on the home page is ok", as well as 2 scenarios.
 
-The `pagesToTest` element contains a list of pages and the corresponding tests that should be run on them.
+Each scenario is describes with "Given", "When" (optional), and "Then" phrases. "And" phrases do exactly what you'd think they'd do.
 
-Each sub-element of `pagesToTest` must contain a `pageURL` element. It can further contain elements that specify which tests should be run.
+The "The home page loads and contains DTM" scenario first loads the page on "https://www.jan-exner.de/", then runs two checks: "DTM is present" and "the DTM library is ...".
 
-Those elements have two parts: the name of the test class, plus parameters that the test class can interpret. Section 2.2 and below show the test class names and parameters as currently implemented.
+The feature passes the test if all "Then" statements in all scenarios are successful.
 
-### `pageURL`
+## Available Statements
 
-The `pageURL` element specifies which page the test should load before it executes the tests specified for the page.
+When you write features, you can use the following statements.
 
-Example: "pageURL": "http://test.com/"
+### Setup / "Given" / "When"
 
-*Note*: this element is mandatory
+These statements can be used to setup for the tests in the scenarios. You must use at least `the page "<URL>" is loaded`.
 
-### Generic Elements
+#### `the page "<URL>" is loaded`
 
-The following elements can be used to test the page itself.
+Causes the framework to load the page behind that URL in Chrome.
 
-#### `jQueryLoaded`
+Example: `the page "https://www.jan-exner.de/" is loaded`
 
-Specify this element if you want to test whether the page loads [jQuery](https://jquery.com).
+#### `the snippet "<JS code>" is executed`
 
-Example: "jQueryLoaded": true
+Causes the framework to execute the Javascript code inside Chrome.
 
-#### `jQueryMinVersion`
+Example: `the snippet "window.jan=true;" is executed`
 
-You can test the minimum version that you need on the page using this element.
+#### `we wait for xy second[s]`
 
-Example: "jQueryMinVersion": "2.0"
+Causes the framework to wait a number of seconds before working any further.
 
-#### `jQueryVersionBelow`
+Example: `we wait for 1 second`
 
-You can test that the version is below a specific version.
+Example: `we wait for 5 seconds`
 
-Example: "jQueryVersionBelow": "3"
+### Tests / "Then"
 
-#### `elementSelectedByCSSSelectorExists`
+Statements that are not related to any specific tools.
 
-A test that allows you to test for the existence of DOM elements in the page.
+#### `there is a data layer element called "<name>"`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether there is a data layer element with the name given.
 
-Example: "elementSelectedByCSSSelectorExists": "h1"
+Example: `there is a data layer element called "digitalData.page.pageInfo.pageName`
 
-Example: "elementSelectedByCSSSelectorExists": [ "h1", "div#author" ]
+#### `the "<name>" data layer element is "<value>"`
 
-#### `elementSelectedByCSSSelectorExistsNTimes`
+Causes the framework to compare the value of the data element with the value given.
 
-A test that allows you to test a DOM element exists exactly n times in the page.
+Example: `the "digitalData.page.pageInfo.pageName" data layer element is "Home"`
 
-*Note*: single CSS selector, only.
+#### `the "<name>" data layer element is <value>`
 
-Example: "elementSelectedByCSSSelectorExistsNTimes": { "selector": "h1", "n": 1 }
+Causes the framework to compare the value of the data element with the value given. Same  as above but for numeric values.
 
-#### `dataLayerElementExists`
+Example: `the "digitalData.page.pageInfo.ageInDays" data layer element is 5`
 
-This test allows you to test for a Javascript data layer element in the page.
+#### `the DOM element "<name>" exists`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether the DOM element of the given name/path exists.
 
-Example: "dataLayerElementExists": "digitalData.page.pageInfo.pageName"
+Example: `the DOM element "button.cartAdd" exists`
 
-Example: "dataLayerElementExists": [ "digitalData.page.pageInfo.pageName", "digitalData.page.pageInfo.language" ]
+#### `the DOM element "<name>" exists <n> times`
 
-#### `dataLayerElementValue`/`dataLayerNumericElementValue`
+Causes the framework to test whether the DOM element of the given name/path exists n times.
 
-Similar to the one above, but this one checks whether the data layer element has the right value.
+Example: `the DOM element "button.cartAdd" exists 2 times`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+#### `the snippet "<JS snippet>" returns true`
 
-Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }
+Causes the framework to execute the Javascript snippet given and check whether it evaluates to true.
 
-Example: "dataLayerNumericElementValue": { "name":"digitalData.page.pageInfo.pageID", "value": 896 }
+Example: `the snippet "return window.jan" returns true`
 
-Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home" }, { "name":"digitalData.page.pageInfo.language", "value": "en" } ]
+There are statements that are directly associated with Adobe Experience Cloud solutions.
 
-#### `dataLayerElementDelayedExists`
+#### `Launch is present`
 
-This test allows you to test for a Javascript data layer element in the page after waiting for some time. Ideal for pages that load the data layer asynchronously.
+Causes the framework to test whether Launch, by Adobe is being loaded on the page
 
-The delay is in milliseconds.
+Example: `Launch is present` 
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+#### `DTM is present`
 
-Example: "dataLayerElementDelayedExists": { "name": "digitalData.page.pageInfo.pageName", "delay": 500 }
+Causes the framework to test whether DTM is being loaded on the page
 
-Example: "dataLayerElementDelayedExists": [ { "name": "digitalData.page.pageInfo.pageName", "delay": 500 }, { "name": "digitalData.page.pageInfo.language", "delay": 500 } ]
+Example: `DTM is present` 
 
-#### `dataLayerElementDelayedValue` / `dataLayerNumericElementDelayedValue`
+#### `the DTM library is "<libraryId>"`
 
-Similar to the one above, but this one checks whether the data layer element has the right value. Again, this can be used on pages that load the data layer asynchronously.
+Causes the framework to test whether the DTM library is the correct one.
 
-The delay is in milliseconds.
+Example: `the DTM library is "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5"`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+#### `(?:MCID|ECID|Experience Cloud ID Service) is present`
 
-Example: "dataLayerElementValue": { "name":"digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 }
+Causes the framework to test whether the Experience Cloud ID Service (aka Marketing Cloud ID Service, aka Visitor ID Service)
 
-Example: "dataLayerElementValue": [ { "name":"digitalData.page.pageInfo.pageName", "value": "Home", "delay": 500 }, { "name":"digitalData.page.pageInfo.language", "value": "en", "delay": 500 } ]
+Example: `MCID is present`
 
-#### `genericJavascript`
+Example: `ECID is present`
 
-This test allows you to inject arbitrary Javascript code into the page and test whether it returns 'true'.
+Example: `Experience Cloud ID Service is present`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+*Note that the three examples are equivalent and will result in the exact same test.*
 
-Example: "genericJavascript": "return true;"
+#### `(?:MCID|ECID|Experience Cloud ID Service) version is "<version>" or later`
 
-Example: "genericJavascript": [ "return true;", "return 1 == 1;" ]
+Causes the framework to test whether Experience Cloud ID Service is at least of a specific version.
 
-#### `genericJavascriptSetupAndCheckLater`
+Example: `MCID version is "2.1.0" or later`
 
-A test that lets you inject two snippets of code into the page. The first snippet can serve as a setup, while the second represents the actual test. The second snippet therefore must return a boolean value.
+Example: `ECID version is "2.1.0" or later`
 
-The third parameter is a delay in milliseconds, which defines how long the test should wait between executing the two snippets.
+Example `Experience Cloud ID Service version is "2.1.0" or later`
 
-Example: "genericJavascriptSetupAndCheckLater": { "setupScript": "window.aaa = true;", "verificationScript": "return window.aaa;", "delay": 1000
+*Note that the three examples are equivalent and will result in the exact same test.*
 
-#### `genericJavascriptCascade`
+#### `(?:MCID|ECID|Experience Cloud ID Service) version is below "<version>"`
 
-This test can inject an arbitrary number of arbitrary Javascript snippets into a page in a given order, waiting between each injection, and finally running a verification script that must return true or false.
+Causes the framework to test whether Experience Cloud ID Service is not too recent.
 
-Example: "genericJavascriptCascade": { "scripts": [ "window.aaa1 = 1;", "window.aaa2 = 2;" ], "verificationsScript": "return (window.aaa1 + window.aaa2 == 3);", 500 }
+Example: `MCID version is below "2.4"`
 
-### Adobe Marketing Cloud-related elements
+Example: `ECID version is below "2.4"`
 
-#### `adobe.DTMLoaded`
+Example: `Experience Cloud ID Service version is below "2.4"`
 
-A test that checks whether DTM has been loaded on the page
+*Note that the three examples are equivalent and will result in the exact same test.*
 
-Example: "adobe.DTMLoaded": true
+#### `(?:AA|Adobe Analytics) is present`
 
-#### `adobe.DTMLibraryName`
+Causes the framework to test whether Analytics is loaded into the page.
 
-A test that checks that the site is loading the correct DTM library.
+Example: `AA is present`
 
-Example: "adobe.DTMLibraryName": "satelliteLib-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+Example: `Adobe Analytics is present`
 
-#### `adobe.DTMDataElementExists`
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-This test allows you to test for a Javascript data layer element in the page.
+#### `(?:AA|Adobe Analytics) version is "<version>" or later`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether Analytics is at least of a specific version.
 
-Example: "adobe.DTMDataElementExists": "Page Name"
+Example: `AA version is "2.4.0" or later`
 
-Example: "adobe.DTMDataElementExists": [ "Page Name", "Page Type" ]
+Example: `Adobe Analytics version is "2.4.0" or later`
 
-#### `adobe.DTMDataElementValue`
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-Similar to the one above, but this one checks whether the data layer element has the right value.
+#### `(?:AA|Adobe Analytics) lib type is "<type>"`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether the Analytics library is of the given type ("AppMeasurement", "legacy", or "none")
 
-Example: "adobe.DTMDataElementValue": { "name":"Page Name", "value": "Home" }
+Example: `AA lib type is "AppMeasurement"`
 
-Example: "adobe.DTMDataElementValue": [ { "name":"Page Name", "value": "Home" }, { "name":"Page Language", "value": "en" } ]
+Example: `Adobe Analytics lib type is "AppMeasurement"`
 
-#### `adobe.DTMDataElementDelayedExists`
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-This test allows you to test for a Javascript data layer element in the page after waiting for some time. Ideal for pages that load the data layer asynchronously.
+#### `an (?:AA|Adobe Analytics) call has been sent for report suite id "<rsid>"`
 
-The delay is in milliseconds.
+Causes the framework to test whether a tracking call for Analytics was sent.
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Example: `an AA call has been sent for report suite "jexnerprod"`
 
-Example: "adobe.DTMDataElementDelayedExists": { "name": "Page Name", "delay": 500 }
+Example: `an Adobe Analytics call has been sent for report suite "jexnerprod"`
 
-Example: "adobe.DTMDataElementDelayedExists": [ { "name": "Page Name", "delay": 500 }, { "name": "Page Language", "delay": 500 } ]
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-#### `adobe.DTMDataElementDelayedValue`
+#### `(?:AT|Adobe Target) is present`
 
-Similar to the one above, but this one checks whether the data layer element has the right value. Again, this can be used on pages that load the data layer asynchronously.
+Causes the framework to test whether Target has been loaded.
 
-The delay is in milliseconds.
+Example: `AT is present`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Example `Adobe Target is present`
 
-Example: "dataLayerElementValue": { "name":"Page Name", "value": "Home", "delay": 500 }
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-Example: "dataLayerElementValue": [ { "name":"Page Name", "value": "Home", "delay": 500 }, { "name":"Page Language", "value": "en", "delay": 500 } ]
+#### `(?:AT|Adobe Target) version is "<version>" or later`
 
-#### `adobe.DTMPageLoadRuleExists`
+Causes the framework to test whether Target is at least of a specific version.
 
-Allows you to test whether a PLR exists in the current setup.
+Example: `AT version version is "1.0" or later`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Example: `Adobe Target version is "1.0" or later`
 
-Example: "adobe.DTMPageLoadRuleExists": "Normal Page Load"
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-Example: "adobe.DTMPageLoadRuleExists": [ "Normal Page Load", "Blog Article Page Load" ]
+#### `(?:AT|Adobe Target) lib type is "<version>"`
 
-#### `adobe.DTMDirectCallRuleExists`
+Causes the framework to test whether the Target library is of the given type ("at.js", "legacy", or "none")
 
-Tests whether a DCR exists in the current setup.
+Example: `AT lib type is "at.js"`
 
-See above for syntax.
+Example: `Adobe Target lib type is "at.js"`
 
-#### `adobe.DTMEventBasedRuleExists`
+*Note that the two examples are equivalent and will result in the exact same test.*
 
-A test that checks whether an EBR exists in the current setup.
+#### `an (?:AT|Adobe Target) mbox named "<name>" exists `
 
-See above for syntax.
+Causes the framework to test whether a Target mbox of the given name exists on the page.
 
-#### `adobe.DTMRuleHasRun`
+Example: `AT mbox named "target-global-mbox" exists`
 
-Allows you to test whether a rule has actually fired.
+Example: `Adobe Target mbox named "target-global-mbox" exists`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Some statements test other tools, too.
 
-Example: "adobe.DTMRuleHasRun": "Normal Page Load"
+#### `jQuery is present`
 
-Example: "adobe.DTMRuleHasRun": [ "Normal Page Load", "Blog Article Page Load" ]
+Causes the framework to test whether jQuery has been loaded into the page.
 
-#### `adobe.DTMRuleHasRunAfterDelay`
+Example: 
 
-Allows you to test whether a rule has actually fired after a delay.
+#### `the jQuery version is "<version>" or later`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether jQuery is at least of a specific version
 
-Example: "adobe.DTMRuleHasRunAfterDelay": { "name":"Normal Page Load", "delay":500 }
+Example: `the jQuery version is "2.0.0" or later`
 
-Example: "adobe.DTMRuleHasRunAfterDelay": [ { "name":"Normal Page Load", "delay":500 }, { "name":"Blog Article Page Load", "delay": 500 } ]
+#### `the jQuery version is below "<version>"`
 
-#### `adobe.DTMEventBasedRuleHasRun`
+Causes the framework to test whether the jQuery version is not too recent.
 
-You can test whether an EBR runs as a result of triggering something in the document.
+Example: `the jQuery version is below "3"`
 
-*Note*: current implementation only supports "click" triggers!
+#### `GTM is present`
 
-*Note*: the parameters can be one single parameter, or a list of parameters.
+Causes the framework to test whether Google Tag Manager is loaded into the page.
 
-Example: "adobe.DTMEventBasedRuleHasRun": { "name": "Add to Cart", "triggerType": "click", "triggerElement": "button#cartAdd" }
+Example: `GTM is present`
 
-Example: "adobe.DTMEventBasedRuleHasRun": [ { "name": "Add to Cart", "triggerType": "click", "triggerElement": "button#cartAdd" }, { "name": "Shipping Info Popup", "triggerType": "click", "triggerElement": "a#terms_conditions" } ]
+#### `Ensighten Manage is present`
 
-#### `adobe.VisitorIDServiceLoaded`
+Causes the framework to test whether Ensighten Manage is loaded into the page.
 
-A test to check whether the Marketing Cloud Visitor ID Service has loaded on the page.
+Example: `Ensighten Manage is present` 
 
-Example: "adobe.VisitorIDServiceLoaded": true
+#### `Tealium IQ is present`
 
-#### `adobe.VisitorIDServiceMinVersion`
+Causes the framework to test whether Tealium IQ is loaded into the page.
 
-Tests the version of the MCVID against a minimum version.
-
-Example: "adobe.VisitorIDServiceMinVersion": "1.5"
-
-#### `adobe.VisitorIDServiceVersionBelow`
-
-You can test that the MCVID is below a certain version.
-
-Example: "adobe.VisitorIDServiceVersionBelow": "2"
-
-#### `adobe.AnalyticsCodeLoaded`
-
-Allows you to test whether Analytics Javascript code has loaded in the page.
-
-Example: "adobe.AnalyticsCodeLoaded": true
-
-#### `adobe.AnalyticsCodeType`
-
-Tests whether the Analytics code is "AppMeasurement" or "legacy" (H.xx.y and before).
-
-Example: "adobe.AnalyticsCodeType": "AppMeasurement"
-
-#### `adobe.AnalyticsCodeMinVersion`
-
-You can test the Analytics Javascript code against a minimum version.
-
-Example: "adobe.AnalyticsCodeMinVersion": "1.6"
-
-#### `adobe.AnalyticsTagForReportSuiteFired`
-
-Checks whether there has been a tracking request against the specified report suite.
-
-*Note*: the parameters can be one single parameter, or a list of parameters.
-
-Example: "adobe.AnalyticsTagForReportSuiteFired": "myrsid"
-
-This works with multi-suite tagging!
-
-Example: "adobe.AnalyticsTagForReportSuiteFired": "myrsid,myglobalrsid"
-
-You can supply multiple rsids, which would test for multiple, independent tracking calls.
-
-Example: "adobe.AnalyticsTagForReportSuiteFired": [ "myrsid1", "myrsid2" ] 
-
-#### `adobe.AnalyticsTagForReportSuiteFiredAfterDelay`
-
-As above, but the check happens after a delay.
-
-Example: "adobe.AnalyticsTagForReportSuiteFiresAfterDelay": { "rsid": "myrsid", "delay": 2000 }
-
-Supports the same features as above.
-
-#### `adobe.TargetCodeLoaded`
-
-Tests whether the Target Javascript code has loaded
-
-Example: "adobe.TargetCodeLoaded": true
-
-#### `adobe.TargetCodeType`
-
-Tests whether the Target code is "atjs" (using at.js) or "legacy" (using mbox.js).
-
-Example: "adobe.TargetCodeType": "atjs"
-
-#### `adobe.TargetCodeMinVersion`
-
-You can test the Target Javascript code against a minimum version.
-
-Example: "adobe.TargetCodeMinVersion": "0.9.1"
-
-*Note*: Makes most sense in conjunction with adobe.TargetCodeType!
-
-#### `adobe.TargetGlobalMboxExists`
-
-Allows you to tests whether the Target global mbox with a specific name exists.
-
-Example: "adobe.TargetGlobalMboxExists": "global-mbox"
-
-### Other elements
-
-TBD
+Example: `Tealium IQ is present` 
