@@ -98,7 +98,7 @@ Statements that are not related to any specific tools.
 
 Causes the framework to test whether there is a data layer element with the name given.
 
-Example: `there is a data layer element called "digitalData.page.pageInfo.pageName`
+Example: `there is a data layer element called "digitalData.page.pageInfo.pageName"`
 
 #### `the "<name>" data layer element is "<value>"`
 
