@@ -1,5 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Tools {
 	public static final String DTM = "Activation/DTM";
 	public static final String LAUNCH = "Launch, by Adobe";
@@ -13,8 +16,12 @@ public class Tools {
 	public static final String GTM = "Google Tag Manager";
 	public static final String ENSIGHTEN = "Ensighten Manage";
 	public static final String JQUERY = "jQuery";
+	public static final Logger logger = LogManager.getLogger("Tools");
 
 	public static boolean testVersionNotOlderThanBaseVersion(String version, String versionBase) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("comparing - version '{}' not older than version '{}'", version, versionBase);
+		}
 		String[] testVersionElements = version.split("\\.");
 		String[] baseVersionElements = versionBase.split("\\.");
 
@@ -47,6 +54,9 @@ public class Tools {
 	}
 
 	public static boolean testVersionIsOlderThanBaseVersion(String version, String versionBase) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("comparing - version '{}' older than version '{}'", version, versionBase);
+		}
 		String[] testVersionElements = version.split("\\.");
 		String[] baseVersionElements = versionBase.split("\\.");
 
