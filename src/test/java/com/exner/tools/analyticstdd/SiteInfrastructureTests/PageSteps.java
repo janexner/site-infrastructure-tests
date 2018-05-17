@@ -62,13 +62,13 @@ public class PageSteps {
 		TestTools.assertScriptExecutionReturnsCorrectNumericalValue(driver, "return " + dataLayerElementName, value);
 	}
 
-	@Then("^there is a data layer element called \"([^\"]*)\"$")
+	@Then("^there is a data layer element called \"(.*)\"$")
 	public void there_is_a_data_layer_element_called(String elementName) {
 		TestTools.assertScriptExecutionReturnsTrue(driver,
 				"if (typeof " + elementName + " !== 'undefined') { return true } else { return false }");
 	}
 
-	@Then("^the DOM element \"([^\"]*)\" exists$")
+	@Then("^the DOM element \"(.*)\" exists$")
 	public void the_DOM_element_exists(String elementSelector) {
 		WebElement element = null;
 		try {
@@ -116,7 +116,7 @@ public class PageSteps {
 				"if (typeof _satellite !== 'undefined' && _satellite && typeof _satellite.appVersion !== 'undefined' && _satellite.appVersion) { return true } else { return false }");
 	}
 
-	@Then("^the DTM library is \"([^\"]*)\"$")
+	@Then("^the DTM library is \"(.*)\"$")
 	public void the_DTM_library_is(String libraryName) {
 		TestTools.assertScriptExecutionReturnsCorrectStringValue(driver,
 				"return _satellite && _satellite.settings && _satellite.settings.libraryName", libraryName);
@@ -128,14 +128,14 @@ public class PageSteps {
 				"if (typeof jQuery !== 'undefined') { return true } else { return false }");
 	}
 
-	@Then("^the jQuery version is \"([^\"]*)\" or later$")
+	@Then("^the jQuery version is \"(.*)\" or later$")
 	public void the_jQuery_version_is_or_later(String minVersion) {
 		TestTools.assertToolVersionIsOrLater(driver,
 				"if (typeof jQuery !== 'undefined') { return jQuery.fn.jquery } else { return 'unavailable' }",
 				minVersion);
 	}
 
-	@Then("^the jQuery version is below \"([^\"]*)\"$")
+	@Then("^the jQuery version is below \"(.*)\"$")
 	public void the_jQuery_version_is_below(String maxVersion) {
 		TestTools.assertToolVersionIsBelow(driver,
 				"if (typeof jQuery !== 'undefined') { return jQuery.fn.jquery } else { return 'unavailable' }",
@@ -146,20 +146,20 @@ public class PageSteps {
 	 * out of scope tests for Adobe Tools
 	 */
 
-	@Then("^(?:ECID|Experience Cloud ID Service) is present$")
+	@Then("^(?:MCID|ECID|Experience Cloud ID Service) is present$")
 	public void ecid_is_present() {
 		TestTools.assertScriptExecutionReturnsTrue(driver,
 				"if (typeof Visitor === 'function') { return true } else { return false }");
 	}
 
-	@Then("^(?:ECID|Experience Cloud ID Service) version is \\\"([^\\\"]*)\\\" or later$")
+	@Then("^(?:MCID|ECID|Experience Cloud ID Service) version is \"(.*)\" or later$")
 	public void ecid_version_is_or_later(String minVersion) {
 		TestTools.assertToolVersionIsOrLater(driver,
 				"if (typeof Visitor !== 'undefined') { for (vv in s_c_il) { var nvv = s_c_il[vv]; if (typeof nvv._c !== 'undefined' && nvv._c == \"Visitor\") {  return nvv.version; } } return 'unavailable' } else { return 'unavailable' }",
 				minVersion);
 	}
 
-	@Then("^(?:ECID|Experience Cloud ID Service) version is below \\\"([^\\\"]*)\\\"$")
+	@Then("^(?:MCID|ECID|Experience Cloud ID Service) version is below \"(.*)\"$")
 	public void ecid_version_is_below(String maxVersion) {
 		TestTools.assertToolVersionIsBelow(driver,
 				"if (typeof Visitor !== 'undefined') { return Visitor.version } else { return 'unavailable' }",
@@ -172,14 +172,14 @@ public class PageSteps {
 				"if (typeof AppMeasurement == 'function' || typeof s_gi == 'function') { return true; } else { return false; }");
 	}
 
-	@Then("^(?:AA|Adobe Analytics) version is \\\"([^\\\"]*)\\\" or later$")
+	@Then("^(?:AA|Adobe Analytics) version is \"(.*)\" or later$")
 	public void aa_version_is_or_later(String minVersion) {
 		TestTools.assertToolVersionIsOrLater(driver,
 				"if (typeof AppMeasurement !== 'undefined') { return (new AppMeasurement()).version } else if (typeof s_gi !== 'undefined') { return s.version } else { return 'unavailable' }",
 				minVersion);
 	}
 
-	@Then("^(?:AA|Adobe Analytics) lib type is \\\"([^\\\"]*)\\\"$")
+	@Then("^(?:AA|Adobe Analytics) lib type is \"(.*)\"$")
 	public void aa_lib_type_is(String libType) {
 		Object response = _jsExecutor.executeScript(
 				"if (typeof AppMeasurement == 'function' ) { return 'AppMeasurement' } else if (typeof s_gi == 'function') { return 'legacy'; } else { return 'none'; }");
@@ -205,14 +205,14 @@ public class PageSteps {
 				"if (typeof TNT == 'object') { return true; } else { return false; }");
 	}
 
-	@Then("^(?:AT|Adobe Target) version is \\\"([^\\\"]*)\\\" or later$")
+	@Then("^(?:AT|Adobe Target) version is \"(.*)\" or later$")
 	public void at_version_is_or_later(String minVersion) {
 		TestTools.assertToolVersionIsOrLater(driver,
 				"if (typeof mboxVersion !== 'undefined') { return mboxVersion } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return adobe.target.VERSION } else { return 'unavailable' }",
 				minVersion);
 	}
 
-	@Then("^(?:AT|Adobe Target) lib type is \\\"([^\\\"]*)\\\"$")
+	@Then("^(?:AT|Adobe Target) lib type is \"(.*)\"$")
 	public void at_lib_type_is(String libType) {
 		Object response = _jsExecutor.executeScript(
 				"if (typeof mboxVersion !== 'undefined' ) { return 'legacy' } else if (typeof adobe !== 'undefined' && typeof adobe.target !== 'undefined' && typeof adobe.target.VERSION !== 'undefined') { return 'at.js'; } else { return 'none'; }");
