@@ -25,6 +25,8 @@ The block tracking feature of 2.0 is gone in 3.x, but might come back if I find 
 
 Note that there is a blog article for version 2.0: https://webanalyticsfordevelopers.com/2017/07/18/automated-testing-blocking-tracking/
 
+For v4, I made a big step, awau from TDD and towards BDD. The test description using "features" is way ahead of my original JSON file, and it makes the whole framework a lot easier and simpler.
+
 ## Features
 
 While gherkin describes the formal language used in features, the semantics of the statements still has to be coded. The following list shows all statements / tests that are currently available.
