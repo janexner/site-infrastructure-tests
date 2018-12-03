@@ -13,7 +13,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(format = { "pretty", "html:target/cucumber-html-report" }, features = "src/test/resources")
+@CucumberOptions(plugin = { "pretty", "html:target/cucumber-html-report" }, features = "src/test/resources")
 public class CucumberFeatureTest {
 	private static final Logger logger = LogManager.getRootLogger();
 	private static ChromeDriverService _chromeDriverService;
