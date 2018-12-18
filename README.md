@@ -1,5 +1,7 @@
 # Site Infrastructure Tests
 
+[![Build Status](https://travis-ci.org/janexner/site-infrastructure-tests.svg?branch=master)](https://travis-ci.org/janexner/site-infrastructure-tests)
+
 This project contains code that you can use to build your own test suite.
 
 The suite can be used to test parts of the site infrastructure that are important for whatever your Analytics/Marketing team ads on top of it using the tag management system.
