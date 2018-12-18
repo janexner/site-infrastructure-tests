@@ -2,3 +2,6 @@ language: java
 
 addons:
   chrome: stable
+
+script:
+  - mvn -Dwebdriver.chrome.driver=//usr//local//bin//chromedriver clean test
