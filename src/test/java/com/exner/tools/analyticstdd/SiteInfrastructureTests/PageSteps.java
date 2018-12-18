@@ -132,7 +132,7 @@ public class PageSteps {
 		logger.info("Testing - {} must be present...", Tools.LAUNCH);
 		// TBD have to fix
 		TestTools.assertScriptExecutionReturnsTrue(driver,
-				"if (typeof _satellite !== 'undefined' && _satellite && typeof _satellite.appVersion !== 'undefined' && _satellite.appVersion) { return true } else { return false }");
+				"if (typeof _satellite !== 'undefined' && _satellite && typeof _satellite.buildInfo !== 'undefined' && _satellite.buildInfo) { return true } else { return false }");
 	}
 
 	@Then("^the DTM library is \"(.*)\"$")
@@ -140,6 +140,13 @@ public class PageSteps {
 		logger.info("Testing - {} library must be {}...", Tools.DTM, libraryName);
 		TestTools.assertScriptExecutionReturnsCorrectStringValue(driver,
 				"return _satellite && _satellite.settings && _satellite.settings.libraryName", libraryName);
+	}
+
+	@Then("^the Launch property is called \"(.*)\"$")
+	public void the_Launch_property_name_is(String propertyName) {
+		logger.info("Testing - {} property name must be {}...", Tools.LAUNCH, propertyName);
+		TestTools.assertScriptExecutionReturnsCorrectStringValue(driver, 
+			"return _satellite && _satellite.property && _satellite.property.name", propertyName);
 	}
 
 	@Then("^jQuery is present$")

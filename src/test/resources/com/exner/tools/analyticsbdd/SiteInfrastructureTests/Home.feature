@@ -21,5 +21,5 @@ Feature: Tracking infrastructure on the home page is ok
     Then jQuery is present
     And the jQuery version is "2.0" or later
     And the jQuery version is below "3"
-		And DTM is present
-		And the DTM library is "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5"
+		And Launch is present
+		And the Launch property is called "jan-exner.de"

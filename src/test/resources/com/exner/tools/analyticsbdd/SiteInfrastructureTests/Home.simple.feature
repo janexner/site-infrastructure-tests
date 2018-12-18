@@ -16,5 +16,5 @@ Feature: Minimal tracking infrastructure on the home page is ok
   @trackingtools
   Scenario: The  page loads and contains DTM
     Given the page "https://www.jan-exner.de/" is loaded
-    Then DTM is present
-		And the DTM library is "satelliteLib-f898bce177301e894492bf685fe6bc28e8eca6c5"
+		And Launch is present
+		And the Launch property is called "jan-exner.de"
