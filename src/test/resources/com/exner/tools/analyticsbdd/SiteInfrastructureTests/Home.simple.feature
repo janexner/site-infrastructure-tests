@@ -14,7 +14,7 @@ Feature: Minimal tracking infrastructure on the home page is ok
     And the "digitalData.page.pageInfo.pageName" data layer element is "Home"
 
   @trackingtools
-  Scenario: The  page loads and contains DTM
+  Scenario: The  page loads and contains Launch
     Given the page "https://www.jan-exner.de/" is loaded
 		And Launch is present
 		And the Launch property is called "jan-exner.de"

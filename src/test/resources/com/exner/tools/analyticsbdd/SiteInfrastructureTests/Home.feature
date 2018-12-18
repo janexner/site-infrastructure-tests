@@ -16,7 +16,7 @@ Feature: Tracking infrastructure on the home page is ok
     And the snippet "return window.jan" returns true
 
   @trackingtools
-  Scenario: The  page loads and contains DTM
+  Scenario: The  page loads and contains Launch
     Given the page "https://www.jan-exner.de/" is loaded
     Then jQuery is present
     And the jQuery version is "2.0" or later
