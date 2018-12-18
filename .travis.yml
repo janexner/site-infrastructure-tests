@@ -6,6 +6,8 @@ addons:
   chrome: stable
 
 before_install:
+  - "export DISPLAY=99:0"
+  - "sh -e /etc/init.d/xvfb start"
   - wget -N
   - https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip
   - unzip ~/chromedriver_linux64.zip -d ~/
@@ -19,4 +21,4 @@ before_install:
  script:
    - whereis google-chrome-stable
    - whereis chromedriver
-   - mvn clean install
+   - mvn clean test
