@@ -20,8 +20,6 @@ public class CucumberFeatureTest {
 
 	@BeforeClass
 	public static void setup() throws IOException {
-		String chromeDriverPath = System.getenv("CHROMEDRIVER_PATH");
-		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		logger.info("Starting ChromeDriverService...");
 		_chromeDriverService = new ChromeDriverService.Builder().usingAnyFreePort().build();
 		_chromeDriverService.start();

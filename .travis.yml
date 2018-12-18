@@ -21,4 +21,4 @@ before_install:
  script:
    - whereis google-chrome-stable
    - whereis chromedriver
-   - mvn clean test
+   - mvn -Dwebdriver.chrome.driver=//usr//local//bin//chromedriver clean test
