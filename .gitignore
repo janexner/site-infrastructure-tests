@@ -170,3 +170,5 @@ build/
 build.gradle
 gradle/
 gradlew*
+
+.vscode/
