@@ -269,7 +269,8 @@ public class PageSteps {
 		logger.info("Testing - {} mbox called {} must exist...", Tools.AT, mboxName);
 		TestTools.assertScriptExecutionReturnsTrue(driver,
 				"if (typeof mboxCurrent != 'undefined' && mboxCurrent.getName() == '" + mboxName
-						+ "') { return true; } else { return false; }\"");
+						+ "') { return true; } else { " 
+						+ "var resources = performance.getEntriesByType('resource'); if ('undefined' !== resources && resources) { for(var i in resources) { if (resources[i].initiatorType === 'xmlhttprequest' && resources[i].name.match(/mbox\\/json\\?mbox=/)) { var mboxName = resources[i].name.replace(/.*\\/json\\?mbox=/, '').replace(/&.*/, ''); if ('undefined' !== mboxName && mboxName && mboxName === '" + mboxName + "') { return true; } } } return false; };");
 	}
 
 	/***
