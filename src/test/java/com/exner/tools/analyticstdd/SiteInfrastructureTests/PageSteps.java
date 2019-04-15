@@ -240,7 +240,7 @@ public class PageSteps {
 	public void at_is_present() {
 		logger.info("Testing - {} must be present...", Tools.AT);
 		TestTools.assertScriptExecutionReturnsTrue(driver,
-				"if (typeof TNT == 'object') { return true; } else { return false; }");
+				"if ('undefined' !== adobe && adobe && 'undefined' !== adobe.target && adobe.target) { return true; } else { if (typeof TNT == 'object') { return true; } else { return false; } }");
 	}
 
 	@Then("^(?:AT|Adobe Target) version is \"(.*)\" or later$")
