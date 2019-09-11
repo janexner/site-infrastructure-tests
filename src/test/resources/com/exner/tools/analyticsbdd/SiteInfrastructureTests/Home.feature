@@ -14,6 +14,7 @@ Feature: Tracking infrastructure on the home page is ok
     Then there is a data layer element called "digitalData.page.pageInfo.language"
     And the "digitalData.page.pageInfo.pageName" data layer element is "Home"
     And the snippet "return window.jan" returns true
+    And latest AA tracking call contains key "v3" with value "default"
 
   @trackingtools
   Scenario: The  page loads and contains Launch
@@ -21,5 +22,5 @@ Feature: Tracking infrastructure on the home page is ok
     Then jQuery is present
     And the jQuery version is "2.0" or later
     And the jQuery version is below "3"
-		And Launch is present
-		And the Launch property is called "jan-exner.de"
+	And Launch is present
+	And the Launch property is called "jan-exner.de"
