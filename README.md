@@ -296,10 +296,17 @@ Example: `GTM is present`
 
 Causes the framework to test whether Ensighten Manage is loaded into the page.
 
-Example: `Ensighten Manage is present` 
+Example: `Ensighten Manage is present`
 
 #### `Tealium IQ is present`
 
 Causes the framework to test whether Tealium IQ is loaded into the page.
 
-Example: `Tealium IQ is present` 
+Example: `Tealium IQ is present`
+
+#### `log Browser Performance Timing`
+
+Causes the framework to retrieve the window.performance.timing object from the browser
+and to log it into the 'timings.csv' file.
+
+Example: `log Browser Performance Timing`
