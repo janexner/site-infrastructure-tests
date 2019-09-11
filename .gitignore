@@ -172,3 +172,4 @@ gradle/
 gradlew*
 
 .vscode/
+timings.csv

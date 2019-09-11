@@ -20,5 +20,11 @@ Feature: Tracking infrastructure on the about page is ok
     Then jQuery is present
     And the jQuery version is "2.0" or later
     And the jQuery version is below "3"
-		And Launch is present
-		And the Launch property is called "jan-exner.de"
+	And Launch is present
+	And the Launch property is called "jan-exner.de"
+
+  @test
+  Scenario: The about page loads and we see how long it took
+    Given the page "https://www.jan-exner.de/about/" is loaded
+    And we wait for 5 seconds
+    Then log Browser Performance Timing

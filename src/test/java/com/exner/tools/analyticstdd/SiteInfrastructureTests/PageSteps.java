@@ -1,5 +1,8 @@
 package com.exner.tools.analyticstdd.SiteInfrastructureTests;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -298,7 +301,30 @@ public class PageSteps {
 				"if (typeof utag === 'object') { return true } else { return false }");
 	}
 
-	@After
+    @Then("^log Browser Performance Timing$")
+    public void log_browser_performance_timing() {
+        logger.info("Testing - logging Performance TImings to file...");
+        Object response = _jsExecutor.executeScript("return JSON.stringify(performance.timing)");
+        if (null != response && String.class.isAssignableFrom(response.getClass())) {
+            // write to file
+            try {
+                FileWriter fileWriter = new FileWriter("timings.csv", true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write(driver.getCurrentUrl());
+                bufferedWriter.write(",");
+                bufferedWriter.write((String) response);
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            } catch (IOException e) {
+                Assert.fail("Error writing timings to file: " + e.getLocalizedMessage());
+            }
+        } else {
+            Assert.fail("Unable to write timings to file, timings empty or not a string.");
+        }
+        Assert.assertTrue(true);
+    }
+
+    @After
 	public void afterTest() {
 		logger.info("Test teardown...");
 		driver.quit();
