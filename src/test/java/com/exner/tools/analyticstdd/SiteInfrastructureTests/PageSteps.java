@@ -243,7 +243,7 @@ public class PageSteps {
     @Then("^latest (?:AA|Adobe Analytics) tracking call contains key \"(.*)\" with value \"(.*)\"$")
     public void latest_aa_tracking_call_contains_key_with_value(String key, String value) {
         logger.info("Testing - {} tracking call must contain key {} with value {}", Tools.AA, key, value);
-        String snippet = "var entryList = performance.getEntriesByType('resource');var result = false;for (var i = entryList.length - 1; i > 0; i--) {if ('undefined' !== typeof entryList[i].name && entryList[i].name.indexOf('/b/ss/') >= 0) {var keys = entryList[i].name.split('&');for (var i = keys.length - 1; i > 0; i--) {var tmp = keys[i].split('=');if ('" + key + "' === tmp[0]) {if ('" + value + "' === decodeURIComponent(tmp[1])) {result = true;}break;}}}} return result;";
+        String snippet = "var entryList = performance.getEntriesByType('resource');var result = false;for (var i = entryList.length - 1; i > 0; i--) {if ('undefined' !== typeof entryList[i].name && entryList[i].name.indexOf('/b/ss/') >= 0) {var keys = entryList[i].name.split('&');for (var j = keys.length - 1; j > 0; j--) {var tmp = keys[j].split('=');if ('" + key + "' === tmp[0]) {if ('" + value + "' === decodeURIComponent(tmp[1])) {result = true;break;}}}}} return result;";
         TestTools.assertScriptExecutionReturnsTrue(driver, snippet);
     }
 
