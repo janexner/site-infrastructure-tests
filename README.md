@@ -1,3 +1,5 @@
+I have moved this repository to https://codeberg.org/jexner/site-infrastructure-tests
+
 # Site Infrastructure Tests
 
 This project contains code that you can use to build your own test suite.
